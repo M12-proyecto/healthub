@@ -1,19 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 const App = () => {
   return (
-    <div>
-        <span>App base healthub!</span>
-    </div>
-  )
-}
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  );
+};
 
-export default App
+export default App;
 
-if (document.getElementById('example')) {
-    const Index = ReactDOM.createRoot(document.getElementById("example"));
+if (document.getElementById('welcome')) {
+    const Index = ReactDOM.createRoot(document.getElementById('welcome'));
 
     Index.render(
         <React.StrictMode>

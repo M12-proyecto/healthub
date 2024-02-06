@@ -20,6 +20,8 @@
     <body data-sidebar="dark">
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
+    <!-- component app -->
+        <div id="welcome"></div>
         <!-- Begin page -->
         <div id="layout-wrapper">
             <header id="page-topbar">
