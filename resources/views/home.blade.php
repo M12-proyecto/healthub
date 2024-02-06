@@ -64,7 +64,7 @@
                             </div>
                         </form>
 
-                        <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
+                        <!-- <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
                             <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                                 <span key="t-megamenu">Mega Menu</span>
                                 <i class="mdi mdi-chevron-down"></i> 
@@ -193,7 +193,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="d-flex">
@@ -228,31 +228,31 @@
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
-                                    <img src="{{asset('assets/images/flags/us.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
+                                    <img src="{{asset('assets/images/flags/us.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Ingles</span>
                                 </a>
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp">
-                                    <img src="{{asset('assets/images/flags/spain.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                                    <img src="{{asset('assets/images/flags/spain.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Español</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr">
-                                    <img src="{{asset('assets/images/flags/germany.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+                                    <img src="{{asset('assets/images/flags/germany.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Aleman</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it">
-                                    <img src="{{asset('assets/images/flags/italy.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+                                    <img src="{{asset('assets/images/flags/italy.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italiano</span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru">
-                                    <img src="{{asset('assets/images/flags/russia.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+                                    <img src="{{asset('assets/images/flags/russia.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Ruso</span>
                                 </a>
                             </div>
                         </div>
 
-                        <div class="dropdown d-none d-lg-inline-block ms-1">
+                        <!-- <div class="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" class="btn header-item noti-icon waves-effect"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bx bx-customize"></i>
@@ -302,7 +302,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="dropdown d-none d-lg-inline-block ms-1">
                             <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
@@ -314,17 +314,17 @@
                             <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bx bx-bell bx-tada"></i>
-                                <span class="badge bg-danger rounded-pill">3</span>
+                                <span class="badge bg-danger rounded-pill">1</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                                 aria-labelledby="page-header-notifications-dropdown">
                                 <div class="p-3">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <h6 class="m-0" key="t-notifications"> Notifications </h6>
+                                            <h6 class="m-0" key="t-notifications">Notificaciones</h6>
                                         </div>
                                         <div class="col-auto">
-                                            <a href="#!" class="small" key="t-view-all"> View All</a>
+                                            <a href="#!" class="small" key="t-view-all">Ver todas</a>
                                         </div>
                                     </div>
                                 </div>
@@ -337,15 +337,15 @@
                                                 </span>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-1" key="t-your-order">Your order is placed</h6>
+                                                <h6 class="mb-1" key="t-your-order">Cita con el medico</h6>
                                                 <div class="font-size-12 text-muted">
-                                                    <p class="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
-                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
+                                                    <p class="mb-1" key="t-grammer">Cita el 20/02/2024 a las 80:00</p>
+                                                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">Hace 3 min</span></p>
                                                 </div>
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <!-- <a href="javascript: void(0);" class="text-reset notification-item">
                                         <div class="d-flex">
                                             <img src="{{asset('assets/images/users/avatar-3.jpg')}}"
                                                 class="me-3 rounded-circle avatar-xs" alt="user-pic">
@@ -387,11 +387,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <div class="p-2 border-top d-grid">
                                     <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
-                                        <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View More..</span> 
+                                        <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">Ver mas...</span> 
                                     </a>
                                 </div>
                             </div>
@@ -402,13 +402,13 @@
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="assets/images/users/default.webp"
                                     alt="Header Avatar">
-                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">Henry</span>
+                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{$usuario->nombre}}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Perfil</span></a>
-                                <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-chat font-size-16 align-middle me-1"></i><span key="t-settings">Mensajes</span></a>
+                                <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">0</span><i class="bx bx-chat font-size-16 align-middle me-1"></i><span key="t-settings">Mensajes</span></a>
                                 <a class="dropdown-item d-block" href="#"><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Ajustes</span></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Cerrar sesión</span></a>
@@ -469,12 +469,12 @@
                                     <span key="t-chat">Chat</span>
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="javascript: void(0);" class="waves-effect">
                                     <i class="bx bxs-user-detail"></i>
                                     <span key="t-contacts">Contactos</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <!-- Sidebar -->
@@ -515,12 +515,12 @@
                                         <div class="row">
                                             <div class="col-7">
                                                 <div class="text-primary p-3">
-                                                    <h5 class="text-primary">Bienvenido Henry!</h5>
+                                                    <h5 class="text-primary">Bienvenida {{$usuario->nombre}}!</h5>
                                                     <p>Poner algo aqui</p>
                                                 </div>
                                             </div>
                                             <div class="col-5 align-self-end">
-                                                <img src="{{asset('assets/images/profile-img.png')}}" alt="" class="img-fluid">
+                                                <!-- <img src="{{asset('assets/images/profile-img.png')}}" alt="" class="img-fluid"> -->
                                             </div>
                                         </div>
                                     </div>
@@ -528,23 +528,22 @@
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="avatar-md profile-user-wid mb-4">
-                                                    <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="" class="img-thumbnail rounded-circle">
+                                                    <img src="{{asset('assets/images/users/default.webp')}}" alt="" class="img-thumbnail rounded-circle">
                                                 </div>
-                                                <h5 class="font-size-15 text-truncate">Henry Price</h5>
-                                                <p class="text-muted mb-0 text-truncate">Paciente</p>
+                                                <h5 class="font-size-15 text-truncate">{{$usuario->nombre}} {{$usuario->apellido1}} {{$usuario->apellido2}}</h5>
+                                                <p class="text-muted mb-0 text-truncate">{{$usuario->rol}}</p>
                                             </div>
 
                                             <div class="col-sm-8">
                                                 <div class="pt-4">
-
                                                     <div class="row">
                                                         <div class="col-6">
-                                                            <h5 class="font-size-15">125</h5>
-                                                            <p class="text-muted mb-0">Projects</p>
+                                                            <p class="text-muted mb-0">Citas</p>
+                                                            <h5 class="font-size-15">1</h5>
                                                         </div>
                                                         <div class="col-6">
-                                                            <h5 class="font-size-15">$1245</h5>
-                                                            <p class="text-muted mb-0">Revenue</p>
+                                                            <p class="text-muted mb-0">Chats</p>
+                                                            <h5 class="font-size-15">0</h5>
                                                         </div>
                                                     </div>
                                                     <div class="mt-4">
@@ -555,7 +554,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title mb-4">Monthly Earning</h4>
                                         <div class="row">
@@ -576,7 +575,7 @@
                                         </div>
                                         <p class="text-muted mb-0">We craft digital, graphic and dimensional thinking.</p>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-xl-8">
                                 <div class="row">
@@ -585,34 +584,13 @@
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
-                                                        <p class="text-muted fw-medium">Orders</p>
-                                                        <h4 class="mb-0">1,235</h4>
+                                                        <p class="text-muted fw-medium">Citas</p>
+                                                        <h4 class="mb-0">0</h4>
                                                     </div>
-
-                                                    <div class="flex-shrink-0 align-self-center">
-                                                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                                            <span class="avatar-title">
-                                                                <i class="bx bx-copy-alt font-size-24"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card mini-stats-wid">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="flex-grow-1">
-                                                        <p class="text-muted fw-medium">Revenue</p>
-                                                        <h4 class="mb-0">$35, 723</h4>
-                                                    </div>
-
                                                     <div class="flex-shrink-0 align-self-center ">
                                                         <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                                             <span class="avatar-title rounded-circle bg-primary">
-                                                                <i class="bx bx-archive-in font-size-24"></i>
+                                                                <i class="bx bx-calendar font-size-24"></i>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -625,14 +603,51 @@
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="flex-grow-1">
-                                                        <p class="text-muted fw-medium">Average Price</p>
-                                                        <h4 class="mb-0">$16.2</h4>
+                                                        <p class="text-muted fw-medium">Informes</p>
+                                                        <h4 class="mb-0">0</h4>
                                                     </div>
-
-                                                    <div class="flex-shrink-0 align-self-center">
+                                                    <div class="flex-shrink-0 align-self-center ">
                                                         <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                                             <span class="avatar-title rounded-circle bg-primary">
-                                                                <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                                                                <i class="bx bx-file font-size-24"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <p class="text-muted fw-medium">Resultados</p>
+                                                        <h4 class="mb-0">0</h4>
+                                                    </div>
+                                                    <div class="flex-shrink-0 align-self-center ">
+                                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                            <span class="avatar-title rounded-circle bg-primary">
+                                                                <i class="bx bx-file font-size-24"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <p class="text-muted fw-medium">Chat</p>
+                                                        <h4 class="mb-0">0</h4>
+                                                    </div>
+                                                    <div class="flex-shrink-0 align-self-center ">
+                                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                            <span class="avatar-title rounded-circle bg-primary">
+                                                                <i class="bx bx-chat font-size-24"></i>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -643,7 +658,7 @@
                                 </div>
                                 <!-- end row -->
 
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="card-body">
                                         <div class="d-sm-flex flex-wrap">
                                             <h4 class="card-title mb-4">Email Sent</h4>
@@ -664,12 +679,12 @@
                                         
                                         <div id="stacked-column-chart" class="apex-charts" data-colors='["--bs-primary", "--bs-warning", "--bs-success"]' dir="ltr"></div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <!-- end row -->
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xl-4">
                                 <div class="card">
                                     <div class="card-body">
@@ -723,8 +738,8 @@
 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-4">
+                            </div> -->
+                            <!-- <div class="col-xl-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title mb-5">Activity</h4>
@@ -793,9 +808,9 @@
                                         <div class="text-center mt-4"><a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ms-1"></i></a></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xl-4">
+                            <!-- <div class="col-xl-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title mb-4">Top Cities Selling Product</h4>
@@ -854,11 +869,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- end row -->
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -905,7 +920,6 @@
                                                             <i class="fab fa-cc-mastercard me-1"></i> Mastercard
                                                         </td>
                                                         <td>
-                                                            <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
                                                                 View Details
                                                             </button>
@@ -934,7 +948,6 @@
                                                             <i class="fab fa-cc-visa me-1"></i> Visa
                                                         </td>
                                                         <td>
-                                                            <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
                                                                 View Details
                                                             </button>
@@ -963,7 +976,6 @@
                                                             <i class="fab fa-cc-paypal me-1"></i> Paypal
                                                         </td>
                                                         <td>
-                                                            <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
                                                                 View Details
                                                             </button>
@@ -991,7 +1003,6 @@
                                                             <i class="fab fa-cc-mastercard me-1"></i> Mastercard
                                                         </td>
                                                         <td>
-                                                            <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
                                                                 View Details
                                                             </button>
@@ -1019,7 +1030,6 @@
                                                             <i class="fab fa-cc-visa me-1"></i> Visa
                                                         </td>
                                                         <td>
-                                                            <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
                                                                 View Details
                                                             </button>
@@ -1047,7 +1057,6 @@
                                                             <i class="fab fa-cc-paypal me-1"></i> Paypal
                                                         </td>
                                                         <td>
-                                                            <!-- Button trigger modal -->
                                                             <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
                                                                 View Details
                                                             </button>
@@ -1056,11 +1065,11 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <!-- end table-responsive -->
+                                        end table-responsive
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- end row -->
                     </div>
                     <!-- container-fluid -->
