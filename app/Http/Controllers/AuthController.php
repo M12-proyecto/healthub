@@ -3,42 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
+    use HasApiTokens;
+    public function __construct(){}
 
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-    
-        $credentials = request(['email', 'password']);
-    
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-    
-        $user = $request->user();
-        $token = $user->createToken('authToken')->accessToken;
-    
-        return response()->json(['token' => $token, 'user' => $user]);
-    }
-    
-    
-
+ 
     public function register(Request $request)
     {
-        $request->validate([
+        $response = ["success" =>false]; 
+        $validate = Validator::make($request->all(),[
             'cip' => 'required|string|max:255',
             'numeroDocumento' => 'required|string|max:255',
             'nombre' => 'required|string|max:255',
@@ -46,24 +26,62 @@ class AuthController extends Controller
             'secondApellido' => 'required|string|max:255',
             'fechaCumpleanos' => 'required|date',
             'gender' => 'required|string|in:Mujer,Hombre',
-            'password' => 'required|string|min:1|confirmed:confirmPassword',
+            'password' => 'required|string',
         ]);
 
-        $usuario = new Usuario;
-        $usuario->cip = $request->cip;
-        $usuario->nombre = $request->nombre;
-        $usuario->primer_apellido = $request->primerApellido;
-        $usuario->second_apellido = $request->secondApellido;
-        $usuario->fecha_cumpleanos = $request->fechaCumpleanos;
-        $usuario->gender = $request->gender;
-        $usuario->numero_documento = $request->numeroDocumento;
-        $usuario->password = Hash::make($request->password);
-        $usuario->rol = 'paciente';
+        if($validate->fails()) {
+            $response = ["error" => $validate->errors()];
+            return response()->json($response,200);
+        }
 
-        $usuario->save();
+        $usuario = User::create([
+            'cip' => $request->cip,
+            'dni' => $request->numeroDocumento,
+            'nombre' => $request->nombre,
+            'apellido1' => $request->primerApellido,
+            'apellido2' => $request->secondApellido,
+            'fecha_nacimiento' => $request->fechaCumpleanos,
+            'sexo' => $request->gender,
+            'password' => Hash::make($request->password),
+        ]);
+        $usuario->assignRole('paciente');
+        $response["success"] = true;
 
-        $token = $usuario->createToken('authToken')->accessToken;
+        return response()->json($response, 200);
+    }
 
-        return response()->json(['token' => $token, 'user' => $usuario]);
+
+    public function login(Request $request)
+    {
+        $response = ["success" => false];
+    
+        $validate = Validator::make($request->all(), [
+            'dni' => 'required|string',
+            'password' => 'required|string',
+        ]);
+    
+        if ($validate->fails()) {
+            $response = ["error" => $validate->errors()];
+            return response()->json($response, 200);
+        }
+
+        if (Auth::attempt($request->only('dni', 'password'))) {
+            $user = User::where('dni', $request->dni)->first();
+            $response["token"] = $user->createToken('healthub')->plainTextToken;
+            $response['success'] = true;
+            $response['user'] = $user;
+            $response['role'] = $user->getRoleNames();
+        } else {
+            $response['error'] = 'Invalid credentials';
+        }
+        return response()->json($response, 200);
+    }
+
+    public function logout(Request $request){
+        $response = ["success" => false];
+        $user = User::where('dni', $request->dni)->first();
+        $user->currentAccessTocken()->delete();
+        $response =["success" => true,"message" => "Sessión cerrada"];
+        return response()->json($response, 200);
     }
 }

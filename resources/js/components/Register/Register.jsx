@@ -4,7 +4,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Register() {
-  const [usuarioDatos, setUsuarioDatos] = useState({
+  const [register, setRegister] = useState({
     cip: '',
     nombre: '',
     primerApellido: '',
@@ -23,16 +23,22 @@ export default function Register() {
   });
 
     const handleChange = (e) => {
-      setUsuarioDatos({...usuarioDatos, [e.target.name]: e.target.value });
-      console.log(usuarioDatos)
+      setRegister({...register, [e.target.name]: e.target.value });
+      console.log(register)
     };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
+    
       try {
-        const response = await axios.post('/register', usuarioDatos);
-        console.log(response.data);
+        const response = await axios.post('/register', register);
+    
+        if (response && response.data && response.data.success) {
+          console.log('entra');
+          window.location.href = '/login';
+        } else {
+          console.log('La solicitud de registro no fue exitosa');
+        }
       } catch (error) {
         console.error('Error al registrar usuario:', error.response.data);
       }
@@ -192,9 +198,9 @@ export default function Register() {
   </>
 )}
 
-const rootContainer = document.getElementById("register");
-if (rootContainer) {
-  const Index = createRoot(rootContainer);
+const register = document.getElementById("register");
+if (register) {
+  const Index = createRoot(register);
 
   Index.render(
     <React.StrictMode>

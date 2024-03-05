@@ -22,6 +22,8 @@
         <!-- App js -->
         <!-- <script src="assets/js/plugin.js"></script> -->
         @vite("resources/assets/js/plugin.js")
+        @viteReactRefresh      
+        @vite('resources/js/app.js')
     </head>
     <body data-sidebar="dark">
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
@@ -402,7 +404,7 @@
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="assets/images/users/default.webp"
                                     alt="Header Avatar">
-                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{$usuario->nombre}}</span>
+                                <span class="d-none d-xl-inline-block ms-1" key="t-henry"></span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -515,7 +517,7 @@
                                         <div class="row">
                                             <div class="col-7">
                                                 <div class="text-primary p-3">
-                                                    <h5 class="text-primary">Bienvenida {{$usuario->nombre}}!</h5>
+                                                    <h5 class="text-primary">Bienvenida !</h5>
                                                     <p>Poner algo aqui</p>
                                                 </div>
                                             </div>
@@ -530,8 +532,8 @@
                                                 <div class="avatar-md profile-user-wid mb-4">
                                                     <img src="{{asset('assets/images/users/default.webp')}}" alt="" class="img-thumbnail rounded-circle">
                                                 </div>
-                                                <h5 class="font-size-15 text-truncate">{{$usuario->nombre}} {{$usuario->apellido1}} {{$usuario->apellido2}}</h5>
-                                                <p class="text-muted mb-0 text-truncate">{{$usuario->rol}}</p>
+                                                <h5 class="font-size-15 text-truncate"></h5>
+                                                <p class="text-muted mb-0 text-truncate"></p>
                                             </div>
 
                                             <div class="col-sm-8">

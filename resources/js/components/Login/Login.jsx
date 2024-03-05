@@ -1,121 +1,101 @@
-import React, { useState } from 'react';
-import { createRoot } from 'react-dom/client';
-import './login.css';
-
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useState } from "react";  
+import { createRoot } from "react-dom/client";
+import axios from "axios";
 
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+export default function Login() {
 
-  // response login 
-  const { token, setToken } = useState(null);
-  const { user, setUser } = useState(null);
+    const [login, setLogin] = useState({
+        dni: '',
+        password: '',
+      });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    const handleChange = (e) => {
+      setLogin((prevLogin) => ({ ...prevLogin, [e.target.name]: e.target.value }));
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const response = await axios.post('login', formData);
-  
-      if (response && response.data) {
-        const { token, user } = response.data;
-  
-        setToken(token);
-        setUser(user);
-        console.log("Usuario logeado", response.data);
-  
-        // Redireccionar al usuario después del inicio de sesión
-        window.location.href = '/';
-      } else {
-        console.error('La respuesta del servidor no contiene datos válidos.');
-      }
-    } catch (error) {
-      if (error.response) {
-        console.error('Error al iniciar sesión:', error.response.data);
-      } else if (error.request) {
-        console.error('Error de respuesta del servidor:', error.request);
-      } else {
-        console.error('Error al configurar la solicitud:', error.message);
-      }
+    const loginSubmitHandler = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/login', login );
+            console.log(response.data);
+              
+              if(response.data.success){
+                alert("login correct");
+                window.location.href = '/';
+               }
+
+        } catch (error) {
+            console.error('Error al hacer login:', error.response.data);
+        }  
     }
-  };
-  return (
-  //   <form onSubmit={handleSubmit}>
-  //     <label>
-  //       Email:
-  //       <input type="email" autoComplete="email" name="email" value={formData.email} onChange={handleChange} />
-  //     </label>
-  //     <br />
-  //     <label>
-  //       Contraseña:
-  //       <input type="password" name="password" autoComplete="current-password" value={formData.password} onChange={handleChange} />
-  //     </label>
-  //     <br />
-  //     <button type="submit">Iniciar Sesión</button>
-  //   </form>
-  // );
 
-  <div className="container">
-  <div className="row d-flex justify-content-center mt-5">
-    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-      <div className="card py-3 px-2">
-        <p className="text-center mb-3 mt-2">LOGIN</p>
-        <div className="division">
-          <div className="row">
-            <div className="col-3">
-              <div className="line l"></div>
+    return (
+            <div className="account-pages my-5 pt-sm-5">
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-md-8 col-lg-6 col-xl-5">
+                        <div className="card overflow-hidden">
+                            <div className="bg-primary-subtle">
+                                <div className="row">
+                                    <div className="col-7">
+                                        <div className="text-primary p-4">
+                                            <h5 className="text-primary">Bienvenido!</h5>
+                                            <p>Login</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-body pt-0"> 
+                                <div className="p-2">
+                                    <form className="form-horizontal"  onSubmit={loginSubmitHandler}>
+                                        <div className="mb-3">
+                                         <label htmlFor="username" className="form-label">DNI</label>
+                                          <input type="text" className="form-control" name="dni" id="username" placeholder="DNI" autoComplete="username" value={login.dni} onChange={handleChange} />
+                                        </div>
+                                        <div className="mb-3">
+                                            <label className="form-label">Password</label>
+                                            <div className="input-group auth-pass-inputgroup">
+                                              <input type="password" name="password" className="form-control" autoComplete="current-password" placeholder="password" aria-label="Password" aria-describedby="password-addon" value={login.password} onChange={handleChange}/>
+                                              <button className="btn btn-light h-50" type="button" id="password-addon"><i className="mdi mdi-eye-outline"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="remember-check"/>
+                                            <label className="form-check-label" htmlFor="remember-check">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                        
+                                        <div className="mt-3 d-grid">
+                                            <button className="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
+                                        </div>
+                                        <div className="mt-4 text-center">
+                                            <a href="" className="text-muted"><i className="mdi mdi-lock me-1"></i> Forgot your password?</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="mt-5 text-center">
+                                  <div>
+                                  <p>Tienes una cuenta? <a href="/register" className="fw-medium text-primary">register</a></p>
+                                  </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="col-6">
-              <span>OU AVEC MON EMAIL</span>
-            </div>
-            <div className="col-3">
-              <div className="line r"></div>
-            </div>
-          </div>
         </div>
-        <form className="myform">
-          <div className="form-group">
-            <input type="email" className="form-control" placeholder="Email" />
-          </div>
-          <div className="form-group">
-            <input type="password" className="form-control" placeholder="Password" />
-          </div>
-          <div className="row">
-            <div className="col-md-6 col-12">
-              <div className="form-group form-check">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                <label className="form-check-label" htmlFor="exampleCheck1">Remenber</label>
-              </div>
-            </div>
-            <div className="col-md-6 col-12 bn">Register</div>
-          </div>
-          <div className="form-group mt-3">
-            <button type="button" className="btn btn-block btn-primary btn-lg">
-              <small><i className="far fa-user pr-2"></i>Login</small>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+    )
+}
 
-)};
-export default Login; 
-if (document.getElementById('login')) {
-  const Index = createRoot(document.getElementById('login'));
-      Index.render(
+const login = document.getElementById("login");
+if (login) {
+    const Index = createRoot(login);
+    Index.render(
         <React.StrictMode>
-          <Login />
-        </React.StrictMode>,
-      );
+            <Login />
+        </React.StrictMode>
+    );
 }
