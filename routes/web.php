@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
-//use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +18,9 @@ use Illuminate\Http\Request;
 
 // roles
 
-//$role = Role::create(['name' => 'admin']);
-//$role = Role::create(['name' => 'medico']);
-//$role = Role::create(['name' => 'paciente']);
+// $role = Role::create(['name' => 'admin']);
+// $role = Role::create(['name' => 'medico']);
+// $role = Role::create(['name' => 'paciente']);
 
 Route::get('/', function () {
     return view('home');

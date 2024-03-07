@@ -13,11 +13,11 @@
     </head>
     <body class="auth-body-bg">
         <div id="login"></div>
-         <!-- JAVASCRIPT -->
-        @vite("resources/assets/libs/jquery/jquery.min.js")
-        @vite("resources/assets/libs/bootstrap/js/bootstrap.bundle.min.js")
-        @vite("resources/assets/libs/metismenu/metisMenu.min.js")
-        @vite("resources/assets/libs/simplebar/simplebar.min.js")
-        @vite("resources/assets/libs/apexcharts/apexcharts.min.js")
+        <!-- JAVASCRIPT -->
+        <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
+        <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
+        <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
+        <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
     </body>
 </html>
