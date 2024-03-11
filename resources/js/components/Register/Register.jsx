@@ -53,7 +53,7 @@ export default function Register() {
             <p>CIP</p>
           </div>
           <div className="col-lg-5">
-            <input type="text" className="form-control" name='cip' placeholder="" onChange={handleChange} required/>
+            <input type="text" className="form-control" name='cip' placeholder="" onChange={handleChange}/>
           </div>
         </div> 
         <div className="row mb-3">
@@ -61,7 +61,7 @@ export default function Register() {
             <p>Nombre</p>
           </div>
           <div className="col-lg-5">
-            <input type="text" className="form-control" autoComplete="username" name='nombre' placeholder="" onChange={handleChange} required/>
+            <input type="text" className="form-control" autoComplete="username" name='nombre' placeholder="" onChange={handleChange}/>
           </div>
         </div>
         <div className="row mb-3">
@@ -69,7 +69,7 @@ export default function Register() {
             <p>Primer apellido</p>
           </div>
           <div className="col-lg-5">
-            <input type="text" className="form-control" autoComplete="username" name='primerApellido' placeholder="" onChange={handleChange} required/>
+            <input type="text" className="form-control" autoComplete="username" name='primerApellido' placeholder="" onChange={handleChange}/>
           </div>
         </div>
         <div className="row mb-3">
@@ -77,7 +77,7 @@ export default function Register() {
             <p>Segundo apellido</p>
           </div>
           <div className="col-lg-5">
-            <input type="text" className="form-control" autoComplete="username" name='secondApellido' placeholder="" onChange={handleChange} required/>
+            <input type="text" className="form-control" autoComplete="username" name='secondApellido' placeholder="" onChange={handleChange}/>
           </div>
         </div>
         <div className="row mb-3">
@@ -85,7 +85,7 @@ export default function Register() {
             <p>Fecha de cumpleaños</p>
           </div>
           <div className="col-lg-5">
-            <input type="date" className="form-control" name='fechaCumpleanos' placeholder="" onChange={handleChange} required/>
+            <input type="date" className="form-control" name='fechaCumpleanos' placeholder="" onChange={handleChange}/>
           </div>
         </div>
         <div className="row mb-3">
@@ -171,7 +171,7 @@ export default function Register() {
             <p>Número de documento</p>
           </div>
           <div className="col-lg-5">
-            <input type="text" className="form-control" name='numeroDocumento' placeholder="" onChange={handleChange} />
+            <input type="text" className="form-control" name='numeroDocumento' placeholder="" onChange={handleChange} required/>
           </div>
         </div>
         <div className="row mb-3">
@@ -188,6 +188,11 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="password" className="form-control" name='confirmPassword' autoComplete="current-password" placeholder="Repite la contraseña" onChange={handleChange} required/>
+          </div>
+        </div>
+        <div className="mt-5 text-center">
+          <div>
+            <p>Tienes una cuenta? <a href="/login" className="fw-medium text-primary">login</a></p>
           </div>
         </div>
         <div className='d-flex align-items-center justify-content-center'>

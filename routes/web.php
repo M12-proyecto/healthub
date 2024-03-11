@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitasController;
 use Illuminate\Http\Request;
-// use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +19,15 @@ use Illuminate\Http\Request;
 
 // roles
 
-// $role = Role::create(['name' => 'admin']);
-// $role = Role::create(['name' => 'medico']);
-// $role = Role::create(['name' => 'paciente']);
+//$role = Role::create(['name' => 'admin']);
+//$role = Role::create(['name' => 'medico']);
+//$role = Role::create(['name' => 'Adminnn']);
 
 Route::get('/', function () {
+    return view('login');
+});
+
+Route::get('/home', function () {
     return view('home');
 })->name('home');;
 

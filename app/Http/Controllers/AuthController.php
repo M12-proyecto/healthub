@@ -19,13 +19,19 @@ class AuthController extends Controller
     {
         $response = ["success" =>false]; 
         $validate = Validator::make($request->all(),[
-            'cip' => 'required|string|max:255',
+            'cip' => 'nullable|string|max:255',
+            'nombre' => 'nullable|string|max:255',
+            'primerApellido' => 'nullable|string|max:255',
+            'secondApellido' => 'nullable|string|max:255',
+            'fechaCumpleanos' => 'nullable|date',
+            'email' => 'nullable|email',
+            'gender' => 'nullable|string|in:Mujer,Hombre',
+            'direccion' => 'nullable|string',
+            'codigoPostal' => 'nullable|string|max:255',
+            'ciudad' => 'nullable|string|max:255',
+            'provincia' => 'nullable|string|max:255',
+            'tipoDocumento' => 'nullable|string|in:DNI,NIE,Pasaporte',
             'numeroDocumento' => 'required|string|max:255',
-            'nombre' => 'required|string|max:255',
-            'primerApellido' => 'required|string|max:255',
-            'secondApellido' => 'required|string|max:255',
-            'fechaCumpleanos' => 'required|date',
-            'gender' => 'required|string|in:Mujer,Hombre',
             'password' => 'required|string',
         ]);
 

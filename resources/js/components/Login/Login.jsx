@@ -1,14 +1,17 @@
 import React, { useState } from "react";  
 import { createRoot } from "react-dom/client";
+import AuthUser from "../AuthUser";
 import axios from "axios";
 
 
 export default function Login() {
-
+    const { setToken } = AuthUser();
     const [login, setLogin] = useState({
         dni: '',
         password: '',
       });
+
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
       setLogin((prevLogin) => ({ ...prevLogin, [e.target.name]: e.target.value }));
@@ -20,13 +23,21 @@ export default function Login() {
             const response = await axios.post('/login', login );
             console.log(response.data);
               
-              if(response.data.success){
-                alert("login correct");
-                window.location.href = '/';
+              if(response.data && response.data.success){
+
+                // Guardar token, usuario y rol
+                setToken(response.data.user, response.data.token, response.data.role);
+                window.location.href = 'http://localhost:8000/home';
+               } else {
+                setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
                }
 
         } catch (error) {
-            console.error('Error al hacer login:', error.response.data);
+            if (error.response) {
+                setError(error.response.data.error);
+            } else {
+                setError(error.message);
+            }
         }  
     }
 
@@ -48,6 +59,7 @@ export default function Login() {
                             </div>
                             <div className="card-body pt-0"> 
                                 <div className="p-2">
+                                {error && <div className="alert alert-danger">{error}</div>}
                                     <form className="form-horizontal"  onSubmit={loginSubmitHandler}>
                                         <div className="mb-3">
                                          <label htmlFor="username" className="form-label">DNI</label>
@@ -78,7 +90,7 @@ export default function Login() {
                                 </div>
                                 <div className="mt-5 text-center">
                                   <div>
-                                  <p>Tienes una cuenta? <a href="/register" className="fw-medium text-primary">register</a></p>
+                                  <p>Aun no tienes una cuenta? <a href="/register" className="fw-medium text-primary">register</a></p>
                                   </div>
                                </div>
                             </div>
