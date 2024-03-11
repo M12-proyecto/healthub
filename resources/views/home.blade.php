@@ -19,7 +19,7 @@
         <!-- App js -->
         <script src="{{asset('assets/js/plugin.js')}}"></script>
         @viteReactRefresh      
-        @vite('resources/js/app.js')
+        @vite('resources/js/app.jsx')
     </head>
     <body data-sidebar="dark">
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
