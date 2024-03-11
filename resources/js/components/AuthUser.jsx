@@ -1,10 +1,8 @@
+import React, { useState } from "react";  
 import axios from 'axios';
-import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 
 export default function AuthUser() {
-    // const navigate = useNavigate();
-
+    // Declara las funciones getToken, getUser y getRol antes de usarlas
     const getToken = () =>{
         const tokenString = sessionStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
@@ -23,13 +21,12 @@ export default function AuthUser() {
         return rol;
     }
 
-
-
+    // Inicializa el estado después de declarar las funciones
     const [token,setToken] = useState(getToken());
     const [user,setUser] = useState(getUser());
     const [rol,setRol] = useState(getRol());
 
-    const saveToken = (user,token, rol) =>{
+    const saveToken = (user, token, rol) =>{
         sessionStorage.setItem('token',JSON.stringify(token));
         sessionStorage.setItem('user',JSON.stringify(user));
         sessionStorage.setItem('rol',JSON.stringify(rol));
@@ -38,24 +35,20 @@ export default function AuthUser() {
         setUser(user);
         setRol(rol);
 
-        if(getRol()== 'admin'){
-            // navigate('/admin')
+        if(rol === 'admin'){
+            // Hacer algo para el rol de admin
+        } else if(rol === 'paciente') {
+            // Hacer algo para el rol de paciente
+        } else if(rol === 'medico') {
+            // Hacer algo para el rol de médico
         }
 
-        if(getRol()== 'paciente'){
-            // navigate('/paciente')
-        }
-
-        if(getRol()== 'medico'){
-            // navigate('/medico')
-        }
-
-        //navigate('/dashboard');
+        // Redirigir a la ruta '/home'
+        window.location.href = 'http://localhost:8000/home';
     }
 
     const getLogout = () => {
         sessionStorage.clear();
-        // navigate('/login');
     }
 
     const http = axios.create({
@@ -75,12 +68,4 @@ export default function AuthUser() {
         getUser,
         getLogout,
     }
-    // return {
-    //     setToken:saveToken,
-    //     token,
-    //     user,
-    //     getToken,
-    //     http,
-    //     logout
-    // }
 }
