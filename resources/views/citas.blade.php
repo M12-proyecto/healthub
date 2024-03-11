@@ -267,7 +267,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary mb-2">Crear citas</button>
+                        <a href="{{ route('crearCita') }}" class="btn btn-primary mb-2">Crear citas</a>
                         <!-- end page title -->
                         <div class="row row-cols-2">
                             @foreach($citas as $cita)

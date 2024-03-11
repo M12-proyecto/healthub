@@ -40,4 +40,20 @@ class CitasController extends Controller
             'citas' => $citas
         ]);
     }
+
+    public function create(Request $request) {
+        if($request->all()) {
+
+        }else {
+            return redirect()->route('citas');
+        }
+    }
+
+    public function update(Request $request) {
+
+    }
+
+    public function delete(Request $request) {
+
+    }
 }

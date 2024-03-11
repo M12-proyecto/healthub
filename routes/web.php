@@ -48,3 +48,4 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 // Rutas para las citas
 Route::get('/citas', [CitasController::class, 'show'])->name("citas");
+Route::get('/citas/crear', [CitasController::class, 'create'])->name("crearCita");
