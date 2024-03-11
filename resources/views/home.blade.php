@@ -270,7 +270,7 @@
                         </div>
                         <!-- end page title -->
 
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-xl-4">
                                 <div class="card overflow-hidden">
                                     <div class="bg-primary-subtle">
