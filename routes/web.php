@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CitasController;
 use Illuminate\Http\Request;
 // use Spatie\Permission\Models\Role;
 
@@ -24,17 +25,17 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');;
 
 // view register
 Route::get('/register', function () {
     return view('register');
-});
+})->name('register');
 
 // view login
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');;
 
 // register db 
 Route::post('/register', [AuthController::class, 'register']);
@@ -44,3 +45,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //logout
 Route::post('/logout', [AuthController::class, 'logout']);
+
+// Rutas para las citas
+Route::get('/citas', [CitasController::class, 'show'])->name("citas");

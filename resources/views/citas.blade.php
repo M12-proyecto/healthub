@@ -253,153 +253,69 @@
 
                 <div class="page-content">
                     <div class="container-fluid">
-
                         <!-- start page title -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Inicio</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Citas</h4>
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
                                             <li class="breadcrumb-item"><a href="javascript: void(0);">Menu</a></li>
-                                            <li class="breadcrumb-item active">Inicio</li>
+                                            <li class="breadcrumb-item active">Citas</li>
                                         </ol>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <button type="button" class="btn btn-primary mb-2">Crear citas</button>
                         <!-- end page title -->
-
-                        <div class="row align-items-center">
-                            <div class="col-xl-4">
-                                <div class="card overflow-hidden">
-                                    <div class="bg-primary-subtle">
+                        <div class="row row-cols-2">
+                            @foreach($citas as $cita)
+                            <div class="col">
+                                <div class="card card-cita">
+                                    <div class="card-header p-3">
+                                        {{$cita->asunto}}
+                                    </div>
+                                    <div class="card-body">
                                         <div class="row">
-                                            <div class="col-7">
-                                                <div class="text-primary p-3">
-                                                    <h5 class="text-primary">Bienvenida !</h5>
-                                                    <p>Poner algo aqui</p>
-                                                </div>
+                                            <div class="col">
+                                                <h5>Nombre del paciente</h5>
+                                                <p>{{$cita->paciente_id->nombre}} {{$cita->paciente_id->apellido1}} {{$cita->paciente_id->apellido2}}</p>
                                             </div>
-                                            <div class="col-5 align-self-end">
-                                                <!-- <img src="{{asset('assets/images/profile-img.png')}}" alt="" class="img-fluid"> -->
+                                            <div class="col">
+                                                <h5>Nombre del medico</h5>
+                                                <p>{{$cita->medico_id->nombre}} {{$cita->medico_id->apellido1}} {{$cita->medico_id->apellido2}}</p>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Asunto</h5>
+                                                <p>{{$cita->asunto}}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body pt-0">
                                         <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="avatar-md profile-user-wid mb-4">
-                                                    <img src="{{asset('assets/images/users/default.webp')}}" alt="" class="img-thumbnail rounded-circle">
-                                                </div>
-                                                <h5 class="font-size-15 text-truncate"></h5>
-                                                <p class="text-muted mb-0 text-truncate"></p>
+                                            <div class="col">
+                                                <h5>Fecha</h5>
+                                                <p>{{$cita->fecha}}</p>
                                             </div>
-
-                                            <div class="col-sm-8">
-                                                <div class="pt-4">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <p class="text-muted mb-0">Citas</p>
-                                                            <h5 class="font-size-15">1</h5>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <p class="text-muted mb-0">Chats</p>
-                                                            <h5 class="font-size-15">0</h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mt-4">
-                                                        <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">Ver perfil<i class="mdi mdi-arrow-right ms-1"></i></a>
-                                                    </div>
-                                                </div>
+                                            <div class="col">
+                                                <h5>Hora</h5>
+                                                <p>{{$cita->hora}}</p>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Ubicacion</h5>
+                                                <p>{{$cita->ubicacion}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5>Notas</h5>
+                                                <p>{{($cita->notas) ? $cita->notas : "No hay notas"}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-8">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="card mini-stats-wid">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="flex-grow-1">
-                                                        <p class="text-muted fw-medium">Citas</p>
-                                                        <h4 class="mb-0">0</h4>
-                                                    </div>
-                                                    <div class="flex-shrink-0 align-self-center ">
-                                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                                            <span class="avatar-title rounded-circle bg-primary">
-                                                                <i class="bx bx-calendar font-size-24"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card mini-stats-wid">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="flex-grow-1">
-                                                        <p class="text-muted fw-medium">Informes</p>
-                                                        <h4 class="mb-0">0</h4>
-                                                    </div>
-                                                    <div class="flex-shrink-0 align-self-center ">
-                                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                                            <span class="avatar-title rounded-circle bg-primary">
-                                                                <i class="bx bx-file font-size-24"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card mini-stats-wid">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="flex-grow-1">
-                                                        <p class="text-muted fw-medium">Resultados</p>
-                                                        <h4 class="mb-0">0</h4>
-                                                    </div>
-                                                    <div class="flex-shrink-0 align-self-center ">
-                                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                                            <span class="avatar-title rounded-circle bg-primary">
-                                                                <i class="bx bx-file font-size-24"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card mini-stats-wid">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="flex-grow-1">
-                                                        <p class="text-muted fw-medium">Chat</p>
-                                                        <h4 class="mb-0">0</h4>
-                                                    </div>
-                                                    <div class="flex-shrink-0 align-self-center ">
-                                                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                                            <span class="avatar-title rounded-circle bg-primary">
-                                                                <i class="bx bx-chat font-size-24"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end row -->
-                            </div>
+                            @endforeach
                         </div>
-                        <!-- end row -->
                     </div>
                     <!-- container-fluid -->
                 </div>
