@@ -78,22 +78,21 @@ class AuthController extends Controller
             $response['user'] = $user;
             $response['role'] = $user->getRoleNames();
 
-            session()->put('token', $response["token"]);
             session()->put('user', $response['user']);
+            session()->put('token', $response['token']);
             session()->put('role', $response['role']);
+
         } else {
             $response['error'] = 'Invalid credentials';
         }
         return response()->json($response, 200);
     }
 
-    public function logout(Request $request){
-        $response =["success" => true,"message" => "Sessión cerrada"];
-
-        session()->forget('token');
+    public function logout(){
         session()->forget('user');
+        session()->forget('token');
         session()->forget('role');
-
-        return redirect()->route('login');
+        
+       return redirect()->route('login');
     }
 }

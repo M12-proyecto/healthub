@@ -16,3 +16,4 @@ import './App.jsx';
 import './components/Login/Login.jsx';
 import './components/Register/Register.jsx';
 import './components/Content/Welcome.jsx';
+import './components/AuthUser.jsx';

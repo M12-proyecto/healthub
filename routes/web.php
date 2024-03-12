@@ -38,7 +38,7 @@ Route::get('/register', function () {
 // view login
 Route::get('/login', function () {
     return view('login');
-})->name('login');;
+})->name('login');
 
 // register db 
 Route::post('/register', [AuthController::class, 'register']);
