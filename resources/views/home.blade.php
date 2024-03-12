@@ -39,7 +39,7 @@
                                 </span>
                             </a>
 
-                            <a href="index.html" class="logo logo-light">
+                            <a href="{{ route('home') }}" class="logo logo-light">
                                 <span class="logo-sm">
                                     <img src="{{asset('assets/images/faviconHealthHub1.ico')}}" alt="Healthub icon" height="30">
                                 </span>
