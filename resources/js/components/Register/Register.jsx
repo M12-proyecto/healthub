@@ -21,6 +21,8 @@ export default function Register() {
     password: '',
     confirmPassword: '',
   });
+  const [errors, setErrors] = useState({});
+  const [registrationError, setRegistrationError] = useState('');
 
     const handleChange = (e) => {
       setRegister({...register, [e.target.name]: e.target.value });
@@ -29,24 +31,45 @@ export default function Register() {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-    
-      try {
-        const response = await axios.post('/register', register);
-    
-        if (response && response.data && response.data.success) {
-          console.log('entra');
-          window.location.href = '/login';
-        } else {
-          console.log('La solicitud de registro no fue exitosa');
+      const validationErrors = {};
+      if (!register.cip) validationErrors.cip = 'CIP es obligatorio';
+      if (!register.nombre) validationErrors.nombre = 'Nombre es obligatorio';
+      if (!register.primerApellido) validationErrors.primerApellido = 'Primer apellido es obligatorio';
+      if (!register.fechaCumpleanos) validationErrors.fechaCumpleanos = 'Fecha de cumpleaños es obligatoria';
+      if (!register.email) validationErrors.email = 'Email es incorrecto';
+      //if (!register.gender) validationErrors.gender = 'Género es obligatorio';
+      if (!register.direccion) validationErrors.direccion = 'Dirección es obligatoria';
+      if (!register.codigoPostal) validationErrors.codigoPostal = 'Código postal es obligatorio';
+      if (!register.ciudad) validationErrors.ciudad = 'Ciudad es obligatoria';
+      if (!register.provincia) validationErrors.provincia = 'Provincia es obligatoria';
+      //if (!register.tipoDocumento) validationErrors.tipoDocumento = 'Tipo de documento es obligatorio';
+      if (!register.numeroDocumento) validationErrors.numeroDocumento = 'Número de documento es obligatorio';
+      if (!register.password) validationErrors.password = 'Contraseña es obligatoria';
+      //if (register.password != validationErrors.confirmPassword) {validationErrors.confirmPassword = 'Las contraseñas no coinciden';}
+
+      setErrors(validationErrors);
+      
+      if(Object.keys(validationErrors).length == 0){
+        try {
+          const response = await axios.post('/register', register);
+      
+          if (response && response.data && response.data.success) {
+            console.log('entra');
+            window.location.href = '/login';
+          } else {
+            console.log('La solicitud de registro no fue exitosa');
+          }
+        } catch (error) {
+          console.error('Error al registrar usuario:', error.response.data);
+          setRegistrationError(error.response.data.message);
         }
-      } catch (error) {
-        console.error('Error al registrar usuario:', error.response.data);
       }
-    };
+    }
 
   return (
     <>
       <div className="container  mt-5 mb-5">
+      {registrationError && <div className="alert alert-danger">{registrationError}</div>}
       <form className="bg-light p-4 m-auto" onSubmit={handleSubmit}>
       <div className="row mb-3">
           <div className="col-lg-2">
@@ -54,6 +77,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" name='cip' placeholder="" onChange={handleChange}/>
+            {errors.cip && <p className="text-danger">{errors.cip}</p>}
           </div>
         </div> 
         <div className="row mb-3">
@@ -62,6 +86,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" autoComplete="username" name='nombre' placeholder="" onChange={handleChange}/>
+            {errors.nombre && <p className="text-danger">{errors.nombre}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -70,6 +95,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" autoComplete="username" name='primerApellido' placeholder="" onChange={handleChange}/>
+            {errors.primerApellido && <p className="text-danger">{errors.primerApellido}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -86,6 +112,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="date" className="form-control" name='fechaCumpleanos' placeholder="" onChange={handleChange}/>
+            {errors.fechaCumpleanos && <p className="text-danger">{errors.fechaCumpleanos}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -94,6 +121,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" name='email' placeholder="Escribe tu correo" onChange={handleChange}/>
+            {errors.email && <p className="text-danger">{errors.email}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -121,6 +149,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" placeholder="" name='direccion' onChange={handleChange} />
+            {errors.direccion && <p className="text-danger">{errors.direccion}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -129,6 +158,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" name='codigoPostal' placeholder="Código postal" onChange={handleChange} />
+            {errors.codigoPostal && <p className="text-danger">{errors.codigoPostal}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -137,6 +167,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" name='ciudad' placeholder="ciudad" onChange={handleChange} />
+            {errors.ciudad && <p className="text-danger">{errors.ciudad}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -145,6 +176,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" name='provincia' placeholder="provincia" onChange={handleChange} />
+            {errors.provincia && <p className="text-danger">{errors.provincia}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -172,6 +204,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="text" className="form-control" name='numeroDocumento' placeholder="" onChange={handleChange} required/>
+            {errors.numeroDocumento && <p className="text-danger">{errors.numeroDocumento}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -180,6 +213,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="password" className="form-control" name='password' autoComplete="current-password" placeholder="Escribe la contraseña" onChange={handleChange} required/>
+            {errors.password && <p className="text-danger">{errors.password}</p>}
           </div>
         </div>
         <div className="row mb-3">
@@ -188,6 +222,7 @@ export default function Register() {
           </div>
           <div className="col-lg-5">
             <input type="password" className="form-control" name='confirmPassword' autoComplete="current-password" placeholder="Repite la contraseña" onChange={handleChange} required/>
+            {errors.confirmPassword && <p className="text-danger">{errors.confirmPassword}</p>}
           </div>
         </div>
         <div className="mt-5 text-center">

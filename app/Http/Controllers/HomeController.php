@@ -8,8 +8,10 @@ use App\Models\User;
 class HomeController extends Controller
 {
     public function show() {
-        $usuario = User::find(5);
-
-        return view('home', ["usuario" => $usuario]);
+        if(session()->get('user')){
+            return view('home');
+        } else{
+            return view('login');
+        }
     }
 }

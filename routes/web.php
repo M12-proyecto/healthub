@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -26,19 +27,18 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/home', [HomeController::class, 'show'])->name('home');
+// Route::middleware('auth:sanctum')->get('/home', function () {return view('home');})->name('home');
 
 // view register
 Route::get('/register', function () {
     return view('register');
-});
+})->name('register');
 
 // view login
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 
 // register db 
 Route::post('/register', [AuthController::class, 'register']);
@@ -47,4 +47,4 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 //logout
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
