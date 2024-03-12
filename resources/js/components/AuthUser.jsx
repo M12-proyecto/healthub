@@ -44,7 +44,7 @@ export default function AuthUser() {
         }
 
         // Redirigir a la ruta '/home'
-        window.location.href = 'http://localhost:8000/home';
+        window.location.href = 'http://127.0.0.1:8000/home';
     }
 
     const getLogout = () => {
@@ -52,7 +52,7 @@ export default function AuthUser() {
     }
 
     const http = axios.create({
-        baseURL:"http://localhost:8000/api",
+        baseURL:"http://127.0.0.1:8000/api",
         headers:{
             "Content-type" : "application/json",
             "Authorization" : `Bearer ${token}`

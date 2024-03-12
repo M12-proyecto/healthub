@@ -77,6 +77,10 @@ class AuthController extends Controller
             $response['success'] = true;
             $response['user'] = $user;
             $response['role'] = $user->getRoleNames();
+
+            session()->put('token', $response["token"]);
+            session()->put('user', $response['user']);
+            session()->put('role', $response['role']);
         } else {
             $response['error'] = 'Invalid credentials';
         }
@@ -84,10 +88,12 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        $response = ["success" => false];
-        $user = User::where('dni', $request->dni)->first();
-        $user->currentAccessTocken()->delete();
         $response =["success" => true,"message" => "Sessión cerrada"];
-        return response()->json($response, 200);
+
+        session()->forget('token');
+        session()->forget('user');
+        session()->forget('role');
+
+        return redirect()->route('login');
     }
 }

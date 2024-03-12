@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitasController;
 use Illuminate\Http\Request;
@@ -27,9 +28,7 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');;
+Route::get('/home', [HomeController::class, 'show'])->name('home');
 
 // view register
 Route::get('/register', function () {
@@ -48,7 +47,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 //logout
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Rutas para las citas
 Route::get('/citas', [CitasController::class, 'show'])->name("citas");

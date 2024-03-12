@@ -25,7 +25,7 @@ class CitasController extends Controller
      */
     public function show()
     {
-        $usuario = User::find(5);
+        $usuario = User::find(session()->get('user')->id);
         $citas = Cita::where('paciente_id', $usuario->id)->get();
 
         foreach($citas as $cita) {

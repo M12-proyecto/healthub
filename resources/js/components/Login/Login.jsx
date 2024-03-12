@@ -27,7 +27,7 @@ export default function Login() {
 
                 // Guardar token, usuario y rol
                 setToken(response.data.user, response.data.token, response.data.role);
-                window.location.href = 'http://localhost:8000/home';
+                window.location.href = 'http://127.0.0.1:8000/home';
                } else {
                 setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
                }

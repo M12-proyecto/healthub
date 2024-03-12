@@ -174,7 +174,7 @@
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="assets/images/users/default.webp"
                                     alt="Header Avatar">
-                                <span class="d-none d-xl-inline-block ms-1" key="t-henry"></span>
+                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ $usuario->nombre }}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
@@ -183,7 +183,7 @@
                                 <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">0</span><i class="bx bx-chat font-size-16 align-middle me-1"></i><span key="t-settings">Mensajes</span></a>
                                 <a class="dropdown-item d-block" href="#"><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Ajustes</span></a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Cerrar sesión</span></a>
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Cerrar sesión</span></a>
                             </div>
                         </div>
 
@@ -192,7 +192,6 @@
                                 <i class="bx bx-cog bx-spin"></i>
                             </button>
                         </div>
-
                     </div>
                 </div>
             </header>
@@ -277,7 +276,7 @@
                                         <div class="row">
                                             <div class="col-7">
                                                 <div class="text-primary p-3">
-                                                    <h5 class="text-primary">Bienvenida !</h5>
+                                                    <h5 class="text-primary">Bienvenida {{ $usuario->nombre }}!</h5>
                                                     <p>Poner algo aqui</p>
                                                 </div>
                                             </div>
