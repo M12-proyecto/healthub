@@ -28,7 +28,7 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/home', [HomeController::class, 'show'])->name('home');
+Route::get('/home', [HomeController::class, 'show'])->name('home')->middleware('verifyIfAuthenticated');
 
 // view register
 Route::get('/register', function () {
