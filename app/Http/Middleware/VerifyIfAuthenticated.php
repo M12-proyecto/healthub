@@ -7,14 +7,18 @@ use Closure;
 class VerifyIfAuthenticated
 {
     /**
-     * Handle session user.
+     * Handle an incoming request.
      *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
      * @return mixed
      */
-    public function handle()
+    public function handle($request, Closure $next)
     {
-        if (!session()->has('user')) {
+        if (!$request->session()->has('user')) {
             return redirect()->route('login');
         }
+
+        return $next($request);
     }
 }
