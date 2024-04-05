@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Cita extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+    protected $table = "citas";
 
     /**
      * The attributes that are mass assignable.
