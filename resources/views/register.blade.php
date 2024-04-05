@@ -9,5 +9,6 @@
 </head>
 <body>
     <div id="register"></div>
+    <script src="https://kit.fontawesome.com/2007d43c69.js" crossorigin="anonymous"></script>
 </body>
 </html>

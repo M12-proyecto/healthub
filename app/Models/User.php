@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken; // Importa la clase SanctumPersonalAccessToken
+use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
 
 class User extends Authenticatable
 {
@@ -38,7 +38,7 @@ class User extends Authenticatable
         'apellido2',
         'fecha_nacimiento',
         'sexo',
-        'rol'
+        'foto'
     ];
 
     /**
