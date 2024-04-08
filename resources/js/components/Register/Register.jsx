@@ -252,7 +252,8 @@ export default function Register() {
            </div>
           </div>
             <div className="d-flex justify-content-end">
-              <button type="button" className="btn btn-primary" onClick={nextStep}>Siguiente</button>
+              <a className="btn btn-primary" href='/login'>Login</a>
+              <button type="button" className="btn btn-primary ms-2" onClick={nextStep}>Siguiente</button>
             </div>
           </>
         );
@@ -333,6 +334,7 @@ export default function Register() {
               </div>
             </div>
             <div className="d-flex justify-content-between">
+              <a className="btn btn-primary" href='/login'>Login</a>
               <button type="button" className="btn btn-secondary" onClick={prevStep}>Atrás</button>
               <button type="button" className="btn btn-primary" onClick={nextStep}>Siguiente</button>
             </div>
@@ -406,6 +408,7 @@ export default function Register() {
             </div>
             </div>
             <div className="d-flex justify-content-between">
+              <a className="btn btn-primary" href='/login'>Login</a>
               <button type="button" className="btn btn-secondary" onClick={prevStep}>Atrás</button>
               <button type="button" className="btn btn-primary" onClick={handleSubmit}>Registrarme</button>
             </div>
