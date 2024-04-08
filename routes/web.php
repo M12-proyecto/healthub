@@ -18,17 +18,18 @@ use Spatie\Permission\Models\Role;
 |
 */
 
-// roles
+// Creacion de roles
 
-//$role = Role::create(['name' => 'admin']);
-//$role = Role::create(['name' => 'medico']);
-//$role = Role::create(['name' => 'Adminnn']);
+// $role = Role::create(['name' => 'Administrador']);
+// $role = Role::create(['name' => 'Medico']);
+// $role = Role::create(['name' => 'Paciente']);
+// $role = Role::create(['name' => 'Recepcionista']);
 
 Route::get('/', function () {
-    return view('login');
+    return redirect()->route('home');
 });
 
-Route::get('/home', [HomeController::class, 'show'])->name('home');
+Route::get('/home', [HomeController::class, 'show'])->name('home')->middleware('verifyIfAuthenticated');
 
 // view register
 Route::get('/register', function () {
@@ -52,5 +53,6 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // profile
 Route::get('/profile', [AuthController::class, 'profile'])->name("profile");
 // Rutas para las citas
-Route::get('/citas', [CitasController::class, 'show'])->name("citas");
-Route::get('/citas/crear', [CitasController::class, 'create'])->name("crearCita");
+Route::get('/citas', [CitasController::class, 'show'])->name("citas")->middleware('verifyIfAuthenticated');
+Route::get('/citas/crear', [CitasController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');
+Route::post('/citas/crear', [CitasController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');
