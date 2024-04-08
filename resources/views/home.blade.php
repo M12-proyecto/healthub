@@ -20,6 +20,7 @@
         <script src="{{asset('assets/js/plugin.js')}}"></script>
         @viteReactRefresh      
         @vite('resources/js/App.jsx')
+        <!-- @vite('resources/js/app.js') -->
     </head>
     <body data-sidebar="dark">
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
@@ -172,14 +173,14 @@
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="assets/images/users/default.webp"
+                                <img class="rounded-circle header-profile-user" src="{{ $usuario->foto }}"
                                     alt="Header Avatar">
                                 <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ $usuario->nombre }}</span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Perfil</span></a>
+                                <a class="dropdown-item" href="{{ route('profile') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Perfil</span></a>
                                 <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">0</span><i class="bx bx-chat font-size-16 align-middle me-1"></i><span key="t-settings">Mensajes</span></a>
                                 <a class="dropdown-item d-block" href="#"><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Ajustes</span></a>
                                 <div class="dropdown-divider"></div>
@@ -289,7 +290,7 @@
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="avatar-md profile-user-wid mb-4">
-                                                    <img src="{{asset('assets/images/users/default.webp')}}" alt="" class="img-thumbnail rounded-circle">
+                                                    <img src="{{ $usuario->foto }}" alt="" class="img-thumbnail rounded-circle">
                                                 </div>
                                                 <h5 class="font-size-15 text-truncate"></h5>
                                                 <p class="text-muted mb-0 text-truncate"></p>
@@ -308,7 +309,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="mt-4">
-                                                        <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">Ver perfil<i class="mdi mdi-arrow-right ms-1"></i></a>
+                                                        <a href="{{ route('profile') }}" class="btn btn-primary waves-effect waves-light btn-sm">Ver perfil<i class="mdi mdi-arrow-right ms-1"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,17 +405,8 @@
                 </div>
                 <!-- End Page-content -->
 
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="text-sm-end d-none d-sm-block">
-                                  <script>document.write(new Date().getFullYear())</script> © Healthub
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                
+                <footer id="footer" class="footer"></footer>
             </div>
             <!-- end main content-->
         </div>
