@@ -53,4 +53,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Rutas para las citas
 Route::get('/citas', [CitasController::class, 'show'])->name("citas")->middleware('verifyIfAuthenticated');
 Route::get('/citas/crear', [CitasController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');
+Route::get('/citas/editar/{cita}', [CitasController::class, 'update'])->name("editarCita")->middleware('verifyIfAuthenticated');
+
 Route::post('/citas/crear', [CitasController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');
+Route::post('/citas/editar/{cita}', [CitasController::class, 'update'])->name("editarCita")->middleware('verifyIfAuthenticated');
+
+Route::delete('/citas/eliminar/{cita}', [CitasController::class, 'delete'])->name("eliminarCita")->middleware('verifyIfAuthenticated');

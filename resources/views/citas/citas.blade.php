@@ -10,8 +10,16 @@
         @foreach($citas as $cita)
             <div class="col">
                 <div class="card card-cita">
-                    <div class="card-header p-3">
+                    <div class="card-header p-3 d-flex justify-content-between align-items-center">
                         {{$cita->asunto}}
+                        <div class="d-flex gap-1">
+                            <a href="{{ route('editarCita', $cita) }}" class="btn btn-secondary">Editar cita</a>
+                            <form method="POST" action="{{ route('eliminarCita', $cita) }}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" name="eliminarCitaForm" class="btn btn-danger" value="Eliminar cita">
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row">

@@ -23,7 +23,7 @@ class VerifyIfAuthenticated
         }
 
         $usuario = User::find(session()->get('user')->id);
-        $citas = Cita::where('paciente_id', $usuario->id)->get();
+        $citas = Cita::where('paciente_id', $usuario->id)->orderBy('fecha')->get();
 
         if($citas) {
             foreach($citas as $cita) {
