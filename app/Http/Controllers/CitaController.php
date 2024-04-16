@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Cita;
 use App\Models\Role;
 
-class CitasController extends Controller
+class CitaController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -30,6 +30,8 @@ class CitasController extends Controller
     }
 
     public function create(Request $request) {
+        $this->authorize('create', Cita::class);
+
         if($request->has('crearCitaForm')) {
             $datosValidados = $request->validate([
                 'paciente_id' => 'required|exists:usuarios,id',
@@ -87,6 +89,8 @@ class CitasController extends Controller
     }
 
     public function update(Request $request, Cita $cita = new Cita()) {
+        $this->authorize('update', Cita::class);
+
         if($request->has('editarCitaForm')) {
             $request["hora"] = substr($request["hora"], 0, 5);
 
@@ -146,6 +150,8 @@ class CitasController extends Controller
     }
 
     public function delete(Request $request, Cita $cita = new Cita()) {
+        $this->authorize('delete', Cita::class);
+
         if($request->has('eliminarCitaForm')) {
             $cita->delete();
             return redirect()->route("citas");

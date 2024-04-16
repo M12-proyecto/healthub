@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
 
 class User extends Authenticatable
@@ -60,6 +61,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'contraseña' => 'hashed',
     ];
+
+    /**
+     * Get the authenticated user
+     *
+     * @return User
+     */
+    public static function getAuthenticatedUser() {
+        $usuario = User::find(session()->get('user')->id);
+
+        return $usuario;
+    }
+
+    /**
+     * Get the authenticated user role
+     *
+     * @return Role
+     */
+    public static function getRole() {
+        $usuario = User::getAuthenticatedUser();
+
+        $rol = DB::table('roles')
+            ->join('model_has_roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('model_has_roles.model_type', '=', 'App\Models\User')
+            ->where('model_has_roles.model_id', '=', $usuario->id)
+            ->select('roles.*')
+            ->first();
+
+        return $rol->name;
+    }
 
      /**
      * Get the name of the unique identifier for the user.
