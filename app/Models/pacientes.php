@@ -10,6 +10,7 @@ class pacientes extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'pacientes';
+    protected $primaryKey = 'usuario_id';
 
     /**
      * The attributes that are mass assignable.

@@ -23,7 +23,7 @@ export default function Login() {
             const response = await axios.post('/login', login );
             console.log(response.data);
               
-              if(response.data && response.data.success){
+              if(response.data){
 
                 // Guardar token, usuario y rol
                 setToken(response.data.user, response.data.token, response.data.role);

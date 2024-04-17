@@ -51,7 +51,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // profile
-Route::get('/profile', [AuthController::class, 'profile'])->name("profile");
+Route::get('/profile', [AuthController::class, 'profile'])->name('profile')->middleware('verifyIfAuthenticated');
+Route::post('/profile', [AuthController::class, 'profile'])->name('profile')->middleware('verifyIfAuthenticated');
 // Rutas para las citas
 Route::get('/citas', [CitasController::class, 'show'])->name("citas")->middleware('verifyIfAuthenticated');
 Route::get('/citas/crear', [CitasController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');

@@ -1,87 +1,94 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>        
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Healthub</title>
-        <link rel="shortcut icon" href="{{asset('assets/images/faviconHealthHub1.ico')}}">
-        <link rel="stylesheet" href="{{asset('css/main.css')}}">
-        <link href="{{asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
-        <script src="{{asset('assets/js/plugin.js')}}"></script>
-        @viteReactRefresh      
-        @vite('resources/js/App.jsx')
-    </head>
-    <body data-sidebar="dark">
+@extends('layouts.app')
+@section('title', 'Healthub - perfil')
+@section('page', 'perfil')
 
-    <div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
+@section('content')
+<div class="container rounded bg-white mt-5 mb-5">
+    <form action="{{ route('profile') }}" method="POST" class="row" enctype="multipart/form-data">
+        @csrf
+
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{ $user->foto }}"><span class="font-weight-bold">{{ $user->nombre   }} {{$user->apellido1}} {{$user->apellido2}} </span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle mt-5" width="150px" src="{{$usuario->foto ? $usuario->foto : asset('assets/images/users/default.webp') }}">  
+                <span class="font-weight-bold">{{ $usuario->nombre }} {{$usuario->apellido1}} {{$usuario->apellido2}} </span>
+                <span class="text-black-50">{{$correos_electronicos->correo_electronico}}</span>
+            </div>
         </div>
         <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
+            <div class="p-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Perfil</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-4"><label class="labels">Nombre</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-4"><label class="labels">primer apellido</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-4"><label class="labels">segundo apellido</label><input type="text" class="form-control" value=""></div>
-                </div>
-                <div class="row mt-2">
-                <label class="labels">Dirección</label>
-                    <div class="col-md-4"><label class="labels">Calle</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-4"><label class="labels">Piso</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-4"><label class="labels">Número</label><input type="text" class="form-control" value=""></div>
+                    <div class="col-md-4"><label class="labels">Nombre</label><input type="text" name="nombre" class="form-control" value="{{ $usuario->nombre}}"></div>
+                    <div class="col-md-4"><label class="labels">primer apellido</label><input type="text" name="apellido1" class="form-control" value="{{ $usuario->apellido1 }}"></div>
+                    <div class="col-md-4"><label class="labels">segundo apellido</label><input type="text" name="apellido2" class="form-control" value="{{ $usuario->apellido2 }}"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Número teléfono</label><input type="text" class="form-control" value=""></div>
-                    <!-- <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div> -->
-                    <div class="col-md-12"><label class="labels">Código postal</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-12"><label class="labels">Correo</label><input type="text" class="form-control" value=""></div>
-
+                    <div class="col-md-12"><label class="labels">DNI</label><input type="text" name="dni" class="form-control" value="{{ $usuario->dni }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">CIP</label><input type="text" name="cip" class="form-control" value="{{ $usuario->cip }}" readonly></div>
+                    <div class="col-md-12">
+                        <label class="labels">Role</label>
+                        <select class="form-control" id="asignRol" name="role">
+                            <option value="Paciente" {{ $usuario->hasRole('Paciente') ? 'selected' : '' }}>Paciente</option>
+                            <option value="Administrador" {{ $usuario->hasRole('Administrador') ? 'selected' : '' }}>Administrador</option>
+                            <option value="Recepcionista" {{ $usuario->hasRole('Recepcionista') ? 'selected' : '' }}>Recepcionista</option>
+                            <option value="Medico" {{ $usuario->hasRole('Medico') ? 'selected' : '' }}>Medico</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12"><label class="labels">Fecha de nacimiento</label><input type="date" name="fecha_nacimiento" class="form-control" value="{{ $usuario->fecha_nacimiento }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">Sexo</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option value="Hombre" {{ $usuario->sexo == 'Hombre' ? 'selected' : '' }}>Hombre</option>
+                            <option value="Mujer" {{ $usuario->sexo == 'Mujer' ? 'selected' : '' }}>Mujer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                    <label class="labels">Foto perfil</label>
+                    <input type="file" name="foto" alt="imagen de perfil" class="form-control mt-2">
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Cuidad</label><input type="text" class="form-control" value=""></div>
-                    <div class="col-md-6"><label class="labels">Código postal</label><input type="text" class="form-control" value=""></div>
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Actualizar perfil</button></div>
+                <div class="col-md-12"><label class="labels">Número teléfono</label><input type="text" name="numero_telefono" class="form-control" value="{{ $numeros_telefono->numero_telefono }}"></div>
+                <div class="col-md-12"><label class="labels">Correo</label><input type="text" name="correo_electronico" class="form-control" value="{{ $correos_electronicos->correo_electronico }}"></div>
+                <div class="row">
+                    <div class="col-md-6"><label class="labels">Cuidad</label><input type="text" name="ciudad" class="form-control" value="{{ $direcciones->ciudad }}"></div>
+                    <div class="col-md-6"><label class="labels">Código postal</label>
+                        <input type="text" name="codigo_postal" class="form-control" value="{{ $direcciones->codigo_postal }}">
+                        <input type="text" name="user" class="form-control d-none" value="{{ $usuario }}">
+                    </div>
+                </div>
             </div>
+            <div class="mt-5 text-center"><button class="btn btn-primary profile-button" name="updateProfile" type="submit">Actualizar perfil</button></div>
         </div>
         <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+            <div class="p-3">
+                <div class="col-md-12"><label class="labels">Calle</label><input type="text" name="calle" class="form-control" value="{{ $direcciones->calle }}"></div> <br>
+                <div class="col-md-12"><label class="labels">Piso</label><input type="text" name="piso" class="form-control" value="{{ $direcciones->piso }}"></div>
+                <div class="col-md-12"><label class="labels">Número</label><input type="text" name="numero" class="form-control" value="{{ $direcciones->numero }}"></div>
+            </div>
+            <div class="p-3">
+                <div class="col-md-12"><label class="labels">Peso</label><input type="text" name="peso" class="form-control" value="{{ $paciente->peso }}"></div> <br>
+                <div class="col-md-12"><label class="labels">Altura</label><input type="text" name="altura" class="form-control" value="{{ $paciente->altura }}"></div>
+                <div class="col-md-12"><label class="labels">Grupo sanguineo</label>
+                    <select class="form-control" id="grupo_sanguineo" name="grupo_sanguineo">
+                        <option value="A+" {{ $paciente->grupo_sanguineo == 'A+' ? 'selected' : ''}}>A+</option>
+                        <option value="A-" {{ $paciente->grupo_sanguineo == 'A-' ? 'selected' : ''}}>A-</option>
+                        <option value="B+" {{ $paciente->grupo_sanguineo == 'B+' ? 'selected' : ''}}>B+</option>
+                        <option value="B-" {{ $paciente->grupo_sanguineo == 'B-' ? 'selected' : ''}}>B-</option>
+                        <option value="AB+" {{ $paciente->grupo_sanguineo == 'AB+' ? 'selected' : ''}}>AB+</option>
+                        <option value="AB-" {{ $paciente->grupo_sanguineo == 'AB-' ? 'selected' : ''}}>AB-</option>
+                        <option value="0+" {{ $paciente->grupo_sanguineo == 'O+' ? 'selected' : ''}}>O+</option>
+                        <option value="0-" {{ $paciente->grupo_sanguineo == 'O-' ? 'selected' : ''}}>O-</option>
+                    </select>
+                </div>
+            </div>
+            <div class="p-3">
+                <label class="labels">Contactos de emergencia</label>
+                <div class="col-md-12"><label class="labels">Nombre</label><input type="text" name="contacto_nombre" class="form-control" value="{{ $contactos_emergencia->nombre }}"></div> <br>
+                <div class="col-md-12"><label class="labels">Número de teléfono</label><input type="text" name="contacto_numero" class="form-control" value="{{ $contactos_emergencia->numero_telefono }}"></div>
+                <div class="col-md-12"><label class="labels">correo electronico</label><input type="text" name="contacto_correo" class="form-control" value="{{ $contactos_emergencia->correo_electronico }}"></div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-</div>
-</div>
-
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <img src="{{ $user->foto }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
-                <h2>{{ $user->nombre }}'s Profile</h2>
-                <form enctype="multipart/form-data" action="/profile" method="POST">
-
-                </form>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- JAVASCRIPT -->
-    <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
-    <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-    <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
-    <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
-    <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
-    <script src="{{asset('assets/js/app.js')}}"></script>
-    </body>
-</html>
+@endsection
