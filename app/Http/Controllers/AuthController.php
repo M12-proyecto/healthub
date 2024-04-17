@@ -7,11 +7,14 @@ use App\Models\correos_electronicos;
 use App\Models\direcciones;
 use App\Models\numeros_telefono;
 use App\Models\pacientes;
+// use App\Models\Role;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -29,12 +32,9 @@ class AuthController extends Controller
             'primerApellido' => 'nullable|string|max:255',
             'secondApellido' => 'nullable|string|max:255',
             'fechaNacimiento' => 'nullable|date',
-            'email' => 'nullable|email',
             'gender' => 'nullable|string|in:Mujer,Hombre',
-            'direccion' => 'nullable|string',
             'codigoPostal' => 'nullable|string|max:255',
             'ciudad' => 'nullable|string|max:255',
-            'tipoDocumento' => 'nullable|string|in:DNI,NIE,Pasaporte',
             'numeroDocumento' => 'required|string|max:255',
             'password' => 'required|string',
         ]);
@@ -55,10 +55,12 @@ class AuthController extends Controller
             'foto' => $request->perfil,
             'password' => Hash::make($request->password),
         ]);
-        $usuario->assignRole('paciente');
-        $response["success"] = true;
+
         // Obtener el ID del usuario
         $usuario_id = $usuario->id;
+        $usuario->assignRole('Paciente');
+
+        $response["success"] = true;
 
         foreach ($request->telefonos as $telefono) {
             // Guardar teléfonos
@@ -145,4 +147,125 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function profile(Request $request)
+    {
+
+        $usuario = $request->session()->get('user');
+        // Obtener los datos del usuario desde la base de datos
+        $usuarioFromDB = User::find($usuario->id);
+        $request->session()->put('user', $usuarioFromDB);
+        $usuario = $usuarioFromDB;
+        
+
+        $direcciones = direcciones::where('usuario_id', $usuario->id)->first();
+        $contactos = contactos_emergencia::where('paciente_id', $usuario->id)->first();
+        $correos = correos_electronicos::where('usuario_id', $usuario->id)->first();
+        $numeros_telefono = numeros_telefono::where('usuario_id', $usuario->id)->first();
+        $paciente = pacientes::where('usuario_id', $usuario->id)->first();
+
+        if($request->has('updateProfile')) {
+            // Validar los datos del formulario
+            $request->validate([
+                'nombre' => 'string|max:255',
+                'apellido1' => 'string|max:255',
+                'apellido2' => 'string|max:255',
+                'fecha_nacimiento' => 'date',
+                'gender' => 'string|in:Mujer,Hombre',
+                'numero_telefono' => 'numeric',
+                'correo_electronico' => 'string|max:255',
+                'ciudad' => 'string|max:255',
+                'calle' => 'string|max:255',
+                'piso' => 'numeric',
+                'numero' => 'numeric',
+                'peso' => 'numeric',
+                'codigo_postal' => 'numeric',
+                'altura' => 'numeric',
+                'grupo_sanguineo' => 'string|max:255',
+                'role' => 'string|max:255',
+                'contacto_nombre' => 'string|max:255',
+                'contacto_numero' => 'numeric',
+                'contacto_correo' => 'string|max:255',
+            ]);
+            
+            // Actualizar usuario solo si el campo del formulario no está vacío
+            if ($request->filled('nombre'))$usuario->nombre = $request->nombre;
+
+            if ($request->filled('apellido1'))$usuario->apellido1 = $request->apellido1;
+            if ($request->filled('apellido2'))$usuario->apellido2 = $request->apellido2;
+            if ($request->filled('fecha_nacimiento'))$usuario->fecha_nacimiento = $request->fecha_nacimiento;
+            if ($request->filled('gender'))$usuario->sexo = $request->gender;
+            
+            // Guardar la imagen en el servidor si se ha enviado
+            if ($request->hasFile('foto')) {
+                $imagen = $request->file('foto');
+                
+                // Eliminar la imagen existente si hay una
+                if ($usuario->foto) {
+                    Storage::delete($usuario->foto);
+                }
+            
+                // Obtener el tipo de contenido de la imagen
+                $tipoContenido = $imagen->getMimeType();
+            
+                // Convertir la imagen a base64 con el formato de URI de datos
+                $imagenBase64 = 'data:' . $tipoContenido . ';base64,' . base64_encode(file_get_contents($imagen->getRealPath()));
+            
+                // Guardar la imagen base64 en el campo 'foto' de la tabla de usuarios
+                $usuario->foto = $imagenBase64;
+            }
+            
+            // Obtener role
+            $rol = Role::where('name', $request->role)->first();
+            if ($rol) {
+                // Desasignar todos los roles actuales del usuario
+                $usuario->roles()->detach();
+                // Asignar el nuevo rol al usuario con el modelo_type correcto
+                $usuario->roles()->attach($rol, ['model_type' => User::class]);
+            }
+
+            $usuario->save();
+
+            // Actualizar paciente 
+            if ($request->filled('peso'))$paciente->peso = $request->peso;
+            if ($request->filled('altura'))$paciente->altura = $request->altura;
+            if ($request->filled('grupo_sanguineo'))$paciente->grupo_sanguineo = $request->grupo_sanguineo;
+            $paciente->save();
+
+            // Actualizar direcciones 
+            if ($request->filled('ciudad')) $direcciones->ciudad = $request->ciudad;
+            if ($request->filled('calle'))$direcciones->calle = $request->calle;
+            if ($request->filled('numero'))$direcciones->numero = $request->numero;
+            if ($request->filled('piso'))$direcciones->piso = $request->piso;
+            if ($request->filled('codigo_postal'))$direcciones->codigo_postal = $request->codigo_postal;
+            $direcciones->save();
+
+            // Actualizar correo 
+            if ($request->filled('correo_electronico'))$correos->correo_electronico = $request->correo_electronico;
+            $correos->save();
+
+            // actualizar telefono
+            if ($request->filled('numero_telefono'))$numeros_telefono->numero_telefono = $request->numero_telefono;
+            $numeros_telefono->save();
+            
+
+            // Actualizar persona de contacto 
+            if ($request->filled('contacto_nombre'))$contactos->nombre = $request->contacto_nombre;
+            if ($request->filled('contacto_numero'))$contactos->numero_telefono = $request->contacto_numero;
+            if ($request->filled('contacto_correo'))$contactos->correo_electronico = $request->contacto_correo;
+            $contactos->save();
+
+            return redirect()->route('profile');
+        }
+
+        return view('profile', [
+            'usuario' => $usuario,
+            'direcciones' => $direcciones,
+            'contactos_emergencia' => $contactos,
+            'correos_electronicos' => $correos,
+            'numeros_telefono' => $numeros_telefono,
+            'paciente' => $paciente,
+        ]);
+    }
+
 }
