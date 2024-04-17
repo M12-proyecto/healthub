@@ -5,7 +5,7 @@
 
 @section('content')
     @can('create', $citaModel)
-        <a href="{{ route('crearCita') }}" class="btn btn-primary mb-2">Crear citas</a>
+        <a href="{{ route('crearCita') }}" class="btn btn-primary mb-2">Crear cita</a>
     @endcan
     <div class="row row-cols-2">
         @if(count($citas) > 0)
@@ -67,7 +67,7 @@
                 </div>
             @endforeach
         @else
-            <p>No hay citas</p>
+            <h2 class="text-center">No hay citas</h2>
         @endif
     </div>
 @endsection

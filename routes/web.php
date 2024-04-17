@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitaController;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use App\Http\Controllers\InformeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,6 @@ Route::post('/citas/crear', [CitaController::class, 'create'])->name("crearCita"
 Route::post('/citas/editar/{cita}', [CitaController::class, 'update'])->name("editarCita")->middleware('verifyIfAuthenticated');
 
 Route::delete('/citas/eliminar/{cita}', [CitaController::class, 'delete'])->name("eliminarCita")->middleware('verifyIfAuthenticated');
+
+// Rutas para los informes
+Route::get('/informes', [InformeController::class, 'show'])->name('informes')->middleware('verifyIfAuthenticated');
