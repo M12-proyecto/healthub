@@ -20,13 +20,13 @@
                     <h4 class="text-right">Perfil</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-4"><label class="labels">Nombre</label><input type="text" name="nombre" class="form-control" value="{{ $usuario->nombre}}"></div>
-                    <div class="col-md-4"><label class="labels">primer apellido</label><input type="text" name="apellido1" class="form-control" value="{{ $usuario->apellido1 }}"></div>
-                    <div class="col-md-4"><label class="labels">segundo apellido</label><input type="text" name="apellido2" class="form-control" value="{{ $usuario->apellido2 }}"></div>
+                    <div class="col-md-4"><label class="labels">Nombre</label><input type="text" name="nombre" class="form-control" value="{{ $usuario->nombre ? $usuario->nombre : '' }}"></div>
+                    <div class="col-md-4"><label class="labels">primer apellido</label><input type="text" name="apellido1" class="form-control" value="{{ $usuario->apellido1 ? $usuario->apellido1 : '' }}"></div>
+                    <div class="col-md-4"><label class="labels">segundo apellido</label><input type="text" name="apellido2" class="form-control" value="{{ $usuario->apellido2 ? $usuario->apellido2 : '' }}"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">DNI</label><input type="text" name="dni" class="form-control" value="{{ $usuario->dni }}" readonly></div>
-                    <div class="col-md-12"><label class="labels">CIP</label><input type="text" name="cip" class="form-control" value="{{ $usuario->cip }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">DNI</label><input type="text" name="dni" class="form-control" value="{{ $usuario->dni ? $usuario->dni : '' }}" readonly></div>
+                    <div class="col-md-12"><label class="labels">CIP</label><input type="text" name="cip" class="form-control" value="{{ $usuario->cip ? $usuario->cip : '' }}" readonly></div>
                     @if($usuario->hasRole('Administrador') || $usuario->hasRole('Medico') ||  $usuario->hasRole('Recepcionista'))
                     <div class="col-md-12"><label class="labels">Cambiar contraseña</label><input type="password" name="change_password" placeholder="Escribe tu nueva contraseña" class="form-control"></div>
                     @endif
@@ -53,12 +53,12 @@
                     <input type="file" name="foto" alt="imagen de perfil" class="form-control mt-2">
                 </div>
                 </div>
-                <div class="col-md-12"><label class="labels">Número teléfono</label><input type="text" name="numero_telefono" class="form-control" value="{{ $numeros_telefono->numero_telefono }}"></div>
-                <div class="col-md-12"><label class="labels">Correo</label><input type="text" name="correo_electronico" class="form-control" value="{{ $correos_electronicos->correo_electronico }}"></div>
+                <div class="col-md-12"><label class="labels">Número teléfono</label><input type="text" name="numero_telefono" class="form-control" value="{{ $numeros_telefono->numero_telefono ? $numeros_telefono->numero_telefono : '' }}"></div>
+                <div class="col-md-12"><label class="labels">Correo</label><input type="text" name="correo_electronico" class="form-control" value="{{ $correos_electronicos->correo_electronico ? $correos_electronicos->correo_electronico : '' }}"></div>
                 <div class="row">
-                    <div class="col-md-6"><label class="labels">Cuidad</label><input type="text" name="ciudad" class="form-control" value="{{ $direcciones->ciudad }}"></div>
+                    <div class="col-md-6"><label class="labels">Cuidad</label><input type="text" name="ciudad" class="form-control" value="{{ $direcciones->ciudad ? $direcciones->ciudad : '' }}"></div>
                     <div class="col-md-6"><label class="labels">Código postal</label>
-                        <input type="text" name="codigo_postal" class="form-control" value="{{ $direcciones->codigo_postal }}">
+                        <input type="text" name="codigo_postal" class="form-control" value="{{ $direcciones->codigo_postal ? $direcciones->codigo_postal : '' }}">
                         <input type="text" name="user" class="form-control d-none" value="{{ $usuario }}">
                     </div>
                 </div>
@@ -67,13 +67,14 @@
         </div>
         <div class="col-md-4">
             <div class="p-3">
-                <div class="col-md-12"><label class="labels">Calle</label><input type="text" name="calle" class="form-control" value="{{ $direcciones->calle }}"></div> <br>
-                <div class="col-md-12"><label class="labels">Piso</label><input type="text" name="piso" class="form-control" value="{{ $direcciones->piso }}"></div>
-                <div class="col-md-12"><label class="labels">Número</label><input type="text" name="numero" class="form-control" value="{{ $direcciones->numero }}"></div>
+                <div class="col-md-12"><label class="labels">Calle</label><input type="text" name="calle" class="form-control" value="{{ $direcciones->calle ? $direcciones->calle : '' }}"></div> <br>
+                <div class="col-md-12"><label class="labels">Piso</label><input type="text" name="piso" class="form-control" value="{{ $direcciones->piso ? $direcciones->piso : '' }}"></div>
+                <div class="col-md-12"><label class="labels">Número</label><input type="text" name="numero" class="form-control" value="{{ $direcciones->numero ? $direcciones->numero : '' }}"></div>
             </div>
+            @if($usuario->hasRole('Paciente'))
             <div class="p-3">
-                <div class="col-md-12"><label class="labels">Peso</label><input type="text" name="peso" class="form-control" value="{{ $paciente->peso }}"></div> <br>
-                <div class="col-md-12"><label class="labels">Altura</label><input type="text" name="altura" class="form-control" value="{{ $paciente->altura }}"></div>
+                <div class="col-md-12"><label class="labels">Peso</label><input type="text" name="peso" class="form-control" value="{{ $paciente->peso ? $paciente->peso : ''  }}"></div> <br>
+                <div class="col-md-12"><label class="labels">Altura</label><input type="text" name="altura" class="form-control" value="{{ $paciente->altura ? $paciente->altura : '' }}"></div>
                 <div class="col-md-12"><label class="labels">Grupo sanguineo</label>
                     <select class="form-control" id="grupo_sanguineo" name="grupo_sanguineo">
                         <option value="A+" {{ $paciente->grupo_sanguineo == 'A+' ? 'selected' : ''}}>A+</option>
@@ -89,10 +90,11 @@
             </div>
             <div class="p-3">
                 <label class="labels">Contactos de emergencia</label>
-                <div class="col-md-12"><label class="labels">Nombre</label><input type="text" name="contacto_nombre" class="form-control" value="{{ $contactos_emergencia->nombre }}"></div> <br>
-                <div class="col-md-12"><label class="labels">Número de teléfono</label><input type="text" name="contacto_numero" class="form-control" value="{{ $contactos_emergencia->numero_telefono }}"></div>
-                <div class="col-md-12"><label class="labels">correo electronico</label><input type="text" name="contacto_correo" class="form-control" value="{{ $contactos_emergencia->correo_electronico }}"></div>
+                <div class="col-md-12"><label class="labels">Nombre</label><input type="text" name="contacto_nombre" class="form-control" value="{{ $contactos_emergencia->nombre ? $contactos_emergencia->nombre : ''}}"></div> <br>
+                <div class="col-md-12"><label class="labels">Número de teléfono</label><input type="text" name="contacto_numero" class="form-control" value="{{ $contactos_emergencia->numero_telefono ? $contactos_emergencia->numero_telefono : '' }}"></div>
+                <div class="col-md-12"><label class="labels">correo electronico</label><input type="text" name="contacto_correo" class="form-control" value="{{ $contactos_emergencia->correo_electronico ? $contactos_emergencia->correo_electronico : '' }}"></div>
             </div>
+            @endif
         </div>
     </form>
 </div>
