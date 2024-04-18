@@ -56,7 +56,6 @@
                 <div class="col-md-12"><label class="labels">Número teléfono</label><input type="text" name="numero_telefono" class="form-control" value="{{ $numeros_telefono->numero_telefono ? $numeros_telefono->numero_telefono : '' }}"></div>
                 <div class="col-md-12"><label class="labels">Correo</label><input type="text" name="correo_electronico" class="form-control" value="{{ $correos_electronicos->correo_electronico ? $correos_electronicos->correo_electronico : '' }}"></div>
                 <div class="row">
-                    <div class="col-md-6"><label class="labels">Ciudad</label><input type="text" name="ciudad" class="form-control" value="{{ $direcciones->ciudad }}"></div>
                     <div class="col-md-6"><label class="labels">Cuidad</label><input type="text" name="ciudad" class="form-control" value="{{ $direcciones->ciudad ? $direcciones->ciudad : '' }}"></div>
                     <div class="col-md-6"><label class="labels">Código postal</label>
                         <input type="text" name="codigo_postal" class="form-control" value="{{ $direcciones->codigo_postal ? $direcciones->codigo_postal : '' }}">
