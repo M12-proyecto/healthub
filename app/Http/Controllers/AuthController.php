@@ -176,7 +176,7 @@ class AuthController extends Controller
                 'correo_electronico' => 'string|max:255',
                 'ciudad' => 'string|max:255',
                 'calle' => 'string|max:255',
-                'piso' => 'numeric',
+                'piso' => 'string|max:255',
                 'numero' => 'numeric',
                 'peso' => 'numeric',
                 'codigo_postal' => 'numeric',
@@ -195,6 +195,7 @@ class AuthController extends Controller
             if ($request->filled('apellido2'))$usuario->apellido2 = $request->apellido2;
             if ($request->filled('fecha_nacimiento'))$usuario->fecha_nacimiento = $request->fecha_nacimiento;
             if ($request->filled('gender'))$usuario->sexo = $request->gender;
+            if ($request->filled('change_password'))$usuario->password = Hash::make($request->change_password);
             
             // Guardar la imagen en el servidor si se ha enviado
             if ($request->hasFile('foto')) {
