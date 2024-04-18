@@ -176,7 +176,7 @@ class AuthController extends Controller
                 'correo_electronico' => 'string|max:255',
                 'ciudad' => 'string|max:255',
                 'calle' => 'string|max:255',
-                'piso' => 'numeric',
+                'piso' => 'string|max:255',
                 'numero' => 'numeric',
                 'peso' => 'numeric',
                 'codigo_postal' => 'numeric',
