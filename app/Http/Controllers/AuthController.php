@@ -144,8 +144,8 @@ class AuthController extends Controller
         session()->forget('user');
         session()->forget('token');
         session()->forget('role');
-        
-       return redirect()->route('login');
+
+        return redirect()->route('login');
     }
 
     public function profile(Request $request)

@@ -35,7 +35,7 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <p class="text-muted mb-0">Citas</p>
-                                                <h5 class="font-size-15">1</h5>
+                                                <h5 class="font-size-15">{{ count($citas) }}</h5>
                                             </div>
                                             <div class="col-6">
                                                 <p class="text-muted mb-0">Chats</p>
@@ -59,7 +59,7 @@
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <p class="text-muted fw-medium">Citas</p>
-                                            <h4 class="mb-0">0</h4>
+                                            <h4 class="mb-0">{{ count($citas) }}</h4>
                                         </div>
                                         <div class="flex-shrink-0 align-self-center ">
                                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">

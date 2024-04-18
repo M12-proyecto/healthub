@@ -158,7 +158,7 @@
                                                     <h6 class="mb-1" key="t-your-order">{{$cita->asunto}}</h6>
                                                     <div class="font-size-12 text-muted">
                                                         <p class="mb-1" key="t-grammer">Cita el {{$cita->fecha}} a las {{$cita->hora}} en {{$cita->ubicacion}}</p>
-                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">Hace 3 min</span></p>
+                                                        <!-- <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">Hace 3 min</span></p> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,7 +226,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="apps-filemanager.html" class="waves-effect">
+                            <a href="{{ route('informes') }}" class="waves-effect">
                                 <i class="bx bx-file"></i>
                                 <span key="t-file-manager">Informes</span>
                             </a>

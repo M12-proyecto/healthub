@@ -21,8 +21,8 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-4"><label class="labels">Nombre</label><input type="text" name="nombre" class="form-control" value="{{ $usuario->nombre ? $usuario->nombre : '' }}"></div>
-                    <div class="col-md-4"><label class="labels">primer apellido</label><input type="text" name="apellido1" class="form-control" value="{{ $usuario->apellido1 ? $usuario->apellido1 : '' }}"></div>
-                    <div class="col-md-4"><label class="labels">segundo apellido</label><input type="text" name="apellido2" class="form-control" value="{{ $usuario->apellido2 ? $usuario->apellido2 : '' }}"></div>
+                    <div class="col-md-4"><label class="labels">Primer apellido</label><input type="text" name="apellido1" class="form-control" value="{{ $usuario->apellido1 ? $usuario->apellido1 : '' }}"></div>
+                    <div class="col-md-4"><label class="labels">Segundo apellido</label><input type="text" name="apellido2" class="form-control" value="{{ $usuario->apellido2 ? $usuario->apellido2 : '' }}"></div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">DNI</label><input type="text" name="dni" class="form-control" value="{{ $usuario->dni ? $usuario->dni : '' }}" readonly></div>
@@ -56,6 +56,7 @@
                 <div class="col-md-12"><label class="labels">Número teléfono</label><input type="text" name="numero_telefono" class="form-control" value="{{ $numeros_telefono->numero_telefono ? $numeros_telefono->numero_telefono : '' }}"></div>
                 <div class="col-md-12"><label class="labels">Correo</label><input type="text" name="correo_electronico" class="form-control" value="{{ $correos_electronicos->correo_electronico ? $correos_electronicos->correo_electronico : '' }}"></div>
                 <div class="row">
+                    <div class="col-md-6"><label class="labels">Ciudad</label><input type="text" name="ciudad" class="form-control" value="{{ $direcciones->ciudad }}"></div>
                     <div class="col-md-6"><label class="labels">Cuidad</label><input type="text" name="ciudad" class="form-control" value="{{ $direcciones->ciudad ? $direcciones->ciudad : '' }}"></div>
                     <div class="col-md-6"><label class="labels">Código postal</label>
                         <input type="text" name="codigo_postal" class="form-control" value="{{ $direcciones->codigo_postal ? $direcciones->codigo_postal : '' }}">
@@ -92,7 +93,7 @@
                 <label class="labels">Contactos de emergencia</label>
                 <div class="col-md-12"><label class="labels">Nombre</label><input type="text" name="contacto_nombre" class="form-control" value="{{ $contactos_emergencia->nombre ? $contactos_emergencia->nombre : ''}}"></div> <br>
                 <div class="col-md-12"><label class="labels">Número de teléfono</label><input type="text" name="contacto_numero" class="form-control" value="{{ $contactos_emergencia->numero_telefono ? $contactos_emergencia->numero_telefono : '' }}"></div>
-                <div class="col-md-12"><label class="labels">correo electronico</label><input type="text" name="contacto_correo" class="form-control" value="{{ $contactos_emergencia->correo_electronico ? $contactos_emergencia->correo_electronico : '' }}"></div>
+                <div class="col-md-12"><label class="labels">Correo electronico</label><input type="text" name="contacto_correo" class="form-control" value="{{ $contactos_emergencia->correo_electronico ? $contactos_emergencia->correo_electronico : '' }}"></div>
             </div>
             @endif
         </div>
