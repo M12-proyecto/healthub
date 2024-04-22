@@ -126,4 +126,19 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')
             ->where('model_type', User::class);
     }
+
+    public function getInformes() {
+        $user = User::getAuthenticatedUser();
+        $userRole = User::getRole();
+
+        if($userRole === 'Medico') {
+            $informes = Informe::where('medico_id', $user->id)->get();
+        }elseif ($userRole === 'Paciente') {
+            $informes = Informe::where('paciente_id', $user->id)->get();
+        }else {
+            $informes = Informe::all();
+        }
+
+        return $informes;
+    }
 }

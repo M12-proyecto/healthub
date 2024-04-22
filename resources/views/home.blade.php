@@ -11,7 +11,7 @@
                             <div class="row">
                                 <div class="col-7">
                                     <div class="text-primary p-3">
-                                        <h5 class="text-primary">Bienvenida {{ $usuario->nombre }}!</h5>
+                                        <h5 class="text-primary">{{ $usuario->sexo === 'Hombre' ? 'Bienvenido' : 'Bienvenida'}} {{ $usuario->nombre }}!</h5>
                                         <p>Poner algo aqui</p>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <p class="text-muted fw-medium">Informes</p>
-                                            <h4 class="mb-0">0</h4>
+                                            <h4 class="mb-0">{{ count($usuario->getInformes()) }}</h4>
                                         </div>
                                         <div class="flex-shrink-0 align-self-center ">
                                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">

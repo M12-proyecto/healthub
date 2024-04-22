@@ -16,7 +16,7 @@ class CitaPolicy
 
     public function create() {
         $userRole = User::getRole();
-        $allowedRoles = ['Administrador', 'Medico', 'Recepcionista'];
+        $allowedRoles = ['Administrador', 'Medico', 'Recepcionista', 'Paciente'];
 
         return in_array($userRole, $allowedRoles);
     }
@@ -27,14 +27,14 @@ class CitaPolicy
 
     public function update() {
         $userRole = User::getRole();
-        $allowedRoles = ['Administrador', 'Medico', 'Recepcionista'];
+        $allowedRoles = ['Administrador', 'Medico', 'Recepcionista', 'Paciente'];
 
         return in_array($userRole, $allowedRoles);
     }
 
     public function delete() {
         $userRole = User::getRole();
-        $allowedRoles = ['Administrador', 'Medico', 'Recepcionista'];
+        $allowedRoles = ['Administrador', 'Medico', 'Recepcionista', 'Paciente'];
 
         return in_array($userRole, $allowedRoles);
     }
