@@ -91,6 +91,40 @@ class User extends Authenticatable
         return $rol->name;
     }
 
+    /**
+     * Get the authenticated user reports
+     *
+     * @return Informe[]
+     */
+    public function getInformes() {
+        $user = User::getAuthenticatedUser();
+        $userRole = User::getRole();
+
+        if($userRole === 'Medico') {
+            $informes = Informe::where('medico_id', $user->id)->get();
+        }elseif ($userRole === 'Paciente') {
+            $informes = Informe::where('paciente_id', $user->id)->get();
+        }else {
+            $informes = Informe::all();
+        }
+
+        return $informes;
+    }
+
+    /**
+     * Get the authenticated user data
+     */
+    public function getDatosPaciente() {
+        $usuario = User::getAuthenticatedUser();
+
+        $datos = DB::table('pacientes')
+            ->where('usuario_id', '=', $usuario->id)
+            ->select('pacientes.*')
+            ->first();
+
+        return $datos;
+    }
+
      /**
      * Get the name of the unique identifier for the user.
      *
@@ -125,20 +159,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')
             ->where('model_type', User::class);
-    }
-
-    public function getInformes() {
-        $user = User::getAuthenticatedUser();
-        $userRole = User::getRole();
-
-        if($userRole === 'Medico') {
-            $informes = Informe::where('medico_id', $user->id)->get();
-        }elseif ($userRole === 'Paciente') {
-            $informes = Informe::where('paciente_id', $user->id)->get();
-        }else {
-            $informes = Informe::all();
-        }
-
-        return $informes;
     }
 }

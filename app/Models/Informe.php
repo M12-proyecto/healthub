@@ -58,4 +58,18 @@ class Informe extends Model
     {
         return $this->belongsTo(User::class, 'medico_id');
     }
+
+    public static function formatTimestamp($timestamp) {
+        // Convertir el timestamp al nuevo formato "d-m-Y H:i:s"
+        $newTimestamp = date("d-m-Y H:i:s", strtotime($timestamp));
+
+        return $newTimestamp;
+    }
+
+    public static function formatDate($date) {
+        // Convertir la fecha al nuevo formato "d-m-Y"
+        $newDate = date("d-m-Y", strtotime($date));
+
+        return $newDate;
+    }
 }

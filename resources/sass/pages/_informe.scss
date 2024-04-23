@@ -1,0 +1,42 @@
+// Estilos para la pagina principal de los informes
+#informes #tabla-informes {
+    thead tr th {
+        background-color: #2a3042 !important;
+        color: white;
+    }
+
+    tbody tr td {
+        vertical-align: middle;
+    }
+}
+
+// Estilos para la vista individual de cada informe
+#informe {
+    #informe-encabezado {
+        background-color: #2a3042;
+        color: #a6b0cf !important;
+
+        div h2 {
+            font-size: 20px;
+            color: #a6b0cf;
+        }
+    }
+
+    #informe-contenido {
+        background-color: white;
+
+        .subtitol-informe {
+            background-color: #74788d;
+            padding: 1rem;
+            color: white;
+        }
+
+        span {
+            font-weight: normal;
+        }
+
+        p {
+            font-size: 1.015625rem;
+        }
+    }
+}

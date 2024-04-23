@@ -3,4 +3,35 @@
   font-size: 20px;
 }
 
+#informes #tabla-informes thead tr th {
+  background-color: #2a3042 !important;
+  color: white;
+}
+#informes #tabla-informes tbody tr td {
+  vertical-align: middle;
+}
+
+#informe #informe-encabezado {
+  background-color: #2a3042;
+  color: #a6b0cf !important;
+}
+#informe #informe-encabezado div h2 {
+  font-size: 20px;
+  color: #a6b0cf;
+}
+#informe #informe-contenido {
+  background-color: white;
+}
+#informe #informe-contenido .subtitol-informe {
+  background-color: #74788d;
+  padding: 1rem;
+  color: white;
+}
+#informe #informe-contenido span {
+  font-weight: normal;
+}
+#informe #informe-contenido p {
+  font-size: 1.015625rem;
+}
+
 /*# sourceMappingURL=main.css.map */

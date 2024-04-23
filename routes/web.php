@@ -66,3 +66,7 @@ Route::delete('/citas/eliminar/{cita}', [CitaController::class, 'delete'])->name
 
 // Rutas para los informes
 Route::get('/informes', [InformeController::class, 'show'])->name('informes')->middleware('verifyIfAuthenticated');
+Route::get('/informes/{informe}', [InformeController::class, 'read'])->name('verInforme')->middleware('verifyIfAuthenticated');
+Route::get('/informes/crear', [InformeController::class, 'create'])->name('crearInforme')->middleware('verifyIfAuthenticated');
+
+Route::post('/informes/crear', [InformeController::class, 'create'])->name('crearInforme')->middleware('verifyIfAuthenticated');

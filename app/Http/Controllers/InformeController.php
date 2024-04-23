@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Informe;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,22 @@ class InformeController extends Controller
      */
     public function show()
     {
-        $informes = Informe::all();
+        $usuario = User::getAuthenticatedUser();
+        $rolUsuario = User::getRole();
+
+        if($rolUsuario === 'Medico') {
+            $informes = Informe::where('medico_id', $usuario->id)->orderBy('created_at')->get();
+        }else if($rolUsuario === 'Paciente') {
+            $informes = Informe::where('paciente_id', $usuario->id)->orderBy('created_at')->get();
+        }else {
+            $informes = Informe::orderBy('created_at')->get();
+        }
+
+        if($informes) {
+            foreach ($informes as $informe) {
+                $informe->created_at = Informe::formatTimestamp($informe->created_at);
+            }
+        }
 
         return view('informes/informes')->with(["informes" => $informes]);
     }
@@ -32,7 +48,12 @@ class InformeController extends Controller
      */
     public function read(Informe $informe)
     {
-        //
+        if($informe) {
+            $informe->paciente->fecha_nacimiento = Informe::formatDate($informe->paciente->fecha_nacimiento);
+            $informe->created_at = Informe::formatTimestamp($informe->created_at);
+        }
+
+        return view('informes/verInforme')->with(['informe' => $informe]);
     }
 
     /**
