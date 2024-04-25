@@ -232,7 +232,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="apps-filemanager.html" class="waves-effect">
+                            <a href="{{ route('resultados') }}" class="waves-effect">
                                 <i class="bx bx-file"></i>
                                 <span key="t-file-manager">Resultados</span>
                             </a>

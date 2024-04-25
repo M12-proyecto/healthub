@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\InformeController;
+use App\Http\Controllers\ResultadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,3 +67,11 @@ Route::delete('/citas/eliminar/{cita}', [CitaController::class, 'delete'])->name
 
 // Rutas para los informes
 Route::get('/informes', [InformeController::class, 'show'])->name('informes')->middleware('verifyIfAuthenticated');
+
+//Resultado
+Route::get('/resultados', [ResultadoController::class, 'show'])->name('resultados')->middleware('verifyIfAuthenticated');
+Route::get('/resultados/crear', [ResultadoController::class, 'create'])->name("crearResultado")->middleware('verifyIfAuthenticated');
+Route::post('/resultados/crear', [ResultadoController::class, 'create'])->name("crearResultado")->middleware('verifyIfAuthenticated');
+Route::get('/resultados/editar/{resultado}', [ResultadoController::class, 'update'])->name("editarResultado")->middleware('verifyIfAuthenticated');
+Route::post('/resultados/editar/{resultado}', [ResultadoController::class, 'update'])->name("editarResultado")->middleware('verifyIfAuthenticated');
+Route::delete('/resultados/eliminar/{resultado}', [ResultadoController::class, 'delete'])->name("eliminarResultado")->middleware('verifyIfAuthenticated');
