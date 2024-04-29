@@ -1,0 +1,28 @@
+// Estilos pagina principal de citas
+#citas {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    .card-cita {
+        width: 50%;
+
+        .card-cita-header {
+            background-color: #2a3042;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px 5px 0px 0px;
+        }
+    }
+}
+
+/* Estilos específicos para tablets y pantallas más grandes */
+@media screen and (max-width: 1300px) {
+    #citas {
+        flex-direction: column;
+
+        .card-cita {
+            width: 100%;
+        }
+    }
+}

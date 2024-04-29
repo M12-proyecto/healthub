@@ -1,14 +1,51 @@
+@charset "UTF-8";
 .navigation-logo {
   color: white;
   font-size: 20px;
 }
 
+#citas {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+#citas .card-cita {
+  width: 50%;
+}
+#citas .card-cita .card-cita-header {
+  background-color: #2a3042;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px 5px 0px 0px;
+}
+
+/* Estilos específicos para tablets y pantallas más grandes */
+@media screen and (max-width: 1300px) {
+  #citas {
+    flex-direction: column;
+  }
+  #citas .card-cita {
+    width: 100%;
+  }
+}
 #informes #tabla-informes thead tr th {
   background-color: #2a3042 !important;
   color: white;
 }
+#informes #tabla-informes thead tr th:first-child {
+  border-radius: 5px 0px 0px 0px;
+}
+#informes #tabla-informes thead tr th:last-child {
+  border-radius: 0px 5px 0px 0px;
+}
 #informes #tabla-informes tbody tr td {
   vertical-align: middle;
+}
+#informes #tabla-informes tbody tr:last-child td:first-child {
+  border-radius: 0px 0px 0px 5px;
+}
+#informes #tabla-informes tbody tr:last-child td:last-child {
+  border-radius: 0px 0px 5px 0px;
 }
 
 #informe #informe-encabezado {
@@ -32,6 +69,15 @@
 }
 #informe #informe-contenido p {
   font-size: 1.015625rem;
+}
+
+#resultados {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#resultados .card-resultado {
+  width: 50%;
 }
 
 /*# sourceMappingURL=main.css.map */

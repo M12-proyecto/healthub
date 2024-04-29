@@ -134,8 +134,10 @@ class User extends Authenticatable
     /**
      * Get the authenticated user data
      */
-    public function getDatosPaciente() {
-        $usuario = User::getAuthenticatedUser();
+    public function getDatosPaciente(User $usuario = null) {
+        if(!$usuario) {
+            $usuario = User::getAuthenticatedUser();
+        }
 
         $datos = DB::table('pacientes')
             ->where('usuario_id', '=', $usuario->id)

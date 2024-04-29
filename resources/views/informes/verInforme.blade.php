@@ -44,13 +44,13 @@
                     <h5>Sexo: <span>{{ $informe->paciente->sexo }}</span></h5>
                 </div>
                 <div class="col-md-3">
-                    <h5>Peso: <span>{{ $informe->paciente->getDatosPaciente()->peso }} kg</span></h5>
+                    <h5>Peso: <span>{{ $informe->paciente->getDatosPaciente($informe->paciente)->peso }} kg</span></h5>
                 </div>
                 <div class="col-md-3">
-                    <h5>Altura: <span>{{ $informe->paciente->getDatosPaciente()->altura }} m</span></h5>
+                    <h5>Altura: <span>{{ $informe->paciente->getDatosPaciente($informe->paciente)->altura }} m</span></h5>
                 </div>
                 <div class="col-md-3">
-                    <h5>Grupo sanguineo: <span>{{ $informe->paciente->getDatosPaciente()->grupo_sanguineo }}</span></h5>
+                    <h5>Grupo sanguineo: <span>{{ $informe->paciente->getDatosPaciente($informe->paciente)->grupo_sanguineo }}</span></h5>
                 </div>
             </div>
         </div>

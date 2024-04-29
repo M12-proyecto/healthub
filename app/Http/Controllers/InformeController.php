@@ -23,7 +23,10 @@ class InformeController extends Controller
             }
         }
 
-        return view('informes/informes')->with(["informes" => $informes]);
+        return view('informes/informes')->with([
+            "informes" => $informes,
+            "informeModel" => Informe::class
+        ]);
     }
 
     /**

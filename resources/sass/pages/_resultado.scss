@@ -1,0 +1,10 @@
+// Estilos pagina principal de citas
+#resultados {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .card-resultado {
+        width: 50%;
+    }
+}

@@ -4,7 +4,9 @@
 @section('page', 'Informes')
 
 @section('content')
-    <a href="{{ route('crearInforme') }}" class="btn btn-primary mb-2">Crear informe</a>
+    @can('create', $informeModel)
+        <a href="{{ route('crearInforme') }}" class="btn btn-primary mb-2">Crear informe</a>
+    @endcan
     @if(count($informes) > 0)
         <div id="informes" class="table-responsive">
             <table id="tabla-informes" class="table table-hover">
@@ -31,17 +33,23 @@
                             <td>{{ $informe->centro }}</td>
                             <td>{{ $informe->created_at }}</td>
                             <td>
-                                <a href="{{ route('verInforme', $informe) }}" class="btn btn-secondary">Ver</a>
+                                @can('read', $informeModel)
+                                    <a href="{{ route('verInforme', $informe) }}" class="btn btn-secondary">Ver</a>
+                                @endcan
                             </td>
                             <td>
-                                <a href="{{ route('editarInforme', $informe) }}" class="btn btn-primary">Editar</a>
+                                @can('update', $informeModel)
+                                    <a href="{{ route('editarInforme', $informe) }}" class="btn btn-primary">Editar</a>
+                                @endcan
                             </td>
                             <td>
-                                <form method="POST" action="{{ route('eliminarInforme', $informe) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" name="eliminarInformeForm" class="btn btn-danger" value="Eliminar">
-                                </form>
+                                @can('delete', $informeModel)
+                                    <form method="POST" action="{{ route('eliminarInforme', $informe) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" name="eliminarInformeForm" class="btn btn-danger" value="Eliminar">
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
