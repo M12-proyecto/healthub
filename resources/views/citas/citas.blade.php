@@ -16,13 +16,13 @@
                             {{$cita->asunto}}
                             <div class="d-flex gap-1">
                                 @can('update', $citaModel)
-                                    <a href="{{ route('editarCita', $cita) }}" class="btn btn-secondary">Editar cita</a>
+                                    <a href="{{ route('editarCita', $cita) }}" class="btn btn-primary">Editar</a>
                                 @endcan
                                 @can('delete', $citaModel)
                                     <form method="POST" action="{{ route('eliminarCita', $cita) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="submit" name="eliminarCitaForm" class="btn btn-danger" value="Eliminar cita">
+                                        <input type="submit" name="eliminarCitaForm" class="btn btn-danger" value="Eliminar">
                                     </form>
                                 @endcan
                             </div>

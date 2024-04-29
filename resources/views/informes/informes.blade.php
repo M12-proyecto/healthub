@@ -4,6 +4,7 @@
 @section('page', 'Informes')
 
 @section('content')
+    <a href="{{ route('crearInforme') }}" class="btn btn-primary mb-2">Crear informe</a>
     @if(count($informes) > 0)
         <div id="informes" class="table-responsive">
             <table id="tabla-informes" class="table table-hover">
@@ -30,18 +31,16 @@
                             <td>{{ $informe->centro }}</td>
                             <td>{{ $informe->created_at }}</td>
                             <td>
-                                <form action="{{ route('verInforme', $informe) }}">
-                                    <input type="submit" class="btn btn-secondary" value="Ver">
-                                </form>
+                                <a href="{{ route('verInforme', $informe) }}" class="btn btn-secondary">Ver</a>
                             </td>
                             <td>
-                                <form action="">
-                                    <input type="submit" class="btn btn-primary" value="Editar">
-                                </form>
+                                <a href="{{ route('editarInforme', $informe) }}" class="btn btn-primary">Editar</a>
                             </td>
                             <td>
-                                <form action="">
-                                    <input type="submit" class="btn btn-danger" value="Eliminar">
+                                <form method="POST" action="{{ route('eliminarInforme', $informe) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" name="eliminarInformeForm" class="btn btn-danger" value="Eliminar">
                                 </form>
                             </td>
                         </tr>
@@ -50,6 +49,6 @@
             </table>
         </div>
     @else
-        <h2>No hay informes</h2>
+        <h2 class="text-center">No hay informes</h2>
     @endif
 @endsection

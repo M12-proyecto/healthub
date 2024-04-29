@@ -71,7 +71,7 @@
         </div>
         <div class="col-md-12">
             <label for="inputNotas" class="form-label">Notas</label>
-            <textarea class="form-control" id="inputNotas" name="notas" placeholder="Información adicional aqui ..." cols="30" rows="10">{{ old('notas') }}</textarea>
+            <textarea class="form-control" id="inputNotas" name="notas" placeholder="Información adicional aqui ..." rows="6">{{ old('notas') }}</textarea>
             @error('notas')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror

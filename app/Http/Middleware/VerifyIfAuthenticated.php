@@ -34,16 +34,8 @@ class VerifyIfAuthenticated
 
         if($request->session()->has('user')) {
             $usuario = User::getAuthenticatedUser();
-            $userRole = User::getRole();
-
-            if($userRole === 'Medico') {
-                $citas = Cita::where('medico_id', $usuario->id)->orderBy('fecha')->orderBy('hora')->get();
-            }else if($userRole === 'Paciente') {
-                $citas = Cita::where('paciente_id', $usuario->id)->orderBy('fecha')->orderBy('hora')->get();
-            }else {
-                $citas = Cita::orderBy('fecha')->orderBy('hora')->get();
-            }
-    
+            $citas = User::getCitas();
+            
             if($citas) {
                 foreach($citas as $cita) {
                     $cita->paciente_id = User::find($cita->paciente_id);

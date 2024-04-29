@@ -27,8 +27,7 @@ class Informe extends Model
         'enfermedad_actual',
         'diagnostico',
         'procedimiento',
-        'tratamiento',
-        'fecha_alta'
+        'tratamiento'
     ];
 
     /**

@@ -54,6 +54,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // profile
 Route::get('/profile', [AuthController::class, 'profile'])->name('profile')->middleware('verifyIfAuthenticated');
 Route::post('/profile', [AuthController::class, 'profile'])->name('profile')->middleware('verifyIfAuthenticated');
+
 // Rutas para las citas
 Route::get('/citas', [CitaController::class, 'show'])->name("citas")->middleware('verifyIfAuthenticated');
 Route::get('/citas/crear', [CitaController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');
@@ -66,7 +67,11 @@ Route::delete('/citas/eliminar/{cita}', [CitaController::class, 'delete'])->name
 
 // Rutas para los informes
 Route::get('/informes', [InformeController::class, 'show'])->name('informes')->middleware('verifyIfAuthenticated');
-Route::get('/informes/{informe}', [InformeController::class, 'read'])->name('verInforme')->middleware('verifyIfAuthenticated');
 Route::get('/informes/crear', [InformeController::class, 'create'])->name('crearInforme')->middleware('verifyIfAuthenticated');
+Route::get('/informes/{informe}', [InformeController::class, 'read'])->name('verInforme')->middleware('verifyIfAuthenticated');
+Route::get('/informes/editar/{informe}', [InformeController::class, 'update'])->name('editarInforme')->middleware('verifyIfAuthenticated');
 
 Route::post('/informes/crear', [InformeController::class, 'create'])->name('crearInforme')->middleware('verifyIfAuthenticated');
+Route::post('/informes/editar/{informe}', [InformeController::class, 'update'])->name('editarInforme')->middleware('verifyIfAuthenticated');
+
+Route::delete('/informes/eliminar/{informe}', [InformeController::class, 'delete'])->name('eliminarInforme')->middleware('verifyIfAuthenticated');

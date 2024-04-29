@@ -92,20 +92,40 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the authenticated user appointments
+     *
+     * @return Citas[]
+     */
+    public static function getCitas() {
+        $usuario = User::getAuthenticatedUser();
+        $rolUsuario = User::getRole();
+
+        if($rolUsuario === 'Medico') {
+            $citas = Cita::where('medico_id', $usuario->id)->orderBy('fecha')->orderBy('hora')->get();
+        }else if($rolUsuario === 'Paciente') {
+            $citas = Cita::where('paciente_id', $usuario->id)->orderBy('fecha')->orderBy('hora')->get();
+        }else {
+            $citas = Cita::orderBy('fecha')->orderBy('hora')->get();
+        }
+
+        return $citas;
+    }
+
+    /**
      * Get the authenticated user reports
      *
      * @return Informe[]
      */
-    public function getInformes() {
-        $user = User::getAuthenticatedUser();
-        $userRole = User::getRole();
+    public static function getInformes() {
+        $usuario = User::getAuthenticatedUser();
+        $rolUsuario = User::getRole();
 
-        if($userRole === 'Medico') {
-            $informes = Informe::where('medico_id', $user->id)->get();
-        }elseif ($userRole === 'Paciente') {
-            $informes = Informe::where('paciente_id', $user->id)->get();
+        if($rolUsuario === 'Medico') {
+            $informes = Informe::where('medico_id', $usuario->id)->orderBy('created_at')->get();
+        }else if($rolUsuario === 'Paciente') {
+            $informes = Informe::where('paciente_id', $usuario->id)->orderBy('created_at')->get();
         }else {
-            $informes = Informe::all();
+            $informes = Informe::orderBy('created_at')->get();
         }
 
         return $informes;
