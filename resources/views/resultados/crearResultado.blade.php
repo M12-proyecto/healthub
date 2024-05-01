@@ -9,7 +9,7 @@
         @csrf
 
         <div class="col-md-4">
-            <label for="inputPaciente" class="form-label">Paciente</label>
+            <label for="inputPaciente" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Paciente <span class="campo-obligatorio">*</span></label>
             <select class="form-select" id="inputPaciente" name="paciente_id">
                 @if(count($pacientes) > 0)
                     <option {{ $errors->has('paciente_id') ? 'selected' : '' }}>Seleccionar paciente...</option>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-md-4">
-            <label for="inputMedico" class="form-label">Medico</label>
+            <label for="inputMedico" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Medico <span class="campo-obligatorio">*</span></label>
             <select class="form-select" id="inputMedico" name="medico_id">
                 @if(count($medicos) > 0)
                     <option {{ $errors->has('medico_id') ? 'selected' : '' }}>Seleccionar medico...</option>
@@ -42,28 +42,28 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputCentro" class="form-label">Centro</label>
+            <label for="inputCentro" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Centro <span class="campo-obligatorio">*</span></label>
             <input type="text" class="form-control" id="inputCentro" name="centro" placeholder="Nombre centro médico" value="{{ old('centro') }}">
             @error('centro')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputFecha" class="form-label">Fecha</label>
+            <label for="inputFecha" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Fecha <span class="campo-obligatorio">*</span></label>
             <input type="date" class="form-control" id="inputFecha" name="fecha" value="{{ old('fecha') }}">
             @error('fecha')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputPrueba" class="form-label">Prueba</label>
+            <label for="inputPrueba" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Prueba <span class="campo-obligatorio">*</span></label>
             <input type="text" class="form-control" id="inputPrueba" name="prueba" placeholder="Prueba realizada ..." value="{{ old('prueba') }}">
             @error('prueba')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputResultado" class="form-label">Resulado</label>
+            <label for="inputResultado" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Resultado <span class="campo-obligatorio">*</span></label>
             <input type="text" class="form-control" id="inputResultado" name="resultado" placeholder="Resultado de la prueba ..." value="{{ old('resultado') }}">
             @error('resultado')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
@@ -77,8 +77,8 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputValoresNormalidad" class="form-label">Valores Normalidad</label>
-            <input type="text" class="form-control" id="inputValoresNormalidad" name="valores_normalidad" placeholder="Valores normalida" value="{{ old('valores_normalidad') }}">
+            <label for="inputValoresNormalidad" class="form-label">Valores normalidad</label>
+            <input type="text" class="form-control" id="inputValoresNormalidad" name="valores_normalidad" placeholder="Valores normalidad" value="{{ old('valores_normalidad') }}">
             @error('valores_normalidad')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
@@ -91,7 +91,7 @@
             @enderror
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary" name="crearResuladoForm">Crear Resultado</button>
+            <button type="submit" class="btn btn-primary" name="crearResultadoForm">Crear Resultado</button>
         </div>
     </form>
 </div>

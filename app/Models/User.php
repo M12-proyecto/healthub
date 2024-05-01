@@ -132,6 +132,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the authenticated user reports
+     *
+     * @return Resultado[]
+     */
+    public static function getResultados() {
+        $usuario = User::getAuthenticatedUser();
+        $rolUsuario = User::getRole();
+
+        if($rolUsuario === 'Medico') {
+            $resultados = Resultado::where('medico_id', $usuario->id)->orderBy('fecha')->get();
+        }else if($rolUsuario === 'Paciente') {
+            $resultados = Resultado::where('paciente_id', $usuario->id)->orderBy('fecha')->get();
+        }else {
+            $resultados = Resultado::orderBy('fecha')->get();
+        }
+
+        return $resultados;
+    }
+
+    /**
      * Get the authenticated user data
      */
     public function getDatosPaciente(User $usuario = null) {

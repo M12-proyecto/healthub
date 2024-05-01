@@ -22,7 +22,10 @@ class ResultadoPolicy
     }
 
     public function read() {
-        
+        $userRole = User::getRole();
+        $allowedRoles = ['Administrador','Medico', 'Paciente'];
+
+        return in_array($userRole, $allowedRoles);
     }
 
     public function update() {

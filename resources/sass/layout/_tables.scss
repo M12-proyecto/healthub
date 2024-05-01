@@ -1,0 +1,33 @@
+// Estilos para las tablas de la aplicación
+.tabla-healthub {
+    thead tr {
+        th {
+            background-color: #2a3042 !important;
+            color: white;
+        }
+
+        th:first-child {
+            border-radius: 5px 0px 0px 0px;
+        }
+
+        th:last-child {
+            border-radius: 0px 5px 0px 0px;
+        }
+    }
+
+    tbody {
+        tr td {
+            vertical-align: middle;
+        }
+
+        tr:last-child {
+            td:first-child {
+                border-radius: 0px 0px 0px 5px;
+            }
+
+            td:last-child {
+                border-radius: 0px 0px 5px 0px;
+            }
+        }
+    }
+}

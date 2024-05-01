@@ -13,41 +13,50 @@ class ResultadoController extends Controller
     public function __construct(){}
 
     public function show(){
-        $usuario = User::getAuthenticatedUser();
-        $userRole = User::getRole();
+        $resultados = User::getResultados();
 
-        if($userRole === 'Medico') {
-            $resultados = Resultado::where('medico_id', $usuario->id)->get();
-        }else if($userRole === 'Paciente') {
-            $resultados = Resultado::where('paciente_id', $usuario->id)->get();
-        }else {
-            $resultados = Resultado::orderBy('fecha')->get();
+        if($resultados) {
+            foreach ($resultados as $resultado) {
+                $resultado->fecha = Resultado::formatDate($resultado->fecha);
+            }
         }
-
-        return view('resultados/resultado')->with(['resultadoModel'=> Resultado::class, 'resultados' => $resultados]);
+        
+        return view('resultados/resultado')->with([
+            'resultadoModel'=> Resultado::class,
+            'resultados' => $resultados
+        ]);
     }
 
     public function create(Request $request) {
         $this->authorize('create', Resultado::class);
         
-        if($request->has('crearResuladoForm')) {
+        if($request->has('crearResultadoForm')) {
             $datosValidados = $request->validate([
                 'paciente_id' => 'required|exists:usuarios,id',
                 'medico_id' => 'required|exists:usuarios,id',
                 'centro' => 'required|string|max:45',
-                'fecha' => 'required|date',
+                'fecha' => 'required|date_format:Y-m-d',
                 'prueba' => 'required|string|max:45',
                 'resultado' => 'required|string|max:45',
+                'unidades' => '',
+                'valores_normalidad' => '',
                 'observaciones' => '',
             ], [
-                'paciente_id.required' => 'El campo paciente es obligatorio',
-                'medico_id.required' => 'El campo medico es obligatorio',
-                'paciente_id.exists' => 'El paciente seleccionado no existe',
-                'medico_id.exists' => 'El medico seleccionado no existe',
-                'centro.required' => 'El campo centro es obligatorio',
-                'fecha.required' => 'El campo fecha es obligatorio',
-                'prueba.required' => 'El campo prueba es obligatorio',
-                'resultado.required' => 'El campo resultado es obligatorio',
+                'paciente_id.required' => 'El campo paciente es obligatorio.',
+                'paciente_id.exists' => 'El paciente seleccionado no existe.',
+                'medico_id.required' => 'El campo médico es obligatorio.',
+                'medico_id.exists' => 'El médico seleccionado no existe.',
+                'centro.required' => 'El campo centro es obligatorio.',
+                'centro.string' => 'El campo centro debe ser una cadena de texto.',
+                'centro.max' => 'El campo centro no debe superar los :max caracteres.',
+                'fecha.required' => 'El campo fecha es obligatorio.',
+                'fecha.date_format' => 'El campo fecha debe estar en formato DD-MM-YYYY.',
+                'prueba.required' => 'El campo prueba es obligatorio.',
+                'prueba.string' => 'El campo prueba debe ser una cadena de texto.',
+                'prueba.max' => 'El campo prueba no debe superar los :max caracteres.',
+                'resultado.required' => 'El campo resultado es obligatorio.',
+                'resultado.string' => 'El campo resultado debe ser una cadena de texto.',
+                'resultado.max' => 'El campo resultado no debe superar los :max caracteres.'
             ]);
 
             $resultado = new Resultado();
@@ -57,8 +66,16 @@ class ResultadoController extends Controller
             $resultado->fecha = $datosValidados['fecha'];
             $resultado->prueba = $datosValidados['prueba'];
             $resultado->resultado = $datosValidados['resultado'];
-            $resultado->unidades = $request->unidades;
-            $resultado->valores_normalidad = $request->valores_normalidad;
+
+            if($datosValidados["unidades"]) {
+                $datosValidados["unidades"] = $this->sanitize($datosValidados["unidades"]);
+                $resultado->unidades = $datosValidados['unidades'];
+            }
+
+            if($datosValidados["valores_normalidad"]) {
+                $datosValidados["valores_normalidad"] = $this->sanitize($datosValidados["valores_normalidad"]);
+                $resultado->valores_normalidad = $datosValidados['valores_normalidad'];
+            }
 
             if($datosValidados["observaciones"]) {
                 $datosValidados["observaciones"] = $this->sanitize($datosValidados["observaciones"]);
@@ -88,26 +105,49 @@ class ResultadoController extends Controller
         }
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function read(Resultado $resultado)
+    {
+        if($resultado) {
+            $resultado->paciente->fecha_nacimiento = Resultado::formatDate($resultado->paciente->fecha_nacimiento);
+            $resultado->fecha = Resultado::formatDate($resultado->fecha);
+        }
+
+        return view('resultados/verResultado')->with(['resultado' => $resultado]);
+    }
+
     public function update(Request $request, Resultado $resultado = new Resultado) {
         $this->authorize('update', Resultado::class);
+        
         if($request->has('editarResultadoForm')) {
             $datosValidados = $request->validate([
                 'paciente_id' => 'required|exists:usuarios,id',
                 'medico_id' => 'required|exists:usuarios,id',
                 'centro' => 'required|string|max:45',
-                'fecha' => 'required|date',
+                'fecha' => 'required|date_format:Y-m-d',
                 'prueba' => 'required|string|max:45',
                 'resultado' => 'required|string|max:45',
+                'unidades' => '',
+                'valores_normalidad' => '',
                 'observaciones' => '',
             ], [
-                'paciente_id.required' => 'El campo paciente es obligatorio',
-                'medico_id.required' => 'El campo medico es obligatorio',
-                'paciente_id.exists' => 'El paciente seleccionado no existe',
-                'medico_id.exists' => 'El medico seleccionado no existe',
-                'centro.required' => 'El campo centro es obligatorio',
-                'fecha.required' => 'El campo fecha es obligatorio',
-                'prueba.required' => 'El campo prueba es obligatorio',
-                'resultado.required' => 'El campo resultado es obligatorio',
+                'paciente_id.required' => 'El campo paciente es obligatorio.',
+                'paciente_id.exists' => 'El paciente seleccionado no existe.',
+                'medico_id.required' => 'El campo médico es obligatorio.',
+                'medico_id.exists' => 'El médico seleccionado no existe.',
+                'centro.required' => 'El campo centro es obligatorio.',
+                'centro.string' => 'El campo centro debe ser una cadena de texto.',
+                'centro.max' => 'El campo centro no debe superar los :max caracteres.',
+                'fecha.required' => 'El campo fecha es obligatorio.',
+                'fecha.date_format' => 'El campo fecha debe estar en formato DD-MM-YYYY.',
+                'prueba.required' => 'El campo prueba es obligatorio.',
+                'prueba.string' => 'El campo prueba debe ser una cadena de texto.',
+                'prueba.max' => 'El campo prueba no debe superar los :max caracteres.',
+                'resultado.required' => 'El campo resultado es obligatorio.',
+                'resultado.string' => 'El campo resultado debe ser una cadena de texto.',
+                'resultado.max' => 'El campo resultado no debe superar los :max caracteres.'
             ]);
 
             $resultado->paciente_id = $datosValidados['paciente_id'];
@@ -116,8 +156,16 @@ class ResultadoController extends Controller
             $resultado->fecha = $datosValidados['fecha'];
             $resultado->prueba = $datosValidados['prueba'];
             $resultado->resultado = $datosValidados['resultado'];
-            $resultado->unidades = $request->unidades;
-            $resultado->valores_normalidad = $request->valores_normalidad;
+
+            if($datosValidados["unidades"]) {
+                $datosValidados["unidades"] = $this->sanitize($datosValidados["unidades"]);
+                $resultado->unidades = $datosValidados['unidades'];
+            }
+
+            if($datosValidados["valores_normalidad"]) {
+                $datosValidados["valores_normalidad"] = $this->sanitize($datosValidados["valores_normalidad"]);
+                $resultado->valores_normalidad = $datosValidados['valores_normalidad'];
+            }
             
             if($datosValidados["observaciones"]) {
                 $datosValidados["observaciones"] = $this->sanitize($datosValidados["observaciones"]);

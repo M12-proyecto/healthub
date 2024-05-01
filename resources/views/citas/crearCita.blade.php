@@ -9,7 +9,7 @@
         @csrf
 
         <div class="col-md-4">
-            <label for="inputPaciente" class="form-label">Paciente</label>
+            <label for="inputPaciente" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Paciente <span class="campo-obligatorio">*</span></label>
             <select class="form-select" id="inputPaciente" name="paciente_id">
                 @if(count($pacientes) > 0)
                     <option {{ $errors->has('paciente_id') ? 'selected' : '' }}>Seleccionar paciente...</option>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-md-4">
-            <label for="inputMedico" class="form-label">Medico</label>
+            <label for="inputMedico" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Medico <span class="campo-obligatorio">*</span></label>
             <select class="form-select" id="inputMedico" name="medico_id">
                 @if(count($medicos) > 0)
                     <option {{ $errors->has('medico_id') ? 'selected' : '' }}>Seleccionar medico...</option>
@@ -42,28 +42,28 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputAsunto" class="form-label">Asunto</label>
+            <label for="inputAsunto" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Asunto <span class="campo-obligatorio">*</span></label>
             <input type="text" class="form-control" id="inputAsunto" name="asunto" placeholder="Cita para ..." value="{{ old('asunto') }}">
             @error('asunto')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputFecha" class="form-label">Fecha</label>
+            <label for="inputFecha" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Fecha <span class="campo-obligatorio">*</span></label>
             <input type="date" class="form-control" id="inputFecha" name="fecha" value="{{ old('fecha') }}">
             @error('fecha')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputHora" class="form-label">Hora</label>
+            <label for="inputHora" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Hora <span class="campo-obligatorio">*</span></label>
             <input type="time" class="form-control" id="inputHora" name="hora" value="{{ old('hora') }}">
             @error('hora')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-md-4">
-            <label for="inputUbicacion" class="form-label">Ubicacion</label>
+            <label for="inputUbicacion" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Ubicacion <span class="campo-obligatorio">*</span></label>
             <input type="text" class="form-control" id="inputUbicacion" name="ubicacion" placeholder="Hospital, centro médico ..." value="{{ old('ubicacion') }}">
             @error('ubicacion')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>

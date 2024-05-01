@@ -1,7 +1,31 @@
 @charset "UTF-8";
+.campo-obligatorio {
+  color: red !important;
+}
+
 .navigation-logo {
   color: white;
   font-size: 20px;
+}
+
+.tabla-healthub thead tr th {
+  background-color: #2a3042 !important;
+  color: white;
+}
+.tabla-healthub thead tr th:first-child {
+  border-radius: 5px 0px 0px 0px;
+}
+.tabla-healthub thead tr th:last-child {
+  border-radius: 0px 5px 0px 0px;
+}
+.tabla-healthub tbody tr td {
+  vertical-align: middle;
+}
+.tabla-healthub tbody tr:last-child td:first-child {
+  border-radius: 0px 0px 0px 5px;
+}
+.tabla-healthub tbody tr:last-child td:last-child {
+  border-radius: 0px 0px 5px 0px;
 }
 
 #citas {
@@ -28,26 +52,6 @@
     width: 100%;
   }
 }
-#informes #tabla-informes thead tr th {
-  background-color: #2a3042 !important;
-  color: white;
-}
-#informes #tabla-informes thead tr th:first-child {
-  border-radius: 5px 0px 0px 0px;
-}
-#informes #tabla-informes thead tr th:last-child {
-  border-radius: 0px 5px 0px 0px;
-}
-#informes #tabla-informes tbody tr td {
-  vertical-align: middle;
-}
-#informes #tabla-informes tbody tr:last-child td:first-child {
-  border-radius: 0px 0px 0px 5px;
-}
-#informes #tabla-informes tbody tr:last-child td:last-child {
-  border-radius: 0px 0px 5px 0px;
-}
-
 #informe #informe-encabezado {
   background-color: #2a3042;
   color: #a6b0cf !important;

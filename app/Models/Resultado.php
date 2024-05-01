@@ -48,6 +48,13 @@ class Resultado extends Model
         
     ];
 
+    public static function formatDate($date) {
+        // Convertir la fecha al nuevo formato "d-m-Y"
+        $newDate = date("d-m-Y", strtotime($date));
+
+        return $newDate;
+    }
+
     public function paciente()
     {
         return $this->belongsTo(User::class, 'paciente_id');

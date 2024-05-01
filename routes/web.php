@@ -80,6 +80,7 @@ Route::delete('/informes/eliminar/{informe}', [InformeController::class, 'delete
 // Rutas para los resultados
 Route::get('/resultados', [ResultadoController::class, 'show'])->name('resultados')->middleware('verifyIfAuthenticated');
 Route::get('/resultados/crear', [ResultadoController::class, 'create'])->name("crearResultado")->middleware('verifyIfAuthenticated');
+Route::get('/resultados/{resultado}', [ResultadoController::class, 'read'])->name('verResultado')->middleware('verifyIfAuthenticated');
 Route::get('/resultados/editar/{resultado}', [ResultadoController::class, 'update'])->name("editarResultado")->middleware('verifyIfAuthenticated');
 
 Route::post('/resultados/crear', [ResultadoController::class, 'create'])->name("crearResultado")->middleware('verifyIfAuthenticated');
