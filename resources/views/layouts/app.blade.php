@@ -19,8 +19,6 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- App js -->
     <script src="{{ asset('assets/js/plugin.js') }}"></script>
-    @viteReactRefresh      
-    @vite('resources/js/app.jsx')
 </head>
 <body data-sidebar="dark">
     <!-- Begin page -->
