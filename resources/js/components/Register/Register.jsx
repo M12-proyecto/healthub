@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +11,8 @@ export default function Register() {
     primerApellido: '',
     secondApellido: '',
     fechaNacimiento: '',
-    gender: '',
+    role: 'Paciente',
+    gender: 'Hombre',
     perfil: '',
     perfilName: '',
     codigoPostal: '',
@@ -31,8 +32,17 @@ export default function Register() {
 
   const handleChange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
-    console.log(register)
   };
+
+  const handleRoleChange = (e) => {
+    setRegister({ ...register, role: e.target.value });
+  };
+
+  useEffect(() => {
+    if (!register.role) {
+      setRegister({ ...register, role: '' });
+    }
+  }, []);
 
   const handlePerfilChange = (e) => {
     e.preventDefault();
@@ -202,7 +212,7 @@ export default function Register() {
                 <p>CIP</p>
               </div>
               <div className="col-lg-5">
-                <input type="text" className="form-control" name="cip" placeholder="NAEA 1 733114 05 5" value={register.cip} onChange={handleChange}/>
+                <input type="text" className="form-control" name="cip" placeholder="NAEA1733114055" value={register.cip} onChange={handleChange}/>
                 {errors.cip && <p className="text-danger">{errors.cip}</p>}
               </div>
             </div> 
@@ -279,18 +289,30 @@ export default function Register() {
                     {errors.fechaNacimiento && <p className="text-danger">{errors.fechaNacimiento}</p>}
                   </div>
               </div>
+              <div className="row mb-3 p-2">
+                <div>
+                  <p>Role</p>
+                </div>
+                <div className="col-lg-5">
+                  <select className="form-control" id="asignRol" name="role" value={register.role} onChange={handleRoleChange}>
+                    <option value="Paciente">Paciente</option>
+                    <option value="Medico">Medico</option>
+                  </select>
+                  {errors.role && <p className="text-danger">{errors.role}</p>}
+                </div>
+              </div>
               <div className="row p-2">
               <div>
                 <p>Genero</p>
               </div>
               <div className="col-lg-5 d-flex">
                 <div className="form-check">
-                <input className="form-check-input" type="radio" name="gender" id="male" value="Mujer" onChange={handleChange} checked={register.gender == "Mujer"}/>
-                  <label className="form-check-label" htmlFor="male">Mujer</label>
+                <input className="form-check-input" type="radio" name="gender" id="female" value="Mujer" onChange={handleChange} checked={register.gender == "Mujer"}/>
+                  <label className="form-check-label" htmlFor="female">Mujer</label>
                 </div>
                 <div className="form-check mx-3">
-                <input className="form-check-input" type="radio" name="gender" id="female" value="Hombre" onChange={handleChange} checked={register.gender == "Hombre"}/>
-                  <label className="form-check-label" htmlFor="female">Hombre</label>
+                <input className="form-check-input" type="radio" name="gender" id="male" value="Hombre" onChange={handleChange} checked={register.gender == "Hombre"}/>
+                  <label className="form-check-label" htmlFor="male">Hombre</label>
                 </div>
               </div>
               </div>

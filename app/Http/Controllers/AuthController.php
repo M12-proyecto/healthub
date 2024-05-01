@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contactos_emergencia;
 use App\Models\correos_electronicos;
 use App\Models\direcciones;
+use App\Models\Empleados;
 use App\Models\numeros_telefono;
 use App\Models\pacientes;
 // use App\Models\Role;
@@ -58,7 +59,28 @@ class AuthController extends Controller
 
         // Obtener el ID del usuario
         $usuario_id = $usuario->id;
-        $usuario->assignRole('Paciente');
+        
+        // asignar role
+        if($request->role) {
+            $role = Role::where('name', $request->role)->first();
+            $usuario->roles()->detach();
+            $usuario->roles()->attach($role, ['model_type' => User::class]);
+
+            if($request->role == 'Medico'){
+                $medico = Empleados::create([
+                    'usuario_id' => $usuario_id,
+                    'planta' => '1',
+                    'sala' => '2'
+                ]);
+            } else {
+                $paciente = pacientes::create([
+                    'usuario_id' => $usuario_id,
+                    'peso' => 60,
+                    'altura' => 180,
+                    'grupo_sanguineo' => 'A+'
+                ]);
+            }
+        }
 
         $response["success"] = true;
 
@@ -88,23 +110,17 @@ class AuthController extends Controller
             ]);
         }
 
-        $paciente = pacientes::create([
-            'usuario_id' => $usuario_id,
-            'peso' => 60,
-            'altura' => 180,
-            'grupo_sanguineo' => 'A+'
-        ]);
-
         // Guardar personas de contacto
-        foreach ($request->personaContacto as $contacto) {
-            $contacto_emergencia = contactos_emergencia::create([
-                'paciente_id' => $usuario_id,
-                'nombre' => $contacto['nombreContacte'],
-                'numero_telefono' => $contacto['telefono'],
-                'correo_electronico' => $contacto['email'],
-            ]);
+        if($request->role == 'Paciente') {
+            foreach ($request->personaContacto as $contacto) {
+                $contacto_emergencia = contactos_emergencia::create([
+                    'paciente_id' => $usuario_id,
+                    'nombre' => $contacto['nombreContacte'],
+                    'numero_telefono' => $contacto['telefono'],
+                    'correo_electronico' => $contacto['email'],
+                ]);
+            }
         }
-
         return response()->json($response, 200);
     }
 
@@ -216,6 +232,28 @@ class AuthController extends Controller
                 $usuario->foto = $imagenBase64;
             }
             
+            if($request->role == 'Medico'){
+                 // Eliminar el registro de paciente si existe
+                pacientes::where('usuario_id', $usuario->id)->delete();
+
+                $medico = Empleados::create([
+                    'usuario_id' => $usuario->id,
+                    'planta' => '1',
+                    'sala' => '2'
+                ]);
+    
+            } else if($request->role == 'Paciente') {
+                // Eliminar el registro de empleado si existe
+                Empleados::where('usuario_id', $usuario->id)->delete();
+
+                $paciente = pacientes::create([
+                    'usuario_id' => $usuario->id,
+                    'peso' => 60,
+                    'altura' => 180,
+                    'grupo_sanguineo' => 'A+'
+                ]);
+            }
+
             // Obtener role
             $rol = Role::where('name', $request->role)->first();
             if ($rol) {
@@ -227,12 +265,19 @@ class AuthController extends Controller
 
             $usuario->save();
 
-            // Actualizar paciente 
-            if ($request->filled('peso'))$paciente->peso = $request->peso;
-            if ($request->filled('altura'))$paciente->altura = $request->altura;
-            if ($request->filled('grupo_sanguineo'))$paciente->grupo_sanguineo = $request->grupo_sanguineo;
-            $paciente->save();
+            if($usuario->hasRole('Paciente')) {
+                // Actualizar paciente 
+                if ($request->filled('peso'))$paciente->peso = $request->peso;
+                if ($request->filled('altura'))$paciente->altura = $request->altura;
+                if ($request->filled('grupo_sanguineo'))$paciente->grupo_sanguineo = $request->grupo_sanguineo;
+                $paciente->save();
 
+                // Actualizar persona de contacto 
+                if ($request->filled('contacto_nombre'))$contactos->nombre = $request->contacto_nombre;
+                if ($request->filled('contacto_numero'))$contactos->numero_telefono = $request->contacto_numero;
+                if ($request->filled('contacto_correo'))$contactos->correo_electronico = $request->contacto_correo;
+                $contactos->save();
+            }
             // Actualizar direcciones 
             if ($request->filled('ciudad')) $direcciones->ciudad = $request->ciudad;
             if ($request->filled('calle'))$direcciones->calle = $request->calle;
@@ -248,13 +293,6 @@ class AuthController extends Controller
             // actualizar telefono
             if ($request->filled('numero_telefono'))$numeros_telefono->numero_telefono = $request->numero_telefono;
             $numeros_telefono->save();
-            
-
-            // Actualizar persona de contacto 
-            if ($request->filled('contacto_nombre'))$contactos->nombre = $request->contacto_nombre;
-            if ($request->filled('contacto_numero'))$contactos->numero_telefono = $request->contacto_numero;
-            if ($request->filled('contacto_correo'))$contactos->correo_electronico = $request->contacto_correo;
-            $contactos->save();
 
             return redirect()->route('profile');
         }
@@ -269,4 +307,25 @@ class AuthController extends Controller
         ]);
     }
 
+    public function changePassword(Request $request) {
+        $response = ["success" => false]; 
+        $validate = Validator::make($request->all(),[
+            'dni' => 'required|string|max:255',
+            'password' => 'required|string',
+        ]);
+    
+        if($validate->fails()) {
+            $response = ["error" => $validate->errors()];
+            return response()->json($response, 200);
+        }
+    
+        $usuario = User::where('dni', $request->dni)->first();
+        if ($usuario) {
+            $usuario->password = Hash::make($request->password);
+            $usuario->save();
+            $response["success"] = true; // Actualizar la respuesta a éxito
+        }
+    
+        return response()->json($response, 200);
+    }
 }

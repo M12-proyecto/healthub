@@ -43,6 +43,11 @@ Route::get('/login', function () {
     return view('login');
 })->name('login')->middleware('verifyIfAuthenticated');
 
+// change password
+Route::get('/changePassword', function () {return view('changePassword');});
+Route::post('/changePassword', [AuthController::class, 'changePassword']);
+
+
 // register db 
 Route::post('/register', [AuthController::class, 'register']);
 
