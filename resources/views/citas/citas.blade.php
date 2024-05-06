@@ -14,6 +14,9 @@
                     <div class="card-header card-cita-header p-3 d-flex justify-content-between align-items-center">
                         {{$cita->asunto}}
                         <div class="d-flex gap-1">
+                            <a href=""> 
+                                <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
+                            </a>
                             @can('update', $citaModel)
                                 <a href="{{ route('editarCita', $cita) }}" class="btn btn-primary">Editar</a>
                             @endcan

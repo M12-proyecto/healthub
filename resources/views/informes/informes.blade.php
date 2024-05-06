@@ -9,15 +9,15 @@
     @endcan
     @if(count($informes) > 0)
         <div id="informes" class="table-responsive">
-            <table id="tabla-informes" class="table table-hover tabla-healthub">
+            <table id="tabla-informes" class="table tabla-healthub table-primary">
                 <thead>
                     <tr>
                         <th>Tipo de informe</th>
-                        <th>Archivo PDF</th>
                         <th>Diagnostico</th>
                         <th>Motivo consulta</th>
                         <th>Centro sanitario</th>
                         <th>Fecha y hora</th>
+                        <th>Archivo PDF</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -27,11 +27,15 @@
                     @foreach($informes as $informe)
                         <tr>
                             <td>{{ $informe->especialidad }}</td>
-                            <td></td>
                             <td>{{ $informe->diagnostico }}</td>
                             <td>{{ $informe->motivo_consulta }}</td>
                             <td>{{ $informe->centro }}</td>
                             <td>{{ $informe->created_at }}</td>
+                            <td>
+                                <a href="">
+                                    <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
+                                </a>
+                            </td>
                             <td>
                                 @can('read', $informeModel)
                                     <a href="{{ route('verInforme', $informe) }}" class="btn btn-secondary">Ver</a>

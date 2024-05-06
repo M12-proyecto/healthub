@@ -110,12 +110,17 @@ class ResultadoController extends Controller
      */
     public function read(Resultado $resultado)
     {
+        $resultadoModel = Resultado::class;
+        
         if($resultado) {
             $resultado->paciente->fecha_nacimiento = Resultado::formatDate($resultado->paciente->fecha_nacimiento);
             $resultado->fecha = Resultado::formatDate($resultado->fecha);
         }
 
-        return view('resultados/verResultado')->with(['resultado' => $resultado]);
+        return view('resultados/verResultado')->with([
+            'resultado' => $resultado,
+            'resultadoModel' => $resultadoModel
+        ]);
     }
 
     public function update(Request $request, Resultado $resultado = new Resultado) {

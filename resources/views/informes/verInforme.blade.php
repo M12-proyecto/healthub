@@ -4,6 +4,21 @@
 @section('page', 'Informes')
 
 @section('content')
+<div class="botones-acciones">
+    @can('update', $informeModel)
+        <a href="{{ route('editarInforme', $informe) }}" class="btn btn-primary">Editar</a>
+    @endcan
+    @can('delete', $informeModel)
+        <form method="POST" action="{{ route('eliminarInforme', $informe) }}">
+            @csrf
+            @method('DELETE')
+            <input type="submit" name="eliminarInformeForm" class="btn btn-danger" value="Eliminar">
+        </form>
+    @endcan
+    <a href="">
+        <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
+    </a>
+</div>
 <div id="informe">
     <div id="informe-encabezado" class="d-flex justify-content-between align-items-center p-3">
         <div class="d-flex gap-1 align-items-center">

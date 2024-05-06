@@ -8,6 +8,9 @@
   font-size: 20px;
 }
 
+.tabla-healthub thead tr th:nth-last-child(4) {
+  text-align: center;
+}
 .tabla-healthub thead tr th {
   background-color: #2a3042 !important;
   color: white;
@@ -18,8 +21,12 @@
 .tabla-healthub thead tr th:last-child {
   border-radius: 0px 5px 0px 0px;
 }
+.tabla-healthub tbody tr td:nth-last-child(4) {
+  text-align: center;
+}
 .tabla-healthub tbody tr td {
   vertical-align: middle;
+  border: none;
 }
 .tabla-healthub tbody tr:last-child td:first-child {
   border-radius: 0px 0px 0px 5px;
@@ -35,6 +42,7 @@
 }
 #citas .card-cita {
   width: 50%;
+  background-color: #dde2fa;
 }
 #citas .card-cita .card-cita-header {
   background-color: #2a3042;
@@ -52,6 +60,20 @@
     width: 100%;
   }
 }
+.info-card .info-card-header {
+  background-color: #2a3042 !important;
+}
+.info-card .info-card-header h5, .info-card .info-card-header p {
+  color: white !important;
+}
+.info-card .info-card-body {
+  background-color: #dde2fa;
+}
+
+.mini-info-card {
+  background-color: #dde2fa !important;
+}
+
 #informe #informe-encabezado {
   background-color: #2a3042;
   color: #a6b0cf !important;
@@ -73,6 +95,17 @@
 }
 #informe #informe-contenido p {
   font-size: 1.015625rem;
+}
+
+.botones-acciones {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pdf-icon {
+  width: 30px;
 }
 
 #resultados {
