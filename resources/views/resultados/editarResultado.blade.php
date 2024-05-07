@@ -92,6 +92,7 @@
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary" name="editarResultadoForm">Editar cita</button>
+            <a href="{{ route('resultados') }}" class="btn btn-danger">Cancelar</a>
         </div>
     </form>
 </div>

@@ -5,6 +5,7 @@
 
 @section('content')
 <div class="botones-acciones">
+    <a href="{{ route('resultados') }}" class="btn btn-secondary">Volver a resultados</a>
     @can('update', $resultadoModel)
         <a href="{{ route('editarResultado', $resultado) }}" class="btn btn-primary">Editar</a>
     @endcan
