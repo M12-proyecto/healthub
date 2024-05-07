@@ -6,13 +6,14 @@
 
     .card-cita {
         width: 50%;
-        background-color: #dde2fa;
+        background-color: var(--card-body-bg);
+        border-radius: 8px 8px 0px 0px !important;
 
         .card-cita-header {
-            background-color: #2a3042;
-            color: white;
+            background-color: var(--card-header-bg);
+            color: var(--card-header-text);
             font-weight: bold;
-            border-radius: 5px 5px 0px 0px;
+            border-radius: 5px 5px 0px 0px !important;
         }
     }
 }

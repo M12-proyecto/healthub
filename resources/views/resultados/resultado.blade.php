@@ -9,7 +9,7 @@
     @endcan
     @if(count($resultados) > 0)
         <div id="resultados" class="table-responsive">
-            <table id="tabla-resultados" class="table tabla-healthub table-primary">
+            <table id="tabla-resultados" class="table tabla-healthub">
                 <thead>
                     <tr>
                         <th>Prueba médica</th>

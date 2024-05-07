@@ -6,8 +6,8 @@
         }
         
         th {
-            background-color: #2a3042 !important;
-            color: white;
+            background-color: var(--table-header-bg) !important;
+            color: var(--table-header-text);
         }
 
         th:first-child {
@@ -26,6 +26,8 @@
             }
             
             td {
+                background-color: var(--table-body-bg);
+                color: var(--table-body-text);
                 vertical-align: middle;
                 border: none;
             }

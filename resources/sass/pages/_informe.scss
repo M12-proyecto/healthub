@@ -12,11 +12,16 @@
 
     #informe-contenido {
         background-color: white;
+        color: var(--informe-text);
 
         .subtitol-informe {
             background-color: #74788d;
             padding: 1rem;
             color: white;
+        }
+
+        h5, span {
+            color: var(--informe-text);
         }
 
         span {

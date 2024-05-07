@@ -1,0 +1,35 @@
+:root {
+    // Estilos cards
+    --card-header-text: white;
+    --card-header-bg: #2a3042;
+    --card-body-bg: #dde2fa;
+    --card-body-text: black;
+    // Estilos tablas
+    --table-header-bg: #2a3042;
+    --table-header-text: white;
+    --table-body-bg: #dde2fa;
+    --table-body-text: black;
+    // Estilos perfil
+    --profile-bg: white;
+    // Estilos informes
+    --informe-text: #495057;
+}
+
+[data-bs-theme=dark] {
+    // Estilos cards
+    --card-header-text: white;
+    --card-header-bg: #353f6c;
+    --card-body-bg: #2a3042;
+    --card-body-text: black;
+    // Estilos tablas
+    --table-header-bg: #353f6c;
+    --table-header-text: white;
+    --table-body-bg: #2a3042;
+    --table-body-text: white;
+    // Estilos perfil
+    --profile-bg: #262b3c;
+    // Estilos informes
+    --informe-text: #495057;
+    // Boton de canvio de estilos
+    --bs-gray-200: black !important;
+}

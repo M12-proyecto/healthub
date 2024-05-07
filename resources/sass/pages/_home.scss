@@ -1,18 +1,18 @@
 // Estilos para la pagina de inicio Home
 .info-card  {
     .info-card-header {
-        background-color: #2a3042 !important;
+        background-color: var(--card-header-bg) !important;
         
         h5, p {
-            color: white !important;
+            color: var(--card-header-text) !important;
         }
     }
 
     .info-card-body {
-        background-color: #dde2fa;
+        background-color: var(--card-body-bg);
     }
 }
 
 .mini-info-card {
-    background-color: #dde2fa !important;
+    background-color: var(--card-body-bg) !important;
 }

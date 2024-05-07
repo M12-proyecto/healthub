@@ -9,7 +9,7 @@
     @endcan
     @if(count($informes) > 0)
         <div id="informes" class="table-responsive">
-            <table id="tabla-informes" class="table tabla-healthub table-primary">
+            <table id="tabla-informes" class="table tabla-healthub">
                 <thead>
                     <tr>
                         <th>Tipo de informe</th>
