@@ -46,14 +46,21 @@ export default function Register() {
 
   const handlePerfilChange = (e) => {
     e.preventDefault();
+
     let reader = new FileReader();
+
+    setRegister(prevState => ({
+      ...prevState,
+      perfilName: e.target.files[0].name
+    }));
+
     reader.onloadend = () => {
       setRegister(prevState => ({
         ...prevState,
-        perfil: reader.result,
-        perfilName: e.target.files[0].name
+        perfil: reader.result
       }));
     };
+
     reader.readAsDataURL(e.target.files[0]);
   };
 
@@ -73,8 +80,9 @@ export default function Register() {
       if (register.correos.length === 0) validationErrors.correos = 'Correo electrónico es obligatorio';
     } else if (step === 3) {
       if (!register.codigoPostal) validationErrors.codigoPostal = 'Código postal es obligatorio';
-      if (!register.calle || !register.piso || !register.numero) validationErrors.direccion = 'Dirección es obligatoria';
+      if (!register.calle || !register.piso || !register.numero) validationErrors.calle = 'Dirección es obligatoria';
     }
+    
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
   };
@@ -369,7 +377,7 @@ export default function Register() {
                             <p>Foto de perfil</p>
                           </div>
                           <div>
-                              <input type="file" className="form-control" name="perfil" defaultValue={register.perfilName} onChange={(e) => handlePerfilChange(e)}/>
+                              <input type="file" className="form-control" name="perfil" value="" onChange={(e) => handlePerfilChange(e)}/>
                               <span className='d-block mt-3'>Imagen seleccionada: {register.perfilName}</span>
                           </div>
                         </div>
