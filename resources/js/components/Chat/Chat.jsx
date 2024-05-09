@@ -10,10 +10,10 @@ function Chat() {
           <div className="py-4 border-bottom">
             <div className="d-flex">
               <div className="flex-shrink-0 align-self-center me-3">
-                <img src="" className="avatar-xs rounded-circle" alt="" />
+                <img src="http://localhost:8000/assets/images/users/default.webp" className="avatar-xs rounded-circle" alt="" />
               </div>
               <div className="flex-grow-1">
-                <h5 className="font-size-15 mb-1">{/* Aquí va la lógica para obtener el nombre del usuario */}</h5>
+                <h5 className="font-size-15 mb-1">Jose</h5>
                 <p className="text-muted mb-0"><i className="mdi mdi-circle text-success align-middle me-1"></i> Active</p>
               </div>
             </div>
@@ -53,7 +53,7 @@ function Chat() {
                             <i className="mdi mdi-circle font-size-10"></i>
                           </div>
                           <div className="flex-shrink-0 align-self-center me-3">
-                            <img src="" className="rounded-circle avatar-xs" alt="" />
+                            <img src="http://localhost:8000/assets/images/users/default.webp" className="rounded-circle avatar-xs" alt="" />
                           </div>
                           <div className="flex-grow-1 overflow-hidden">
                             <h5 className="text-truncate font-size-14 mb-1">Steven Franklin</h5>

@@ -321,7 +321,7 @@ export default function Register() {
               <p>Foto de perfil</p>
               </div>
               <div className="col-lg-5">
-                  <input type="file" className="form-control" name="perfil" defaultValue={register.perfilName} onChange={(e) => handlePerfilChange(e)}/>
+                  <input type="file" className="form-control" name="perfil" value={register.perfilName} defaultValue={register.perfilName} onChange={(e) => handlePerfilChange(e)}/>
                   <span>imagen de perfil: {register.perfilName}</span>
               </div>
             </div>
