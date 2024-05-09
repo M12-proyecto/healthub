@@ -110,7 +110,7 @@ export default function ChangePassword() {
                   <div className="row justify-content-center mt-3">
                     <div className="col-xs-12 col-sm-12 col-md-12 text-center">
                       <a className="btn btn-primary btn-dark-blue link-button me-2" href='/login'>
-                        <span class="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
+                        <span className="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
                         Volver a login
                       </a>
                       <button onClick={handleSubmit} className="btn icon-btn-save btn-success" type="submit">
