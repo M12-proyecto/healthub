@@ -1,0 +1,103 @@
+.bg-light-blue {
+    background-color: #d5e2f9;
+}
+
+.content-center {
+    height: 100% !important;
+
+    .align-center {
+        display: flex;
+        align-content: center;
+        height: 100%;
+    }
+}
+
+.card-autenticacion {
+    border: 0;
+    width: 480px;
+
+    .bg-primary-subtle {
+        background-color: #2a3042 !important;
+
+        h5, p {
+            color: white !important;
+        }
+
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .card-body {
+        h3 {
+            color: #495057 !important;
+        }
+
+        .formulario-autenticacion {
+            color: #495057;
+
+            label {
+                font-size: 13px;
+                font-weight: bold;
+                user-select: none;
+            }
+
+            input[type='text'], input[type='password'], input[type='email'] {
+                display: block;
+                width: 100%;
+                padding: 0.47rem 0.75rem;
+                font-size: .9rem;
+                font-weight: 400;
+                border-radius: 0.25rem !important;
+            }
+
+            input[type='checkbox'] {
+                cursor: pointer;
+            }
+
+            .width80 {
+                width: 80% !important;
+            }
+
+            button[type='submit'], button[type='button'] {
+                user-select: none;
+                color: #fff;
+                border-color: #2a3042;
+                background-color: #2a3042;
+                border-radius: 0.25rem;
+                font-size: 0.9rem;
+            }
+
+            button[type='submit']:hover {
+                background-color: #2a3042;
+            }
+        }
+
+        p, a {
+            font-size: 0.9rem;
+        }
+
+        p {
+            color: #495057;
+        }
+
+        a {
+            color: rgb(85,110,230) !important;
+            text-decoration: none;
+        }
+
+        .link-button {
+            color: white !important;
+        }
+    }
+}
+
+.formulario-registro {
+    width: 560px !important;
+}
+
+.btn-dark-blue {
+    background-color: #2a3042 !important;
+    border-color: #2a3042 !important;
+}

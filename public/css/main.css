@@ -64,6 +64,91 @@
   border-radius: 0px 0px 5px 0px;
 }
 
+.bg-light-blue {
+  background-color: #d5e2f9;
+}
+
+.content-center {
+  height: 100% !important;
+}
+.content-center .align-center {
+  display: flex;
+  align-content: center;
+  height: 100%;
+}
+
+.card-autenticacion {
+  border: 0;
+  width: 480px;
+}
+.card-autenticacion .bg-primary-subtle {
+  background-color: #2a3042 !important;
+}
+.card-autenticacion .bg-primary-subtle h5, .card-autenticacion .bg-primary-subtle p {
+  color: white !important;
+}
+.card-autenticacion .bg-primary-subtle p {
+  margin: 0;
+}
+.card-autenticacion .card-body h3 {
+  color: #495057 !important;
+}
+.card-autenticacion .card-body .formulario-autenticacion {
+  color: #495057;
+}
+.card-autenticacion .card-body .formulario-autenticacion label {
+  font-size: 13px;
+  font-weight: bold;
+  user-select: none;
+}
+.card-autenticacion .card-body .formulario-autenticacion input[type=text], .card-autenticacion .card-body .formulario-autenticacion input[type=password], .card-autenticacion .card-body .formulario-autenticacion input[type=email] {
+  display: block;
+  width: 100%;
+  padding: 0.47rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  border-radius: 0.25rem !important;
+}
+.card-autenticacion .card-body .formulario-autenticacion input[type=checkbox] {
+  cursor: pointer;
+}
+.card-autenticacion .card-body .formulario-autenticacion .width80 {
+  width: 80% !important;
+}
+.card-autenticacion .card-body .formulario-autenticacion button[type=submit], .card-autenticacion .card-body .formulario-autenticacion button[type=button] {
+  user-select: none;
+  color: #fff;
+  border-color: #2a3042;
+  background-color: #2a3042;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+}
+.card-autenticacion .card-body .formulario-autenticacion button[type=submit]:hover {
+  background-color: #2a3042;
+}
+.card-autenticacion .card-body p, .card-autenticacion .card-body a {
+  font-size: 0.9rem;
+}
+.card-autenticacion .card-body p {
+  color: #495057;
+}
+.card-autenticacion .card-body a {
+  color: rgb(85, 110, 230) !important;
+  text-decoration: none;
+}
+.card-autenticacion .card-body .link-button {
+  color: white !important;
+}
+
+.formulario-registro {
+  width: 560px !important;
+}
+
+.btn-dark-blue {
+  background-color: #2a3042 !important;
+  border-color: #2a3042 !important;
+}
+
 #citas {
   display: flex;
   flex-direction: row;
