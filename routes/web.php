@@ -5,6 +5,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ResultadoController;
@@ -34,14 +35,10 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'show'])->name('home')->middleware('verifyIfAuthenticated');
 
 // view register
-Route::get('/register', function () {
-    return view('register');
-})->name('register')->middleware('verifyIfAuthenticated');
+Route::get('/register', function () {return view('register');})->name('register');
 
 // view login
-Route::get('/login', function () {
-    return view('login');
-})->name('login')->middleware('verifyIfAuthenticated');
+Route::get('/login', function () {return view('login');})->name('login');
 
 // change password
 Route::get('/changePassword', function () {return view('changePassword');});
@@ -92,3 +89,6 @@ Route::post('/resultados/crear', [ResultadoController::class, 'create'])->name("
 Route::post('/resultados/editar/{resultado}', [ResultadoController::class, 'update'])->name("editarResultado")->middleware('verifyIfAuthenticated');
 
 Route::delete('/resultados/eliminar/{resultado}', [ResultadoController::class, 'delete'])->name("eliminarResultado")->middleware('verifyIfAuthenticated');
+
+// rutas chat
+Route::get('/chat', [ChatController::class, 'show'])->name('chat')->middleware('verifyIfAuthenticated');

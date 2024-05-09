@@ -236,7 +236,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="chat.html" class="waves-effect">
+                            <a href="{{ route('chat') }}" class="waves-effect">
                                 <i class="bx bx-chat"></i>
                                 <span key="t-chat">Chat</span>
                             </a>
@@ -341,6 +341,7 @@
     <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+    <script src="https://kit.fontawesome.com/2007d43c69.js" crossorigin="anonymous"></script>
 
     <!-- apexcharts -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
