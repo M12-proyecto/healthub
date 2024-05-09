@@ -3,7 +3,7 @@
 @section('page', 'perfil')
 
 @section('content')
-<div class="container rounded bg-white mt-5 mb-5">
+<div id="perfil" class="container rounded mt-5 mb-5">
     <form action="{{ route('profile') }}" method="POST" class="row" enctype="multipart/form-data">
         @csrf
 

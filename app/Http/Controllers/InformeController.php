@@ -114,12 +114,17 @@ class InformeController extends Controller
      */
     public function read(Informe $informe)
     {
+        $informeModel = Informe::class;
+        
         if($informe) {
             $informe->paciente->fecha_nacimiento = Informe::formatDate($informe->paciente->fecha_nacimiento);
             $informe->created_at = Informe::formatTimestamp($informe->created_at);
         }
 
-        return view('informes/verInforme')->with(['informe' => $informe]);
+        return view('informes/verInforme')->with([
+            'informe' => $informe,
+            'informeModel' => $informeModel
+        ]);
     }
 
     /**

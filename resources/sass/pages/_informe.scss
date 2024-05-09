@@ -12,11 +12,16 @@
 
     #informe-contenido {
         background-color: white;
+        color: var(--informe-text);
 
         .subtitol-informe {
             background-color: #74788d;
             padding: 1rem;
             color: white;
+        }
+
+        h5, span {
+            color: var(--informe-text);
         }
 
         span {
@@ -27,4 +32,15 @@
             font-size: 1.015625rem;
         }
     }
+}
+
+.botones-acciones {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.pdf-icon {
+    width: 30px;
 }

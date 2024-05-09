@@ -92,6 +92,7 @@
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary" name="crearInformeForm">Crear informe</button>
+            <a href="{{ route('informes') }}" class="btn btn-danger">Cancelar</a>
         </div>
     </form>
 </div>

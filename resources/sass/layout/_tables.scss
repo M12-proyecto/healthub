@@ -1,9 +1,13 @@
 // Estilos para las tablas de la aplicación
 .tabla-healthub {
     thead tr {
+        th:nth-last-child(4) {
+            text-align: center;
+        }
+        
         th {
-            background-color: #2a3042 !important;
-            color: white;
+            background-color: var(--table-header-bg) !important;
+            color: var(--table-header-text);
         }
 
         th:first-child {
@@ -16,8 +20,17 @@
     }
 
     tbody {
-        tr td {
-            vertical-align: middle;
+        tr {
+            td:nth-last-child(4) {
+                text-align: center;
+            }
+            
+            td {
+                background-color: var(--table-body-bg);
+                color: var(--table-body-text);
+                vertical-align: middle;
+                border: none;
+            }
         }
 
         tr:last-child {

@@ -9,13 +9,14 @@
     @endcan
     @if(count($resultados) > 0)
         <div id="resultados" class="table-responsive">
-            <table id="tabla-resultados" class="table table-hover tabla-healthub">
+            <table id="tabla-resultados" class="table tabla-healthub">
                 <thead>
                     <tr>
                         <th>Prueba médica</th>
                         <th>Centro</th>
                         <th>Resultado</th>
                         <th>Fecha</th>
+                        <th>Archivo PDF</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -28,6 +29,11 @@
                             <td>{{ $resultado->centro }}</td>
                             <td>{{ $resultado->resultado }}</td>
                             <td>{{ $resultado->fecha }}</td>
+                            <td>
+                                <a href="">
+                                    <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
+                                </a>
+                            </td>
                             <td>
                                 @can('read', $resultadoModel)
                                     <a href="{{ route('verResultado', $resultado) }}" class="btn btn-secondary">Ver</a>
