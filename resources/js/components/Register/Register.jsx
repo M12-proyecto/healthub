@@ -46,14 +46,21 @@ export default function Register() {
 
   const handlePerfilChange = (e) => {
     e.preventDefault();
+
     let reader = new FileReader();
+
+    setRegister(prevState => ({
+      ...prevState,
+      perfilName: e.target.files[0].name
+    }));
+
     reader.onloadend = () => {
       setRegister(prevState => ({
         ...prevState,
-        perfil: reader.result,
-        perfilName: e.target.files[0].name
+        perfil: reader.result
       }));
     };
+
     reader.readAsDataURL(e.target.files[0]);
   };
 
@@ -73,8 +80,9 @@ export default function Register() {
       if (register.correos.length === 0) validationErrors.correos = 'Correo electrónico es obligatorio';
     } else if (step === 3) {
       if (!register.codigoPostal) validationErrors.codigoPostal = 'Código postal es obligatorio';
-      if (!register.calle || !register.piso || !register.numero) validationErrors.direccion = 'Dirección es obligatoria';
+      if (!register.calle || !register.piso || !register.numero) validationErrors.calle = 'Dirección es obligatoria';
     }
+    
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
   };
@@ -279,12 +287,12 @@ export default function Register() {
                       <div className="row p-2">
                         <div className="d-flex justify-content-center">
                           <a className="btn btn-primary btn-dark-blue link-button" href='/login'>
-                            <span class="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
+                            <span className="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
                             Volver a login
                           </a>
                           <button type="button" className="btn btn-primary ms-2" onClick={nextStep}>
                             Siguiente
-                            <span class="fa-solid fa-right-from-bracket ms-2" aria-hidden="true"></span>
+                            <span className="fa-solid fa-right-from-bracket ms-2" aria-hidden="true"></span>
                           </button>
                         </div>
                         <div className="mt-4 text-center">
@@ -369,7 +377,7 @@ export default function Register() {
                             <p>Foto de perfil</p>
                           </div>
                           <div>
-                              <input type="file" className="form-control" name="perfil" defaultValue={register.perfilName} onChange={(e) => handlePerfilChange(e)}/>
+                              <input type="file" className="form-control" name="perfil" value="" onChange={(e) => handlePerfilChange(e)}/>
                               <span className='d-block mt-3'>Imagen seleccionada: {register.perfilName}</span>
                           </div>
                         </div>
@@ -410,16 +418,16 @@ export default function Register() {
                       <div className="row p-2">
                         <div className="d-flex justify-content-center gap-3">
                           <a className="btn btn-primary link-button btn-dark-blue" href='/login'>
-                            <span class="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
+                            <span className="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
                             Volver a login
                           </a>
                           <button type="button" className="btn btn-secondary" onClick={prevStep}>
-                            <span class="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
+                            <span className="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
                             Atrás
                           </button>
                           <button type="button" className="btn btn-primary" onClick={nextStep}>
                             Siguiente
-                            <span class="fa-solid fa-right-from-bracket ms-2" aria-hidden="true"></span>
+                            <span className="fa-solid fa-right-from-bracket ms-2" aria-hidden="true"></span>
                           </button>
                         </div>
                       </div>
@@ -510,11 +518,11 @@ export default function Register() {
                       <div className="row p-2">
                         <div className="d-flex justify-content-center gap-3">
                           <a className="btn btn-primary link-button btn-dark-blue" href='/login'>
-                            <span class="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
+                            <span className="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
                             Volver a login
                           </a>
                           <button type="button" className="btn btn-secondary" onClick={prevStep}>
-                            <span class="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
+                            <span className="fa-solid fa-right-from-bracket me-2" aria-hidden="true" style={{transform: 'rotate(180deg)'}}></span>
                             Atrás
                           </button>
                           <button type="button" className="btn btn-primary" onClick={handleSubmit}>Registrarme</button>

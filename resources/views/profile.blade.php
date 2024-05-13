@@ -11,7 +11,7 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
             <img class="rounded-circle mt-5" width="150px" src="{{$usuario->foto ? $usuario->foto : asset('assets/images/users/default.webp') }}">  
                 <span class="font-weight-bold">{{ $usuario->nombre }} {{$usuario->apellido1}} {{$usuario->apellido2}} </span>
-                <span class="text-black-50">{{$correos_electronicos->correo_electronico}}</span>
+                <span>{{$correos_electronicos->correo_electronico}}</span>
             </div>
         </div>
         <div class="col-md-5 border-right">
