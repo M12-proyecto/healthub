@@ -23,21 +23,20 @@ class AuthController extends Controller
     use HasApiTokens;
     public function __construct(){}
 
- 
     public function register(Request $request)
     {
-        $response = ["success" =>false]; 
+        $response = ["success" => false];
+
         $validate = Validator::make($request->all(),[
-            'cip' => 'nullable|string|max:255',
-            'nombre' => 'nullable|string|max:255',
-            'primerApellido' => 'nullable|string|max:255',
-            'secondApellido' => 'nullable|string|max:255',
-            'fechaNacimiento' => 'nullable|date',
-            'gender' => 'nullable|string|in:Mujer,Hombre',
-            'codigoPostal' => 'nullable|string|max:255',
-            'ciudad' => 'nullable|string|max:255',
             'numeroDocumento' => 'required|string|max:255',
+            'cip' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'primerApellido' => 'required|string|max:255',
+            'secondApellido' => 'required|string|max:255',
             'password' => 'required|string',
+            'fechaNacimiento' => 'required|date_format:Y-m-d',
+            'role' => 'required|string|in:Paciente,Medico',
+            'gender' => 'required|string|in:Mujer,Hombre'
         ]);
 
         if($validate->fails()) {
@@ -46,21 +45,18 @@ class AuthController extends Controller
         }
 
         $usuario = User::create([
-            'cip' => $request->cip,
             'dni' => $request->numeroDocumento,
+            'cip' => $request->cip,
+            'password' => Hash::make($request->password),
             'nombre' => $request->nombre,
             'apellido1' => $request->primerApellido,
             'apellido2' => $request->secondApellido,
             'fecha_nacimiento' => $request->fechaNacimiento,
             'sexo' => $request->gender,
             'foto' => $request->perfil,
-            'password' => Hash::make($request->password),
         ]);
-
-        // Obtener el ID del usuario
-        $usuario_id = $usuario->id;
         
-        // asignar role
+        // Asignar role
         if($request->role) {
             $role = Role::where('name', $request->role)->first();
             $usuario->roles()->detach();
@@ -68,16 +64,16 @@ class AuthController extends Controller
 
             if($request->role == 'Medico'){
                 $medico = Empleados::create([
-                    'usuario_id' => $usuario_id,
-                    'planta' => '1',
-                    'sala' => '2'
+                    'usuario_id' => $usuario->id,
+                    'planta' => null,
+                    'sala' => null
                 ]);
             } else {
                 $paciente = pacientes::create([
-                    'usuario_id' => $usuario_id,
-                    'peso' => 60,
-                    'altura' => 180,
-                    'grupo_sanguineo' => 'A+'
+                    'usuario_id' => $usuario->id,
+                    'peso' => null,
+                    'altura' => null,
+                    'grupo_sanguineo' => null
                 ]);
             }
         }
@@ -87,14 +83,14 @@ class AuthController extends Controller
         foreach ($request->telefonos as $telefono) {
             // Guardar teléfonos
             $numerosTelefono = numeros_telefono::create([
-                'usuario_id' => $usuario_id,
+                'usuario_id' => $usuario->id,
                 'numero_telefono' => $telefono['telefono'],
             ]);
         }
 
         // Guardar direcciones
         $direcciones = direcciones::create([
-            'usuario_id' => $usuario_id,
+            'usuario_id' => $usuario->id,
             'ciudad' => $request->ciudad,
             'calle' => $request->calle,
             'numero' => $request->numero,
@@ -105,7 +101,7 @@ class AuthController extends Controller
         // Guardar correos electrónicos
         foreach ($request->correos as $correo) {
             $correos = correos_electronicos::create([
-                'usuario_id' => $usuario_id,
+                'usuario_id' => $usuario->id,
                 'correo_electronico' => $correo['correo'],
             ]);
         }
@@ -114,16 +110,16 @@ class AuthController extends Controller
         if($request->role == 'Paciente') {
             foreach ($request->personaContacto as $contacto) {
                 $contacto_emergencia = contactos_emergencia::create([
-                    'paciente_id' => $usuario_id,
+                    'paciente_id' => $usuario->id,
                     'nombre' => $contacto['nombreContacte'],
                     'numero_telefono' => $contacto['telefono'],
                     'correo_electronico' => $contacto['email'],
                 ]);
             }
         }
+        
         return response()->json($response, 200);
     }
-
 
     public function login(Request $request)
     {

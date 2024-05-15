@@ -71,16 +71,14 @@ export default function Register() {
       if (!register.cip) validationErrors.cip = 'CIP es obligatorio';
       if (!register.nombre) validationErrors.nombre = 'Nombre es obligatorio';
       if (!register.primerApellido) validationErrors.primerApellido = 'Primer apellido es obligatorio';
+      if (!register.secondApellido) validationErrors.secondApellido = 'Segundo apellido es obligatorio';
       if (!register.password) validationErrors.password = 'Contraseña es obligatoria';
       if (!register.confirmPassword) validationErrors.confirmPassword = 'Contraseña es obligatoria';
       if (register.password !== register.confirmPassword) validationErrors.confirmPassword = 'las contraseñas no coinciden';
     } else if (step === 2) {
-      if (!register.fechaNacimiento) validationErrors.fechaNacimiento = 'Fecha de cumpleaños es obligatoria';
-      if (register.telefonos.length === 0) validationErrors.telefonos = 'Número de teléfono es obligatorio';
-      if (register.correos.length === 0) validationErrors.correos = 'Correo electrónico es obligatorio';
-    } else if (step === 3) {
-      if (!register.codigoPostal) validationErrors.codigoPostal = 'Código postal es obligatorio';
-      if (!register.calle || !register.piso || !register.numero) validationErrors.calle = 'Dirección es obligatoria';
+      if (!register.fechaNacimiento) validationErrors.fechaNacimiento = 'Fecha de nacimiento es obligatoria';
+      if (register.telefonos[0].telefono.length === 0) validationErrors.telefonos = 'Telefono es obligatorio';
+      if (register.correos[0].correo.length === 0) validationErrors.correos = 'Correo es obligatorio';
     }
     
     setErrors(validationErrors);
@@ -261,6 +259,7 @@ export default function Register() {
                           </div>
                           <div>
                             <input type="text" className="form-control" autoComplete="username" value={register.secondApellido} name="secondApellido" placeholder="Segundo apellido ..." onChange={handleChange}/>
+                            {errors.secondApellido && <p className="text-danger">{errors.secondApellido}</p>}
                           </div>
                         </div>
                       </div>
@@ -334,7 +333,7 @@ export default function Register() {
                       <div className="row p-2">
                         <div className="col-md-12">
                           <div>
-                            <p>Fecha de cumpleaños <span className="campo-obligatorio">*</span></p>
+                            <p>Fecha de nacimiento <span className="campo-obligatorio">*</span></p>
                           </div>
                           <div>
                             <input type="date" className="form-control" value={register.fechaNacimiento} name="fechaNacimiento" placeholder="Escribe tu fecha de nacimiento" onChange={handleChange}/>
@@ -385,7 +384,7 @@ export default function Register() {
                       <div className="row p-2">
                         <div className="col-md-12 p-2">
                           <div>
-                            <p>Telefonos</p>
+                            <p>Telefonos <span className="campo-obligatorio">*</span></p>
                           </div>
                           <div>
                             {register.telefonos.map((telefono, index) => (
@@ -395,6 +394,7 @@ export default function Register() {
                                   <i onClick={() => removeTelefono(index)} className="btn btn-danger mb-2 ms-2 fa-solid fa-trash"></i>
                               </div>
                             ))}
+                            {errors.telefonos && <p className="text-danger">{errors.telefonos}</p>}
                             <i onClick={addTelefono} className="btn btn-success mb-2 ms-2 fa-solid fa-upload"></i>
                           </div>
                         </div>
@@ -402,7 +402,7 @@ export default function Register() {
                       <div className="row p-2">
                         <div className="col-md-12 p-2">
                           <div>
-                            <p>Correos Electrónicos</p>
+                            <p>Correos Electrónicos <span className="campo-obligatorio">*</span></p>
                           </div>
                           <div>
                             {register.correos.map((correo, index) => (
@@ -412,6 +412,7 @@ export default function Register() {
                               </div>
                             ))}
                             <i onClick={addCorreo} className="btn btn-success mb-2 ms-2 fa-solid fa-upload"></i>
+                            {errors.correos && <p className="text-danger">{errors.correos}</p>}
                           </div>
                         </div>
                       </div>
@@ -468,7 +469,7 @@ export default function Register() {
                         </div>
                         <div className="col-md-6">
                           <div>
-                            <p>Código postal <span className="campo-obligatorio">*</span></p>
+                            <p>Código postal</p>
                           </div>
                           <div>
                             <input type="text" className="form-control" name="codigoPostal" value={register.codigoPostal} placeholder="08304" onChange={handleChange} />
