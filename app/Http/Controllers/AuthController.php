@@ -27,6 +27,16 @@ class AuthController extends Controller
     {
         $response = ["success" => false];
 
+        $request->merge(['numeroDocumento' => $this->sanitize($request->numeroDocumento)]);
+        $request->merge(['cip' => $this->sanitize($request->cip)]);
+        $request->merge(['nombre' => $this->sanitize($request->nombre)]);
+        $request->merge(['primerApellido' => $this->sanitize($request->primerApellido)]);
+        $request->merge(['secondApellido' => $this->sanitize($request->secondApellido)]);
+        $request->merge(['password' => $this->sanitize($request->password)]);
+        $request->merge(['fechaNacimiento' => $this->sanitize($request->fechaNacimiento)]);
+        $request->merge(['role' => $this->sanitize($request->role)]);
+        $request->merge(['gender' => $this->sanitize($request->gender)]);
+
         $validate = Validator::make($request->all(),[
             'numeroDocumento' => 'required|string|max:255',
             'cip' => 'required|string|max:255',
@@ -124,10 +134,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $response = ["success" => false];
+
+        $request->merge(['dni' => $this->sanitize($request->dni)]);
+        $request->merge(['password' => $this->sanitize($request->password)]);
     
         $validate = Validator::make($request->all(), [
-            'dni' => 'required|string',
-            'password' => 'required|string',
+            'dni' => 'required|string|max:255',
+            'password' => 'required|string|max:255',
         ]);
     
         if ($validate->fails()) {
@@ -163,6 +176,7 @@ class AuthController extends Controller
     public function profile(Request $request)
     {
         $usuario = User::getAuthenticatedUser();
+        $rol_usuario = User::getRole();
         $direcciones = direcciones::where('usuario_id', $usuario->id)->first();
         $contactos = contactos_emergencia::where('paciente_id', $usuario->id)->first();
         $correos = correos_electronicos::where('usuario_id', $usuario->id)->first();
@@ -170,70 +184,104 @@ class AuthController extends Controller
         $paciente = pacientes::where('usuario_id', $usuario->id)->first();
 
         if($request->has('updateProfile')) {
+            $request->merge(['nombre' => $this->sanitize($request->nombre)]);
+            $request->merge(['apellido1' => $this->sanitize($request->apellido1)]);
+            $request->merge(['apellido2' => $this->sanitize($request->apellido2)]);
+            $request->merge(['change_password' => $this->sanitize($request->change_password)]);
+            $request->merge(['role' => $request->role]);
+            $request->merge(['gender' => $request->gender]);
+            $request->merge(['foto' => $request->foto]);
+            $request->merge(['numero_telefono' => trim(str_replace(' ', '', $this->sanitize($request->numero_telefono)))]);
+            $request->merge(['correo_electronico' => $this->sanitize($request->correo_electronico)]);
+            $request->merge(['ciudad' => $this->sanitize($request->ciudad)]);
+            $request->merge(['codigo_postal' => trim(str_replace(' ', '', $this->sanitize($request->codigo_postal)))]);
+            $request->merge(['calle' => $this->sanitize($request->calle)]);
+            $request->merge(['piso' => $this->sanitize($request->piso)]);
+            $request->merge(['numero' => $this->sanitize($request->numero)]);
+            $request->merge(['peso' => $this->sanitize($request->peso)]);
+            $request->merge(['altura' => $this->sanitize($request->altura)]);
+            $request->merge(['grupo_sanguineo' => $request->grupo_sanguineo]);
+            $request->merge(['contacto_nombre' => $this->sanitize($request->contacto_nombre)]);
+            $request->merge(['contacto_numero' => trim(str_replace(' ', '', $this->sanitize($request->contacto_numero)))]);
+            $request->merge(['contacto_correo' => $this->sanitize($request->contacto_correo)]);
+
             $request->validate([
-                'nombre' => 'required|string|max:255',
-                'apellido1' => 'required|string|max:255',
-                'apellido2' => 'required|string|max:255',
+                'nombre' => 'required|string|not_regex:/[0-9]/|max:255',
+                'apellido1' => 'required|string|not_regex:/[0-9]/|max:255',
+                'apellido2' => 'required|string|not_regex:/[0-9]/|max:255',
                 'change_password' => 'nullable|string|max:255',
                 'role' => 'required|string|in:Paciente,Administrador,Recepcionista,Medico',
                 'gender' => 'required|string|in:Mujer,Hombre',
                 'foto' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:2048',
-                'numero_telefono' => 'required|numeric',
+                'numero_telefono' => 'required|numeric|digits:9',
                 'correo_electronico' => 'required|string|max:255',
-                'ciudad' => 'nullable|string|max:255',
-                'codigo_postal' => 'nullable|numeric',
+                'ciudad' => 'nullable|string|not_regex:/[0-9]/|max:255',
+                'codigo_postal' => 'nullable|numeric|digits:5',
                 'calle' => 'nullable|string|max:255',
                 'piso' => 'nullable|string|max:255',
-                'numero' => 'nullable|numeric',
-                'peso' => 'nullable|numeric',
-                'altura' => 'nullable|numeric',
+                'numero' => 'nullable|string|max:255',
+                'peso' => 'nullable|numeric|min:0|max:600',
+                'altura' => 'nullable|numeric|min:0|max:3',
                 'grupo_sanguineo' => 'nullable|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
-                'contacto_nombre' => 'nullable|string|max:255',
-                'contacto_numero' => 'nullable|numeric',
+                'contacto_nombre' => 'nullable|string|not_regex:/[0-9]/|max:255',
+                'contacto_numero' => 'nullable|numeric|digits:9',
                 'contacto_correo' => 'nullable|string|max:255'
             ], [
-                'nombre.required' => 'El campo nombre es obligatorio.',
-                'nombre.string' => 'El campo nombre debe ser una cadena de texto.',
-                'nombre.max' => 'El campo nombre no debe exceder de 255 caracteres.',
-                'apellido1.required' => 'El campo primer apellido es obligatorio.',
-                'apellido1.string' => 'El campo primer apellido debe ser una cadena de texto.',
-                'apellido1.max' => 'El campo primer apellido no debe exceder de 255 caracteres.',
-                'apellido2.required' => 'El campo segundo apellido es obligatorio.',
-                'apellido2.string' => 'El campo segundo apellido debe ser una cadena de texto.',
-                'apellido2.max' => 'El campo segundo apellido no debe exceder de 255 caracteres.',
-                'change_password.string' => 'El campo cambiar contraseña debe ser una cadena de texto.',
-                'change_password.max' => 'El campo cambiar contraseña no debe exceder de 255 caracteres.',
-                'role.required' => 'El campo rol es obligatorio.',
-                'role.string' => 'El campo rol debe ser una cadena de texto.',
-                'role.in' => 'El campo rol debe ser uno de los siguientes valores: Paciente, Administrador, Recepcionista, Medico.',
-                'gender.required' => 'El campo género es obligatorio.',
-                'gender.string' => 'El campo género debe ser una cadena de texto.',
-                'gender.in' => 'El campo género debe ser uno de los siguientes valores: Mujer, Hombre.',
-                'foto.file' => 'El campo foto debe ser un archivo.',
-                'foto.mimes' => 'El campo foto debe ser un archivo de tipo: jpeg, png, jpg, webp.',
-                'foto.max' => 'El campo foto no debe exceder de 2048 kilobytes.',
-                'numero_telefono.required' => 'El campo número de teléfono es obligatorio.',
-                'numero_telefono.numeric' => 'El campo número de teléfono debe ser numérico.',
-                'correo_electronico.required' => 'El campo correo electrónico es obligatorio.',
-                'correo_electronico.string' => 'El campo correo electrónico debe ser una cadena de texto.',
-                'correo_electronico.max' => 'El campo correo electrónico no debe exceder de 255 caracteres.',
-                'ciudad.string' => 'El campo ciudad debe ser una cadena de texto.',
-                'ciudad.max' => 'El campo ciudad no debe exceder de 255 caracteres.',
-                'codigo_postal.numeric' => 'El campo código postal debe ser numérico.',
-                'calle.string' => 'El campo calle debe ser una cadena de texto.',
-                'calle.max' => 'El campo calle no debe exceder de 255 caracteres.',
-                'piso.string' => 'El campo piso debe ser una cadena de texto.',
-                'piso.max' => 'El campo piso no debe exceder de 255 caracteres.',
-                'numero.numeric' => 'El campo número debe ser numérico.',
-                'peso.numeric' => 'El campo peso debe ser numérico.',
-                'altura.numeric' => 'El campo altura debe ser numérico.',
-                'grupo_sanguineo.string' => 'El campo grupo sanguíneo debe ser una cadena de texto.',
-                'grupo_sanguineo.in' => 'El campo grupo sanguíneo debe ser uno de los siguientes valores: A+, A-, B+, B-, AB+, AB-, O+, O-.',
-                'contacto_nombre.string' => 'El campo nombre del contacto debe ser una cadena de texto.',
-                'contacto_nombre.max' => 'El campo nombre del contacto no debe exceder de 255 caracteres.',
-                'contacto_numero.numeric' => 'El campo número del contacto debe ser numérico.',
-                'contacto_correo.string' => 'El campo correo del contacto debe ser una cadena de texto.',
-                'contacto_correo.max' => 'El campo correo del contacto no debe exceder de 255 caracteres.',
+                'nombre.required' => 'El nombre es obligatorio.',
+                'nombre.string' => 'El nombre debe ser una cadena de caracteres.',
+                'nombre.not_regex' => 'El nombre no puede contener números.',
+                'nombre.max' => 'El nombre no debe exceder los 255 caracteres.',
+                'apellido1.required' => 'El primer apellido es obligatorio.',
+                'apellido1.string' => 'El primer apellido debe ser una cadena de caracteres.',
+                'apellido1.not_regex' => 'El primer apellido no puede contener números.',
+                'apellido1.max' => 'El primer apellido no debe exceder los 255 caracteres.',
+                'apellido2.required' => 'El segundo apellido es obligatorio.',
+                'apellido2.string' => 'El segundo apellido debe ser una cadena de caracteres.',
+                'apellido2.not_regex' => 'El segundo apellido no puede contener números.',
+                'apellido2.max' => 'El segundo apellido no debe exceder los 255 caracteres.',
+                'change_password.string' => 'El campo de cambio de contraseña debe ser una cadena de caracteres.',
+                'change_password.max' => 'La contraseña no debe exceder los 255 caracteres.',
+                'role.required' => 'El rol es obligatorio.',
+                'role.string' => 'El rol debe ser una cadena de caracteres.',
+                'role.in' => 'El rol seleccionado no es válido.',
+                'gender.required' => 'El género es obligatorio.',
+                'gender.string' => 'El género debe ser una cadena de caracteres.',
+                'gender.in' => 'El género seleccionado no es válido.',
+                'foto.file' => 'La foto debe ser un archivo.',
+                'foto.mimes' => 'La foto debe ser de tipo jpeg, png, jpg, o webp.',
+                'foto.max' => 'La foto no debe exceder los 2MB.',
+                'numero_telefono.required' => 'El número de teléfono es obligatorio.',
+                'numero_telefono.numeric' => 'El número de teléfono debe ser numérico.',
+                'numero_telefono.digits' => 'El número de teléfono debe tener 9 dígitos.',
+                'correo_electronico.required' => 'El correo electrónico es obligatorio.',
+                'correo_electronico.string' => 'El correo electrónico debe ser una cadena de caracteres.',
+                'correo_electronico.max' => 'El correo electrónico no debe exceder los 255 caracteres.',
+                'ciudad.string' => 'La ciudad debe ser una cadena de caracteres.',
+                'ciudad.not_regex' => 'La ciudad no puede contener números.',
+                'ciudad.max' => 'La ciudad no debe exceder los 255 caracteres.',
+                'codigo_postal.numeric' => 'El código postal debe ser numérico.',
+                'codigo_postal.digits' => 'El código postal debe tener 5 dígitos.',
+                'calle.string' => 'La calle debe ser una cadena de caracteres.',
+                'calle.max' => 'La calle no debe exceder los 255 caracteres.',
+                'piso.string' => 'El piso debe ser una cadena de caracteres.',
+                'piso.max' => 'El piso no debe exceder los 255 caracteres.',
+                'numero.string' => 'El número debe ser una cadena de caracteres.',
+                'numero.max' => 'El número no debe exceder los 255 caracteres.',
+                'peso.numeric' => 'El peso debe ser un valor numérico.',
+                'peso.min' => 'El peso mínimo permitido es 0.',
+                'peso.max' => 'El peso máximo permitido es 600.',
+                'altura.numeric' => 'La altura debe ser un valor numérico.',
+                'altura.min' => 'La altura mínima permitida es 0.',
+                'altura.max' => 'La altura máxima permitida es 3.',
+                'grupo_sanguineo.string' => 'El grupo sanguíneo debe ser una cadena de caracteres.',
+                'grupo_sanguineo.in' => 'El grupo sanguíneo seleccionado no es válido.',
+                'contacto_nombre.string' => 'El nombre del contacto debe ser una cadena de caracteres.',
+                'contacto_nombre.not_regex' => 'El nombre del contacto no puede contener números.',
+                'contacto_nombre.max' => 'El nombre del contacto no debe exceder los 255 caracteres.',
+                'contacto_numero.numeric' => 'El número de teléfono del contacto debe ser numérico.',
+                'contacto_numero.digits' => 'El número de teléfono del contacto debe tener 9 dígitos.',
+                'contacto_correo.string' => 'El correo electrónico del contacto debe ser una cadena de caracteres.',
+                'contacto_correo.max' => 'El correo electrónico del contacto no debe exceder los 255 caracteres.'
             ]);
 
             $usuario->nombre = $request->nombre;
@@ -280,23 +328,6 @@ class AuthController extends Controller
 
             $direcciones->save();
 
-            // Actualizar datos de los pacientes
-            if(User::getRole() === 'Paciente') {
-                // Actualizar paciente 
-                if($request->filled('peso')) $paciente->peso = $request->peso;
-                if($request->filled('altura')) $paciente->altura = $request->altura;
-                if($request->filled('grupo_sanguineo')) $paciente->grupo_sanguineo = $request->grupo_sanguineo;
-
-                $paciente->save();
-
-                // Actualizar persona de contacto 
-                if($request->filled('contacto_nombre')) $contactos->nombre = $request->contacto_nombre;
-                if($request->filled('contacto_numero')) $contactos->numero_telefono = $request->contacto_numero;
-                if($request->filled('contacto_correo')) $contactos->correo_electronico = $request->contacto_correo;
-
-                $contactos->save();
-            }
-
             if($request->role != User::getRole()) {
                 // Obtener rol
                 $rol = Role::where('name', $request->role)->first();
@@ -318,18 +349,47 @@ class AuthController extends Controller
                         'altura' => null,
                         'grupo_sanguineo' => null
                     ]);
+
+                    $contactos = contactos_emergencia::create([
+                        'paciente_id' => $usuario->id,
+                        'nombre' => null,
+                        'numero_telefono' => null,
+                        'correo_electronico' => null
+                    ]);
                 }else {
                     // Eliminar el registro de paciente si existe
                     pacientes::where('usuario_id', $usuario->id)->delete();
+                    contactos_emergencia::where('paciente_id', $usuario->id)->delete();
 
-                    $medico = Empleados::create([
-                        'usuario_id' => $usuario->id,
-                        'planta' => null,
-                        'sala' => null
-                    ]);
+                    $empleado = Empleados::where('usuario_id', $usuario->id)->first();
+
+                    if(!$empleado) {
+                        $medico = Empleados::create([
+                            'usuario_id' => $usuario->id,
+                            'planta' => null,
+                            'sala' => null
+                        ]);
+                    }
                 }
             }
-            
+
+            // Actualizar datos de los pacientes
+            if(User::getRole() === 'Paciente') {
+                // Actualizar paciente 
+                if($request->filled('peso')) $paciente->peso = $request->peso;
+                if($request->filled('altura')) $paciente->altura = $request->altura;
+                if($request->filled('grupo_sanguineo')) $paciente->grupo_sanguineo = $request->grupo_sanguineo;
+
+                $paciente->save();
+
+                // Actualizar persona de contacto 
+                if($request->filled('contacto_nombre')) $contactos->nombre = $request->contacto_nombre;
+                if($request->filled('contacto_numero')) $contactos->numero_telefono = $request->contacto_numero;
+                if($request->filled('contacto_correo')) $contactos->correo_electronico = $request->contacto_correo;
+
+                $contactos->save();
+            }
+
             return redirect()->route('profile');
         }
 
@@ -340,6 +400,7 @@ class AuthController extends Controller
             'correos_electronicos' => $correos,
             'numeros_telefono' => $numeros_telefono,
             'paciente' => $paciente,
+            'rol_usuario' => $rol_usuario
         ]);
     }
 
