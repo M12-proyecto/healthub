@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Resultado;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ResultadoController extends Controller
 {
@@ -211,5 +212,24 @@ class ResultadoController extends Controller
         }else {
             return redirect()->route("resultados");
         }
+    }
+
+    public function generarPDF(Resultado $resultado)
+    {
+        $resultadoModel = Resultado::class;
+
+        if ($resultado) {
+            $resultado->paciente->fecha_nacimiento = Resultado::formatDate($resultado->paciente->fecha_nacimiento);
+            $resultado->fecha = Resultado::formatDate($resultado->fecha);
+        }
+
+        $variables = [
+            'resultado' => $resultado,
+            'resultadoModel' => $resultadoModel
+        ];
+
+        $pdf = Pdf::loadView('resultados.resultadoPDF', $variables);
+
+        return $pdf->stream('Resultado.pdf');
     }
 }

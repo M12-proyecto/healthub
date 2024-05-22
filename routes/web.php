@@ -64,6 +64,7 @@ Route::post('/profile', [AuthController::class, 'profile'])->name('profile')->mi
 // Rutas para las citas
 Route::get('/citas', [CitaController::class, 'show'])->name("citas")->middleware('verifyIfAuthenticated');
 Route::get('/citas/crear', [CitaController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');
+Route::get('/citas/pdf/{cita}', [CitaController::class, 'generarPDF'])->name("citaGenerarPDF")->middleware('verifyIfAuthenticated');
 Route::get('/citas/editar/{cita}', [CitaController::class, 'update'])->name("editarCita")->middleware('verifyIfAuthenticated');
 
 Route::post('/citas/crear', [CitaController::class, 'create'])->name("crearCita")->middleware('verifyIfAuthenticated');
@@ -74,6 +75,7 @@ Route::delete('/citas/eliminar/{cita}', [CitaController::class, 'delete'])->name
 // Rutas para los informes
 Route::get('/informes', [InformeController::class, 'show'])->name('informes')->middleware('verifyIfAuthenticated');
 Route::get('/informes/crear', [InformeController::class, 'create'])->name('crearInforme')->middleware('verifyIfAuthenticated');
+Route::get('/informes/pdf/{informe}', [InformeController::class, 'generarPDF'])->name("informeGenerarPDF")->middleware('verifyIfAuthenticated');
 Route::get('/informes/{informe}', [InformeController::class, 'read'])->name('verInforme')->middleware('verifyIfAuthenticated');
 Route::get('/informes/editar/{informe}', [InformeController::class, 'update'])->name('editarInforme')->middleware('verifyIfAuthenticated');
 
@@ -85,6 +87,7 @@ Route::delete('/informes/eliminar/{informe}', [InformeController::class, 'delete
 // Rutas para los resultados
 Route::get('/resultados', [ResultadoController::class, 'show'])->name('resultados')->middleware('verifyIfAuthenticated');
 Route::get('/resultados/crear', [ResultadoController::class, 'create'])->name("crearResultado")->middleware('verifyIfAuthenticated');
+Route::get('/resultados/pdf/{resultado}', [ResultadoController::class, 'generarPDF'])->name("resultadoGenerarPDF")->middleware('verifyIfAuthenticated');
 Route::get('/resultados/{resultado}', [ResultadoController::class, 'read'])->name('verResultado')->middleware('verifyIfAuthenticated');
 Route::get('/resultados/editar/{resultado}', [ResultadoController::class, 'update'])->name("editarResultado")->middleware('verifyIfAuthenticated');
 

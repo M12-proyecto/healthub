@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cita;
 use App\Models\Role;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CitaController extends Controller
 {
@@ -170,5 +171,23 @@ class CitaController extends Controller
         }else {
             return redirect()->route("citas");
         }
+    }
+
+    public function generarPDF(Cita $cita)
+    {
+        $citaModel = Cita::class;
+
+        if ($cita) {
+            $cita->fecha = Cita::formatDate($cita->fecha);
+        }
+
+        $variables = [
+            'cita' => $cita,
+            'citaModel' => $citaModel
+        ];
+
+        $pdf = Pdf::loadView('citas.citaPDF', $variables);
+
+        return $pdf->stream('Cita.pdf');
     }
 }

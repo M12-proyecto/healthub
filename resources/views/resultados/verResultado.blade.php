@@ -16,7 +16,7 @@
             <input type="submit" name="eliminarResultadoForm" class="btn btn-danger" value="Eliminar">
         </form>
     @endcan
-    <a href="">
+    <a href="{{ route('resultadoGenerarPDF', $resultado) }}" target="_blank">
         <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
     </a>
 </div>
@@ -99,7 +99,7 @@
             <div class="row mb-4">
                 <div class="col-md-12">
                     <h5>Observaciones:</h5>
-                    <p>{{ $resultado->obvservaciones }}</p>
+                    <p>{{ $resultado->observaciones }}</p>
                 </div>
             </div>
         </div>

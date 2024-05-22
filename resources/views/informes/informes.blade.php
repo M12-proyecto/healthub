@@ -32,7 +32,7 @@
                             <td>{{ $informe->centro }}</td>
                             <td>{{ $informe->created_at }}</td>
                             <td>
-                                <a href="">
+                                <a href="{{ route('informeGenerarPDF', $informe) }}" target="_blank">
                                     <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
                                 </a>
                             </td>

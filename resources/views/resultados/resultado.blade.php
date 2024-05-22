@@ -30,7 +30,7 @@
                             <td>{{ $resultado->resultado }}</td>
                             <td>{{ $resultado->fecha }}</td>
                             <td>
-                                <a href="">
+                                <a href="{{ route('resultadoGenerarPDF', $resultado) }}" target="_blank">
                                     <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
                                 </a>
                             </td>
