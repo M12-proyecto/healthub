@@ -43,4 +43,21 @@ class Cita extends Model
     protected $casts = [
         
     ];
+
+    public function paciente()
+    {
+        return $this->belongsTo(User::class, 'paciente_id');
+    }
+
+    public function medico()
+    {
+        return $this->belongsTo(User::class, 'medico_id');
+    }
+
+    public static function formatDate($date) {
+        // Convertir la fecha al nuevo formato "d-m-Y"
+        $newDate = date("d-m-Y", strtotime($date));
+
+        return $newDate;
+    }
 }

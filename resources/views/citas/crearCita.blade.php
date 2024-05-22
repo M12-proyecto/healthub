@@ -10,16 +10,24 @@
 
         <div class="col-md-4">
             <label for="inputPaciente" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo obligatorio">Paciente <span class="campo-obligatorio">*</span></label>
-            <select class="form-select" id="inputPaciente" name="paciente_id">
-                @if(count($pacientes) > 0)
-                    <option {{ $errors->has('paciente_id') ? 'selected' : '' }}>Seleccionar paciente...</option>
-                    @foreach($pacientes as $paciente)
-                        <option value="{{ $paciente->id }}" {{ old('paciente_id') == $paciente->id ? 'selected' : '' }}>{{ $paciente->nombre." ".$paciente->apellido1." ".$paciente->apellido2}}</option>
-                    @endforeach
-                @else
-                    <option selected>No hay pacientes</option>
-                @endif
-            </select>
+            @if($usuario->getRole() === 'Paciente')
+                <input type="text" class="form-control" id="inputPaciente" value="{{ $usuario->nombre }} {{ $usuario->apellido1 }} {{ $usuario->apellido2 }}" disabled>
+                <input type="hidden" name="paciente_id" value="{{ $usuario->id }}">
+                @error('paciente_id')
+                    <div class="alert alert-danger mt-3">{{ $message }}</div>
+                @enderror
+            @else
+                <select class="form-select" id="inputPaciente" name="paciente_id">
+                    @if(count($pacientes) > 0)
+                        <option {{ $errors->has('paciente_id') ? 'selected' : '' }}>Seleccionar paciente...</option>
+                        @foreach($pacientes as $paciente)
+                            <option value="{{ $paciente->id }}" {{ old('paciente_id') == $paciente->id ? 'selected' : '' }}>{{ $paciente->nombre." ".$paciente->apellido1." ".$paciente->apellido2}}</option>
+                        @endforeach
+                    @else
+                        <option selected>No hay pacientes</option>
+                    @endif
+                </select>
+            @endif
             @error('paciente_id')
                 <div class="alert alert-danger mt-3">{{ $message }}</div>
             @enderror
@@ -77,7 +85,7 @@
             @enderror
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary" name="crearCitaForm">Crear cita</button>
+            <button type="submit" class="btn btn-primary" name="crearCitaForm">{{ $usuario->getRole() === 'Paciente' ? 'Solicitar cita' : 'Crear cita'}}</button>
             <a href="{{ route('citas') }}" class="btn btn-danger">Cancelar</a>
         </div>
     </form>

@@ -5,7 +5,7 @@
 
 @section('content')
     @can('create', $citaModel)
-        <a href="{{ route('crearCita') }}" class="btn btn-primary mb-2">Crear cita</a>
+        <a href="{{ route('crearCita') }}" class="btn btn-primary mb-2">{{ $usuario->getRole() === 'Paciente' ? 'Solicitar cita' : 'Crear cita'}}</a>
     @endcan
     @if(count($citas) > 0)
         <div id="citas">
@@ -14,7 +14,7 @@
                     <div class="card-header card-cita-header p-3 d-flex justify-content-between align-items-center">
                         {{$cita->asunto}}
                         <div class="d-flex gap-1">
-                            <a href=""> 
+                            <a href="{{ route('citaGenerarPDF', $cita) }}" target="_blank">
                                 <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
                             </a>
                             @can('update', $citaModel)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Informe;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InformeController extends Controller
 {
@@ -221,5 +222,24 @@ class InformeController extends Controller
         }else {
             return redirect()->route("informes");
         }
+    }
+
+    public function generarPDF(Informe $informe)
+    {
+        $informeModel = Informe::class;
+
+        if ($informe) {
+            $informe->paciente->fecha_nacimiento = Informe::formatDate($informe->paciente->fecha_nacimiento);
+            $informe->created_at = Informe::formatTimestamp($informe->fecha);
+        }
+
+        $variables = [
+            'informe' => $informe,
+            'informeModel' => $informeModel
+        ];
+
+        $pdf = Pdf::loadView('informes.informePDF', $variables);
+
+        return $pdf->stream('Informe.pdf');
     }
 }

@@ -16,7 +16,7 @@
             <input type="submit" name="eliminarInformeForm" class="btn btn-danger" value="Eliminar">
         </form>
     @endcan
-    <a href="">
+    <a href="{{ route('informeGenerarPDF', $informe) }}" target="_blank">
         <img src="{{ asset('img/pdf-icon.png') }}" class="pdf-icon" alt="Generar PDF" title="Generar PDF">
     </a>
 </div>
