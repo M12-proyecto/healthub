@@ -33,10 +33,18 @@ function Chat() {
       setChatHistory(prevChats => [...prevChats, data]);
     });
 
+    // Cada 5 segundos, actualizar los mensajes del chat
+    const interval = setInterval(() => {
+      if (activeChat) {
+        fetchMessages(activeChat.id);
+      }
+    }, 5000);
+
     return () => {
+      clearInterval(interval);
       socket.current.disconnect();
     };
-  }, []);
+  }, [activeChat]);
 
   const handleChange = (event) => {
     setMensaje(event.target.value);
@@ -80,7 +88,7 @@ function Chat() {
       const response = await axios.post('/chat/startChat',{
         paciente_id: usuario.id,
         medico_id: usuarioSeleccionado.id
-       })
+       });
       
       setActiveChat({ id: response.data.chat_id, medico_id: usuarioSeleccionado.id });
       fetchMessages(response.data.chat_id);
@@ -92,7 +100,7 @@ function Chat() {
 
   const fetchMessages = async (chatId) => {
     try {
-      const response = await axios.get(`/chat/getMessages/${chatId}`)
+      const response = await axios.get(`/chat/getMessages/${chatId}`);
       setChatHistory(response.data);
     } catch (error) {
       console.error('Error al obtener los mensajes:', error);
@@ -206,7 +214,7 @@ function Chat() {
                   </div>
                 </li>
                 {chatHistory.map((chat, index) => (
-                  <li key={index} className="right">
+                  <li key={index} className={chat.usuario1 === usuario.id ? 'right' : 'left'}>
                     <div className="conversation-list">
                       <div className="dropdown">
                         <a className="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -220,61 +228,27 @@ function Chat() {
                         </div>
                       </div>
                       <div className="ctext-wrap">
-                        <div className="conversation-name">{usuario.nombre} {usuario.apellido1}</div>
+                        <div className="conversation-name">
+                          {chat.usuario1 === usuario.id ? `${usuario.nombre} ${usuario.apellido1}` : `${usuarioSelected.nombre} ${usuarioSelected.apellido1}`}
+                        </div>
                         <p>{chat.mensaje}</p>
                         <p className="chat-time mb-0"><i className="bx bx-time-five align-middle me-1"></i>{chat.hora}</p>
                       </div>
                     </div>
-                </li>
+                  </li>
                 ))}
 
-
-
-                {/* left conversación. */}
-
-                {/* <li>
-                  <div className="conversation-list">
-                    <div className="dropdown">
-                      <a className="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i className="bx bx-dots-vertical-rounded"></i>
-                      </a>
-                      <div className="dropdown-menu">
-                        <a className="dropdown-item" href="#">Copy</a>
-                        <a className="dropdown-item" href="#">Save</a>
-                        <a className="dropdown-item" href="#">Forward</a>
-                        <a className="dropdown-item" href="#">Delete</a>
-                      </div>
-                    </div>
-                    <div className="ctext-wrap">
-                      <div className="conversation-name">Steven Franklin</div>
-                      <p>
-                        Yeah everything is fine
-                      </p>
-
-                      <p className="chat-time mb-0"><i className="bx bx-time-five align-middle me-1"></i> 10:06</p>
-                    </div>
-                  </div>
-                </li> */}
-
-
               </ul>
-            </div> 
+            </div>
             <div className="p-3 chat-input-section">
               <div className="row">
                 <div className="col">
-                  <div className="position-relative">
-                    <input type="text" name="mensaje" className="form-control chat-input" value={mensaje} placeholder="Enter Message..." onChange={handleChange} />
-                    <div className="chat-input-links" id="tooltip-container">
-                      <ul className="list-inline mb-0">
-                        <li className="list-inline-item"><a href="#" title="Emoji"><i className="mdi mdi-emoticon-happy-outline"></i></a></li>
-                        <li className="list-inline-item"><a href="#" title="Images"><i className="mdi mdi-file-image-outline"></i></a></li>
-                        <li className="list-inline-item"><a href="#" title="Add Files"><i className="mdi mdi-file-document-outline"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
+                  <input type="text" value={mensaje} onChange={handleChange} className="form-control form-control-lg bg-light border-light" placeholder="Enter Message..." />
                 </div>
                 <div className="col-auto">
-                  <button type="submit" onClick={handleClickSendMessage} className="btn btn-primary btn-rounded chat-send w-md waves-effect waves-light"><span className="d-none d-sm-inline-block me-2">Send</span> <i className="mdi mdi-send"></i></button>
+                  <button type="button" onClick={handleClickSendMessage} className="btn btn-primary btn-lg">
+                    <i className="bx bx-send"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -286,13 +260,9 @@ function Chat() {
   );
 }
 
-const chat = document.getElementById("chat");
-if (chat) {
-  const Index = createRoot(chat);
+export default Chat;
 
-  Index.render(
-    <React.StrictMode>
-      <Chat />
-    </React.StrictMode>
-  );
+if (document.getElementById('chat')) {
+  const root = createRoot(document.getElementById('chat'));
+  root.render(<Chat />);
 }
