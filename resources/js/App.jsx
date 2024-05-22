@@ -1,9 +1,6 @@
 import React from 'react';
 function App() {
-  return (
-      <>
-      </>
-  );
+  return null
 }
 
 export default App;

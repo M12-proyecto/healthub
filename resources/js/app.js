@@ -18,3 +18,4 @@ import './components/Register/Register.jsx';
 import './components/AuthUser.jsx';
 import './components/Footer/Footer.jsx';
 import './components/Chat/Chat.jsx';
+import './components/ChangePassword/ChangePassword.jsx';

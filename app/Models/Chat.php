@@ -15,8 +15,8 @@ class Chat extends Model
 
     protected $fillable = [
         'id',
-        'paciente_id',
-        'medico_id',
+        'usuario1',
+        'usuario2',
         'fecha'
     ];
 

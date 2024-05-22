@@ -9,7 +9,7 @@
 
 @section('content')
 <body class="auth-body-bg">
-    <div id="chat"></div>
+    <div id="chat" data-usuario="{{ $usuario }}" data-usuarios="{{ $usuarios }}"></div>
     <!-- JAVASCRIPT -->
     <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

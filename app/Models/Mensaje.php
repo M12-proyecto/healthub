@@ -16,8 +16,8 @@ class Mensaje extends Model
     protected $fillable = [
         'id',
         'chat_id',
-        'paciente_id',
-        'medico_id',
+        'usuario1',
+        'usuario2',
         'mensaje',
         'fecha',
         'hora'
@@ -43,10 +43,10 @@ class Mensaje extends Model
     }
 
     public static function formatTimestamp($timestamp) {
-        return date("d-m-Y H:i:s", strtotime($timestamp));
+        return date("Y-m-d H:i:s", strtotime($timestamp));
     }
 
     public static function formatDate($date) {
-        return date("d-m-Y", strtotime($date));
+        return date("Y-m-d", strtotime($date));
     }
 }

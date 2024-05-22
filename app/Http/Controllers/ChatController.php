@@ -3,36 +3,55 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Chat;
 use App\Models\Mensaje;
 use App\Models\User;
+use GuzzleHttp\Psr7\Message;
 
 class ChatController extends Controller
 {
-
     public function show() {
-        return view('chat');
+        $usuario = auth()->user();
+        $usuarios = User::where('id', '!=', $usuario->id)->get();
+        return view('chat', compact('usuario', 'usuarios'));
     }
 
-    // Método para enviar un mensaje
-    public function sendMessage(Request $request)
+    // Método para iniciar un nuevo chat
+    public function startChat(Request $request)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'chat_id' => 'required|integer',
-            'paciente_id' => 'required|integer',
-            'medico_id' => 'required|integer',
-            'mensaje' => 'required|string',
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i:s',
-        ]);
+        // Buscar un chat existente entre los dos usuarios
+        $chat = Chat::where(function($query) use ($request) {
+            $query->where('usuario1', $request->input('paciente_id'))
+                  ->where('usuario2', $request->input('medico_id'));
+        })->orWhere(function($query) use ($request) {
+            $query->where('usuario1', $request->input('medico_id'))
+                  ->where('usuario2', $request->input('paciente_id'));
+        })->first();
+    
+        // Si no existe un chat, crear uno nuevo
+        if (!$chat) {
+            $chat = new Chat([
+                'usuario1' => $request->input('paciente_id'),
+                'usuario2' => $request->input('medico_id'),
+                'fecha' => now()
+            ]);
+            $chat->save();
+        }
+    
+        // Retornar el chat existente o creado
+        return response()->json(['chat_id' => $chat->id]);
+    }
+    
 
+    // Método para guardar un mensaje
+    public function saveMessage(Request $request){
         // Crear un nuevo mensaje
         $mensaje = new Mensaje([
             'chat_id' => $request->input('chat_id'),
-            'paciente_id' => $request->input('paciente_id'),
-            'medico_id' => $request->input('medico_id'),
+            'usuario1' => $request->input('usuario1'),
+            'usuario2' => $request->input('usuario2'),
             'mensaje' => $request->input('mensaje'),
-            'fecha' => $request->input('fecha'),
+            'fecha' => Mensaje::formatDate($request->input('fecha')),
             'hora' => $request->input('hora'),
         ]);
 
@@ -40,36 +59,17 @@ class ChatController extends Controller
         $mensaje->save();
 
         // Retornar una respuesta exitosa
-        return response()->json(['message' => 'Mensaje enviado correctamente'], 200);
+        return response()->json(['message' => 'Mensaje guardado correctamente'], 200);
     }
 
     // Método para obtener todos los mensajes
-    public function getMessages()
+    public function getMessages($chat_id)
     {
-        // Obtener todos los mensajes
-        $mensajes = Mensaje::all();
+        // Obtener todos los mensajes del chat especificado
+        $mensajes = Mensaje::where('chat_id', $chat_id)->get();
 
         // Retornar los mensajes en formato JSON
-        return response()->json($mensajes, 200);
-    }
-
-    // Método para eliminar un usuario
-    public function deleteUser($id)
-    {
-        // Buscar al usuario por su ID
-        $usuario = User::find($id);
-
-        // Verificar si el usuario existe
-        if (!$usuario) {
-            // Retornar un mensaje de error si el usuario no se encuentra
-            return response()->json(['message' => 'Usuario no encontrado'], 404);
-        }
-
-        // Eliminar el usuario
-        $usuario->delete();
-
-        // Retornar una respuesta exitosa
-        return response()->json(['message' => 'Usuario eliminado correctamente'], 200);
+        return response()->json($mensajes);
     }
 
     // Método para eliminar un mensaje

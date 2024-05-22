@@ -92,3 +92,7 @@ Route::delete('/resultados/eliminar/{resultado}', [ResultadoController::class, '
 
 // rutas chat
 Route::get('/chat', [ChatController::class, 'show'])->name('chat')->middleware('verifyIfAuthenticated');
+Route::post('/chat/startChat', [ChatController::class, 'startChat'])->name('startChat')->middleware('verifyIfAuthenticated');
+Route::post('/chat/saveMessage', [ChatController::class, 'saveMessage'])->name('saveMessage')->middleware('verifyIfAuthenticated');
+Route::get('/chat/getMessages/{chat_id}', [ChatController::class, 'getMessages'])->name('getMessages')->middleware('verifyIfAuthenticated');
+Route::delete('/chat/deleteMessage/{id}', [ChatController::class, 'deleteMessage'])->name('deleteMessage')->middleware('verifyIfAuthenticated');
