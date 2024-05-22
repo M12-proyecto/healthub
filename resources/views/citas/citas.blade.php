@@ -5,7 +5,7 @@
 
 @section('content')
     @can('create', $citaModel)
-        <a href="{{ route('crearCita') }}" class="btn btn-primary mb-2">Crear cita</a>
+        <a href="{{ route('crearCita') }}" class="btn btn-primary mb-2">{{ $usuario->getRole() === 'Paciente' ? 'Solicitar cita' : 'Crear cita'}}</a>
     @endcan
     @if(count($citas) > 0)
         <div id="citas">
