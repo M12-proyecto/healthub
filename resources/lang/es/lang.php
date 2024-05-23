@@ -7,9 +7,8 @@ return [
     'citas' => 'Citas',
     'informes' => 'Informes',
     'resultados' => 'Resultados',
-    'chat' => 'Chats',
+    'chat' => 'Chat',
+    'chats' => 'Chats',
     'buscar' => 'Buscar',
-    'perfil' => 'Ver perfil',
-    'perfil' => 'Ver perfil',
-    'perfil' => 'Ver perfil',
+    'perfil' => 'Perfil',
 ];

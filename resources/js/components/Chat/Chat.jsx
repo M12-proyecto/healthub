@@ -38,7 +38,7 @@ function Chat() {
       if (activeChat) {
         fetchMessages(activeChat.id);
       }
-    }, 5000);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
@@ -108,7 +108,7 @@ function Chat() {
   };
 
   return (
-    <div className="d-lg-flex">
+    <div className="d-lg-flex d-sm-flex">
       <div className="chat-leftsidebar me-lg-4">
         <div className="">
           <div className="py-4 border-bottom">
@@ -206,7 +206,7 @@ function Chat() {
           </div>
         
           <div>
-             <div className="chat-conversation p-3">
+             <div className="chat-conversation p-3" style={{ overflowY: 'auto', maxHeight: '486px' }}>
               <ul className="list-unstyled mb-0" data-simplebar style={{ maxHeight: '486px' }}>
                 <li>
                   <div className="chat-day-title">

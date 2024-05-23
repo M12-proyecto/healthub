@@ -143,4 +143,48 @@
     border-top: 0;
     border-bottom: 0.3em solid;
   }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
   
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .chat {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-conversation {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  
+  .left {
+    background-color: #e6e6e6;
+    align-self: flex-start;
+  }
+  
+  .right {
+    background-color: #4caf50;
+    align-self: flex-end;
+  }
+  
+  /* Media Query for responsive design */
+  @media (max-width: 600px) {
+    .container {
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    .user-chat {
+      margin-top: 20px; /* Ajusta el espacio entre el chat y la barra de búsqueda en dispositivos móviles */
+    }
+  }

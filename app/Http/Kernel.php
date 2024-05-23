@@ -27,6 +27,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Otros middlewares...
         'verifyIfAuthenticated' => \App\Http\Middleware\VerifyIfAuthenticated::class,
+        'translate' => \App\Http\Middleware\Language::class,
     ];
 
     /**

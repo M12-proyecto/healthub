@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
@@ -99,3 +100,9 @@ Route::post('/chat/startChat', [ChatController::class, 'startChat'])->name('star
 Route::post('/chat/saveMessage', [ChatController::class, 'saveMessage'])->name('saveMessage')->middleware('verifyIfAuthenticated');
 Route::get('/chat/getMessages/{chat_id}', [ChatController::class, 'getMessages'])->name('getMessages')->middleware('verifyIfAuthenticated');
 Route::delete('/chat/deleteMessage/{id}', [ChatController::class, 'deleteMessage'])->name('deleteMessage')->middleware('verifyIfAuthenticated');
+
+// idiomas
+Route::get('/lang/{language}', function ($language) {
+    Session::put('language',$language);
+    return redirect()->back();
+})->name('language');

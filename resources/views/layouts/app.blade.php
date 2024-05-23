@@ -43,7 +43,7 @@
                             </span>
                             <span class="logo-lg">
                                 <img src="{{ asset('assets/images/faviconHealthHub1.ico') }}" alt="Healthub icon" height="30">
-                                <span class="navigation-logo">Healthub</span>
+                                <span class="navigation-logo">{{trans('lang.title')}}</span>
                             </span>
                         </a>
                     </div>
@@ -85,34 +85,29 @@
                     </div>
 
                     <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item waves-effect"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ asset('assets/images/flags/us.jpg') }}" alt="Header Language" height="16">
+                        <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img id="selected-language-flag" src="{{ asset('assets/images/flags/spain.jpg') }}" alt="Header Language" height="16">
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
-
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
-                                <img src="{{ asset('assets/images/flags/us.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Ingles</span>
+                            <a href="{{ route('language','en') }}" class="dropdown-item notify-item language" data-lang="us" data-lang-code="us">
+                                <img src="{{ asset('assets/images/flags/us.jpg') }}" alt="English" class="me-1" height="12"> <span class="align-middle">English</span>
                             </a>
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp">
-                                <img src="{{ asset('assets/images/flags/spain.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Español</span>
+                            <a href="{{ route('language','es') }}" class="dropdown-item notify-item language" data-lang="es" data-lang-code="spain">
+                                <img src="{{ asset('assets/images/flags/spain.jpg') }}" alt="Spanish" class="me-1" height="12"> <span class="align-middle">Español</span>
                             </a>
-
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr">
-                                <img src="{{ asset('assets/images/flags/germany.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Aleman</span>
+                            <a href="{{ route('language','ca') }}" class="dropdown-item notify-item language" data-lang="ca" data-lang-code="catalan">
+                                <img src="{{ asset('assets/images/flags/catalan.png') }}" alt="Catalan" class="me-1" height="12"> <span class="align-middle">Catalán</span>
                             </a>
-
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it">
-                                <img src="{{ asset('assets/images/flags/italy.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italiano</span>
+                            <a href="#" class="dropdown-item notify-item language" data-lang="it" data-lang-code="italy">
+                                <img src="{{ asset('assets/images/flags/italy.jpg') }}" alt="Italian" class="me-1" height="12"> <span class="align-middle">Italiano</span>
                             </a>
-
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ru">
-                                <img src="{{ asset('assets/images/flags/russia.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Ruso</span>
+                            <a href="#" class="dropdown-item notify-item language" data-lang="ru" data-lang-code="russia">
+                                <img src="{{ asset('assets/images/flags/russia.jpg') }}" alt="Russian" class="me-1" height="12"> <span class="align-middle">Русский</span>
                             </a>
                         </div>
                     </div>
@@ -210,35 +205,35 @@
                 <div id="sidebar-menu">
                     <!-- Left Menu Start -->
                     <ul class="metismenu list-unstyled" id="side-menu">
-                        <li class="menu-title" key="t-menu">Menu</li>
+                        <li class="menu-title" key="t-menu">{{trans('lang.menu')}}</li>
                         <li>
                             <a href="{{ route('home') }}" class="waves-effect">
                                 <i class="bx bx-home-circle"></i>
-                                <span key="t-dashboards">Inicio</span>
+                                <span key="t-dashboards">{{trans('lang.inicio')}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('citas') }}" class="waves-effect">
                                 <i class="bx bx-calendar"></i>
-                                <span key="t-dashboards">Citas</span>
+                                <span key="t-dashboards">{{trans('lang.citas')}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('informes') }}" class="waves-effect">
                                 <i class="bx bx-file"></i>
-                                <span key="t-file-manager">Informes</span>
+                                <span key="t-file-manager">{{trans('lang.informes')}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('resultados') }}" class="waves-effect">
                                 <i class="bx bx-file"></i>
-                                <span key="t-file-manager">Resultados</span>
+                                <span key="t-file-manager">{{trans('lang.resultados')}}</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('chat') }}" class="waves-effect">
                                 <i class="bx bx-chat"></i>
-                                <span key="t-chat">Chat</span>
+                                <span key="t-chat">{{trans('lang.chat')}}</span>
                             </a>
                         </li>
                     </ul>

@@ -12,7 +12,6 @@
                                 <div class="col-7">
                                     <div class="text-primary p-3">
                                         <h5 class="text-primary">{{ $usuario->sexo === 'Hombre' ? 'Bienvenido' : 'Bienvenida'}} {{ $usuario->nombre }}!</h5>
-                                        <p>Poner algo aqui</p>
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
