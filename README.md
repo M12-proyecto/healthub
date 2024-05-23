@@ -129,31 +129,20 @@ Iniciamos el repositorio ejecutando el siguiente comando dentro de la carpeta.
     php artisan serve
     npm run dev
     ```
-Una vez realizados todos los pasos ya tendriamos operativa la aplicación.
-
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
 
 ## Despliegue 📦
 
-_Agrega notas adicionales sobre como hacer deploy_
+_Agrega notas adicionales sobre como hacer deploy._ _Ejecutamos estos comandos en las terminal para iniciar el proyecto_
+    
+    php artisan serve
+    npm run dev
+    node server.js
+
+
+ Acceder desde el navegador: 
+
+    http://127.0.0.1:8000
+    http://localhost:8000
 
 ## Construido con 🛠️
 
@@ -163,23 +152,20 @@ Esta aplicación está desarrollada con:
 * [React](https://es.react.dev) - La biblioteca de javascript utilizada
 * [Composer](https://getcomposer.org) - Manejador de dependencias
 * [npm](https://www.npmjs.com) - Manejador de dependencias
+* [socket.io](https://socket.io/) - Enviar los mensajes por socket
+* [express](https://expressjs.com/) - Servidor web para los chat
 
 ## Autores ✒️
 
 Este proyecto ha sido desarrollado por:
 
-* **Jose Jerlin Mejia** - *Desarrollo de la aplicación* - [Jose]()
+* **Jose Jerlin Mejia** - *Desarrollo de la aplicación + Documentación* - [Jose Mejia](https://github.com/thos.josemejia@gmail.com)
 * **Jonathan Sánchez Escutia** - *Desarrollo de la aplicación + Documentación* - [thosjsanchez](https://github.com/thosjsanchez)
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
+Este proyecto está bajo la Licencia (thos i codina) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
 
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo.
-* Gracias por ver
 
 ---
 ⌨️ con ❤️ por [thosjsanchez](https://github.com/thosjsanchez) 😊
